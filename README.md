@@ -7,7 +7,7 @@ du guide `linux_commands_beginner.md`.
 
 | Fichier | Contenu | Sert à pratiquer |
 |---|---|---|
-| `exercice_sequences.fasta` | 22 séquences (version enrichie de ton fichier d'origine) | tout le guide |
+| `exercice_sequences.fasta` | 22 séquences  | tout le guide |
 | `genome.fasta` | copie identique, nommée comme dans le guide | sections 6, 8, 9, 10, 16 |
 | `transcripts.fasta` | 40 ARNm | `find`, `du -sh *.fasta`, boucles |
 | `proteins.fasta` | 25 protéines (alphabet acides aminés) | `file`, `grep`, comparaison ADN/protéine |
@@ -15,10 +15,8 @@ du guide `linux_commands_beginner.md`.
 | `sample_01/02/03.fastq.gz` | 1200 / 800 / 1500 reads compressés | sections 12, 21, 22 |
 | `annotations.tsv` | 120 annotations, 6 colonnes | `cut`, `awk`, `sort`, `uniq` |
 
-## Ce qui a été ajouté par rapport au fichier d'origine
 
-Ton fichier initial (5 séquences sur une seule ligne) ne permettait pas de tester
-grand-chose. La version enrichie contient :
+## Manipulations
 
 - **22 enregistrements** au lieu de 5, dont les 5 originaux conservés en tête
 - des **longueurs variables** (45 pb à 4800 pb) → `seqkit stats`, `sort -n` deviennent utiles
