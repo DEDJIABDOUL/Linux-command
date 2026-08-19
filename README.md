@@ -85,7 +85,7 @@ diff <(grep -n "ATGCGT" genome.fasta) <(grep -in "ATGCGT" genome.fasta)
 ```bash
 grep --color=always -E "ATGCGT|$" genome.fasta | less -R
 grep --color=always -E "ATG|TAA|TAG|TGA|$" genome.fasta | less -R
-sed '/^>/! s/ATGCGT/[ATGCGT]/g' genome.fasta > results/genome_annotated.fasta
+sed 's/ATGCGT/[ATGCGT]/g' genome.fasta > results/genome_annotated.fasta
 diff <(grep -v "^>" genome.fasta | grep -o "ATGCGT" | wc -l) \
      <(grep -v "^>" results/genome_annotated.fasta | grep -o "\[ATGCGT\]" | wc -l)
 ```
