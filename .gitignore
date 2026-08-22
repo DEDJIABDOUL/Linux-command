@@ -1,0 +1,48 @@
+# Données biologiques brutes ou volumineuses — jamais versionnées.
+# Les jeux de données d'exercice pédagogiques (linux/, datasets/*_small/) sont
+# des exceptions explicites listées plus bas avec des règles !négation.
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.cram
+*.sra
+*.sam
+*.vcf.gz
+*.bcf
+*.fast5
+*.pod5
+
+# Génomes de référence et index volumineux
+*.fa.fai
+*.mmi
+*.bt2
+*.amb
+*.ann
+*.bwt
+*.pac
+*.sa
+
+# Exceptions : jeux de données d'exercice sciemment conservés dans le dépôt
+!linux/*.fastq
+!linux/*.fastq.gz
+
+# Environnements et caches
+.snakemake/
+work/
+.nextflow/
+.nextflow.log*
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Logs et résultats locaux d'exécution
+logs/
+results/
+*.log
+
+# Fichiers système / éditeurs
+.DS_Store
+Thumbs.db
+*.swp

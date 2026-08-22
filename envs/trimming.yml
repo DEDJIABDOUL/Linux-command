@@ -1,0 +1,41 @@
+# Environnement : trimming
+#
+# PURPOSE
+#   Outils de retrait d'adaptateurs et de filtrage qualité utilisés dans
+#   10_adapter_trimming_filtering/, pour données Illumina et Nanopore.
+#   Porechop et NanoFilt ne sont volontairement PAS inclus ici : ce sont
+#   des outils legacy non maintenus (voir 10_adapter_trimming_filtering/README.md,
+#   section 1, et docs/tools_reference.md) ; chopper est leur remplaçant
+#   actif pour le filtrage Nanopore. Porechop_ABI (fork maintenu) peut être
+#   installé séparément si l'exercice sur le fichier legacy le requiert.
+#
+# TOOLS
+#   - cutadapt : retrait d'adaptateurs Illumina
+#     doc : https://cutadapt.readthedocs.io/en/stable/
+#   - fastp    : QC + trimming + filtrage tout-en-un (Illumina)
+#     doc : https://github.com/OpenGene/fastp
+#   - chopper  : filtrage qualité/longueur de reads longs (Nanopore/PacBio)
+#     doc : https://github.com/wdecoster/chopper
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/trimming.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/trimming.yml
+#
+# USAGE
+#   conda activate trimming
+#   cutadapt -a AGATCGGAAGAGC -o linux/reads_trimmed.fastq linux/reads.fastq
+#   fastp -i linux/sample_01.fastq.gz -o resultats/sample_01.trimmed.fastq.gz -h resultats/sample_01.html
+
+name: trimming
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - cutadapt
+  - fastp
+  - chopper

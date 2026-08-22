@@ -1,0 +1,42 @@
+# Environnement : qc
+#
+# PURPOSE
+#   Outils de contrôle qualité utilisés dans 09_quality_control/ (Illumina
+#   et Oxford Nanopore/PacBio) et référencés depuis 10_adapter_trimming_filtering/.
+#   LongQC n'est volontairement PAS inclus ici : son installation nécessite
+#   une compilation manuelle (minimap2-coverage, voir legacy/installation_and_execution.txt)
+#   plutôt qu'un simple paquet Conda — voir 09_quality_control/README.md,
+#   section 2.2, pour la procédure complète.
+#
+# TOOLS
+#   - fastqc  : QC par fichier FASTQ (Illumina)
+#     doc : https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+#   - multiqc : agrégation de rapports de QC multi-échantillons/multi-outils
+#     doc : https://multiqc.info/docs/
+#   - nanoplot : QC de reads longs (Nanopore/PacBio)
+#     doc : https://github.com/wdecoster/NanoPlot
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification) : vérifier après création
+#   avec `fastqc --version`, `multiqc --version`, `NanoPlot --version`.
+#
+# INSTALLATION
+#   conda env create -f envs/qc.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/qc.yml
+#
+# USAGE
+#   conda activate qc
+#   fastqc linux/sample_01.fastq.gz linux/sample_02.fastq.gz linux/sample_03.fastq.gz -o resultats_qc/
+#   multiqc resultats_qc/ -o resultats_qc/
+#   NanoPlot --fastq linux/reads.fastq -o resultats_qc_nanoplot/
+
+name: qc
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastqc
+  - multiqc
+  - nanoplot

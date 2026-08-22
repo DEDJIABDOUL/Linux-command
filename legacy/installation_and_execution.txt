@@ -1,0 +1,226 @@
+============================================================
+NOTE DE PROVENANCE — À LIRE AVANT UTILISATION
+============================================================
+
+Ce fichier a été déplacé le 2026-08-22 depuis l'extérieur du dépôt Git
+(C:\Users\PC\Music\pipeline\installation_and_execution.txt) vers
+Linux-command/legacy/, sur demande explicite de l'utilisateur, dans le
+cadre de l'audit initial documenté dans docs/audit_report.md.
+
+STATUT (mise à jour 2026-08-22) : le contenu de ce fichier a désormais été
+intégralement repris, vérifié et modernisé dans les modules du dépôt.
+Ce fichier lui-même reste conservé tel quel (non restructuré) pour
+référence historique — voir la note de mise à jour de docs/audit_report.md.
+
+  - la partie « Environment setup » (Miniconda, création d'environnement)
+    a été reprise et modernisée dans [06_environment_management](../06_environment_management/README.md)
+  - LongQC, Porechop, NanoFilt ont été repris, avec statut de maintenance
+    vérifié, dans [09_quality_control](../09_quality_control/README.md) et
+    [10_adapter_trimming_filtering](../10_adapter_trimming_filtering/README.md)
+  - Canu, Minimap2, Racon, QUAST ont été repris, avec statut de maintenance
+    vérifié, dans [11_de_novo_assembly](../11_de_novo_assembly/README.md),
+    [12_sequence_alignment](../12_sequence_alignment/README.md) et
+    [13_assembly_quality](../13_assembly_quality/README.md)
+
+AVERTISSEMENTS CONNUS (détails dans docs/audit_report.md, section 5) :
+
+1. Les versions figées ci-dessous sont anciennes (python=3.7,
+   pandas=0.24.0, matplotlib=2.1.2, minimap2 v2.24) et NE DOIVENT PAS
+   être réutilisées telles quelles dans un nouvel environnement Conda —
+   des versions actuelles devront être vérifiées au moment de la
+   réécriture du module concerné.
+
+2. La configuration Conda `conda config --add channels defaults` reflète
+   une pratique aujourd'hui déconseillée. Depuis août 2024, la
+   documentation officielle Bioconda ne recommande plus le canal
+   `defaults` (lié aux conditions d'utilisation d'Anaconda) et préconise
+   `conda-forge` + `bioconda` avec `channel_priority strict`, idéalement
+   via une distribution Miniforge. Source vérifiée :
+   https://bioconda.github.io/ (section « Set up channels »).
+
+3. Le statut de maintenance de LongQC, Porechop et NanoFilt n'a pas
+   encore été vérifié via une recherche officielle à la date de ce
+   déplacement. Ne pas les présenter comme des outils « modernes » ou
+   « recommandés en production » sans cette vérification préalable.
+
+4. Les chemins `/path/to/...` sont des placeholders pédagogiques du
+   fichier d'origine — ils devront être remplacés par de vrais chemins
+   d'exercice (basés sur l'arborescence `data/raw`, `results/`, etc. du
+   module 07_project_organization/) lors de la réécriture.
+
+Le contenu original, non modifié, suit ci-dessous.
+
+============================================================
+CONTENU ORIGINAL (verbatim)
+============================================================
+
+### GenoBio - Bioinformatics skills training
+
+### Terminal takedown
+
+## Environment setup and configuration
+
+# Bioconda
+
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+exit
+
+conda config --set auto_activate_base false
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+conda create -y --name python3 python=3.7
+conda activate python3
+
+# LongQC
+
+conda install numpy
+conda install scipy
+conda install matplotlib=2.1.2
+conda install scikit-learn
+conda install pandas=0.24.0
+conda install jinja2
+conda install h5py
+conda install -c bioconda pysam
+conda install -c bioconda edlib
+conda install -c bioconda python-edlib
+
+mkdir Bioinformatics && cd Bioinformatics/
+git clone https://github.com/yfukasawa/LongQC.git
+cd LongQC/minimap2-coverage && make
+
+	# For Mac users:
+
+brew install argp-standalone
+
+# Porechop
+
+cd ../../
+git clone https://github.com/rrwick/Porechop.git
+cd Porechop && python3 setup.py install
+
+# NanoFilt
+
+cd
+pip install nanofilt
+pip install nanofilt --upgrade
+exit
+
+----------------------------------------------------------------------------------------------------------------
+## Running programs
+
+# LongQC
+
+conda activate python3
+mkdir sars-cov-2_test && cd sars-cov-2_test
+mkdir SRA
+cd
+cd Bioinformatics/LongQC/
+python longQC.py sampleqc -x ont-rapid -o '/path/to/sars-cov-2_test/1_sars-cov-quality' '/path/to/sars-cov-2_test/SRA/sars-cov-2_SRR18392380.fastq'
+
+#Porechop
+
+cd && mkdir '/path/to/sars-cov-2_test/2_porechop'
+porechop -i '/path/to/sars-cov-2_test/SRA/sars-cov-2_SRR18392380.fastq' -o '/path/to/2_porechop/no_adapters.fastq'
+
+#NanoFilt
+
+$ mkdir '/path/to/sars-cov-2_test/3_NanoFilt'
+$ NanoFilt -q 7 '/path/to/sars-cov-2_test/2_porechop/no_adapters.fastq' > '/path/to/sars-cov-2_test/3_NanoFilt/Filtered.fastq'
+----------------------------------------------------------------------------------------------------------------
+## Troubleshooting : Common errors
+
+	# curl is not found
+
+sudo apt install curl
+
+	# git is missing
+
+sudo apt install git
+
+	# make command is not found
+
+sudo apt install make
+
+	# pip is not installed under python3 environment
+
+sudo apt install python3-pip
+
+	# For a fresh OS installation, certain packages and/or compiling files may be missing, let's fix this with the following:
+
+sudo apt install gcc
+sudo apt-get install libz-dev
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+### Terminal takedown
+
+## Environment setup and configuration 2
+
+#Canu
+
+conda activate python3
+
+conda install -c conda-forge -c bioconda -c defaults canu
+
+#ref:
+https://github.com/marbl/canu
+https://canu.readthedocs.io/en/latest/index.html
+
+#Minimap2
+
+conda activate python3
+
+cd Bioinformatics
+curl -L https://github.com/lh3/minimap2/releases/download/v2.24/minimap2-2.24_x64-linux.tar.bz2 | tar -jxvf -
+./minimap2-2.24_x64-linux/minimap2
+
+#ref:
+https://github.com/lh3/minimap2
+
+#Racon
+
+conda activate python3
+conda install racon
+
+#ref:
+https://github.com/isovic/racon
+
+
+#Quast
+
+cd
+conda install -c bioconda quast
+
+
+#ref:
+https://quast.sourceforge.net/install.html
+----------------------------------------------------------------------------------------------------------------
+#Exécution
+
+conda activate python3
+
+#Canu
+
+canu -d 'output_dir' -p prefix genomeSize=number_k_or_m -nanopore 'Path_to_filtered_reads.fastq'
+
+#Minimap2
+
+mkdir '/path/to/sars-cov-2_test/5_minimap'
+
+Se placer dans le dossier de minimap2 et exécuter la commande:
+minimap2 'path_to_contigs.fasta' 'path_to_filtered_reads.fastq' > 'output_directory_path/overlaps.paf'
+
+#Racon
+
+mkdir '/path/to/sars-cov-2_test/6_racon'
+
+Exécuter la commande:
+racon -u 'path_to_filtered_reads.fastq' 'path_to_overlaps.paf' 'path_to_contigs.fasta' > 'output_polished_reads.fasta_dir_and_file_name'
+
+#Quast
+
+quast 'path/to/assembly.fasta' -o 'path/to/output_directory'
+----------------------------------------------------------------------------------------------------------------

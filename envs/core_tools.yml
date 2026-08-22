@@ -1,0 +1,35 @@
+# Environnement : core_tools
+#
+# PURPOSE
+#   Outils génériques de manipulation FASTA/FASTQ utilisés dans les
+#   modules 02_linux_for_bioinformatics/ à 05_biological_formats/.
+#   Ne contient volontairement PAS d'outils spécifiques à un domaine
+#   (QC, alignement...) — voir la charte de regroupement des
+#   environnements dans 06_environment_management/README.md, section 4.
+#
+# TOOLS
+#   - seqkit : manipulation et statistiques FASTA/FASTQ
+#     doc : https://bioinf.shenwei.me/seqkit/
+#     source : https://github.com/shenwei356/seqkit
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction : après
+#   création, vérifier la version installée avec `seqkit version` et la
+#   documenter ici une fois choisie pour un usage reproductible durable
+#   (ex. seqkit=2.*).
+#
+# INSTALLATION
+#   conda env create -f envs/core_tools.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/core_tools.yml
+#
+# USAGE
+#   conda activate core_tools
+#   seqkit stats linux/*.fasta linux/*.fastq linux/*.fastq.gz
+
+name: core_tools
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - seqkit

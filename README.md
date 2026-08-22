@@ -1,190 +1,149 @@
-# Jeu de données d'entraînement — Linux pour la bioinformatique
+# Linux-command — De Linux à la bioinformatique professionnelle
 
-Ce dossier contient les fichiers nécessaires pour exécuter **toutes** les commandes
-du guide `linux_commands_beginner.md`.
+Un parcours pratique et progressif qui transforme un débutant complet en
+Linux en un analyste capable de conduire une analyse bioinformatique
+réelle, reproductible, sur de vraies données publiques.
 
-## Contenu
+## Objectifs
 
-| Fichier | Contenu | Sert à pratiquer |
-|---|---|---|
-| `exercice_sequences.fasta` | 22 séquences  | tout le guide |
-| `genome.fasta` | copie identique, nommée comme dans le guide | sections 6, 8, 9, 10, 16 |
-| `transcripts.fasta` | 40 ARNm | `find`, `du -sh *.fasta`, boucles |
-| `proteins.fasta` | 25 protéines (alphabet acides aminés) | `file`, `grep`, comparaison ADN/protéine |
-| `reads.fastq` | 500 reads de 100 pb | section 5.2, 7 |
-| `sample_01/02/03.fastq.gz` | 1200 / 800 / 1500 reads compressés | sections 12, 21, 22 |
-| `annotations.tsv` | 120 annotations, 6 colonnes | `cut`, `awk`, `sort`, `uniq` |
+Ce dépôt vise à faire maîtriser Linux et Bash appliqués à des données
+biologiques réelles, et à faire comprendre en profondeur chaque commande
+utilisée : pourquoi, sur quelles données, avec quel résultat, et comment
+l'interpréter. La progression va d'une commande isolée vers des scripts,
+puis vers des pipelines reproductibles (Conda, puis Snakemake/Nextflow
+dans les modules avancés). L'ensemble de la chaîne d'analyse est couvert :
+QC, assemblage, alignement, annotation, RNA-seq, ChIP-seq, méthylation,
+GWAS, protéomique, métagénomique, variant calling, R/Python, workflows
+formels (Snakemake/Nextflow/nf-core), conteneurs et calcul HPC.
 
+## Public visé
 
-## Manipulations
+Aucun prérequis Linux ni bioinformatique n'est nécessaire pour commencer.
+Voir `00_orientation/README.md` pour le détail du public visé et de la
+méthode pédagogique.
 
-- **22 enregistrements** au lieu de 5, dont les 5 originaux conservés en tête
-- des **longueurs variables** (45 pb à 4800 pb) → `seqkit stats`, `sort -n` deviennent utiles
-- des **séquences repliées à 60 caractères** → `head`, `tail`, `wc -l`, `less` ont du sens
-- des **headers structurés** : `>chr1 organism=... type=... length=...` → `cut`, `awk`, `sort | uniq -c`
-- des **noms variés** (`chr1`…`chr4`, `plasmid_pUC19`, `mito_genome`, `contig_*`, `gene_*`, `scaffold_*`) → `find`, `seqkit grep`, découpage `awk`
-- des **régions en minuscules** (soft-masked, comme un vrai génome répété) → différence entre `grep` et `grep -i`
-- des **blocs de N** (bases indéterminées) → contrôle qualité
-- des **ORF réalistes** (ATG … codon stop) → sections 9 et 10
-- le motif **`ATGCGT` implanté volontairement** à des positions connues
+## Prérequis techniques
 
----
+Un terminal Linux, macOS, ou WSL/Git Bash sous Windows suffit. Aucun
+logiciel bioinformatique préinstallé n'est requis avant le module
+`06_environment_management/`, où l'installation se fait via
+Conda/Mamba/Bioconda.
 
-## Exercices avec réponses attendues
+## Parcours d'apprentissage
 
-> Les réponses sont données pour `genome.fasta`. Vérifie que tu obtiens la même chose.
-
-### 1. Préparer l'espace de travail
-```bash
-mkdir -p bioinfo_exercises/{results,scripts}
-cp *.fasta *.fastq *.fastq.gz annotations.tsv bioinfo_exercises/
-cd bioinfo_exercises && ls -lh *.fasta
-```
-
-### 2. Compter les séquences
-```bash
-grep -c "^>" genome.fasta          # → 22
-grep -c "^>" transcripts.fasta     # → 40
-grep -c "^>" proteins.fasta        # → 25
-```
-
-### 3. Compter les lignes et les bases
-```bash
-wc -l < genome.fasta                              # → 419
-grep -v "^>" genome.fasta | tr -d '\n' | wc -c    # → 23718 bases
-```
-
-### 4. Exploiter les headers (`cut`, `sort`, `uniq`)
-```bash
-grep "^>" genome.fasta | cut -d' ' -f2 | sort | uniq -c
-```
-Résultat attendu :
 ```text
-2 organism=Arabidopsis_thaliana
-8 organism=Escherichia_coli
-4 organism=Saccharomyces_cerevisiae
-8 organism=synthetic
-```
-Puis par type :
-```bash
-grep "^>" genome.fasta | cut -d' ' -f3 | sort | uniq -c
-```
-
-### 5. Chercher un motif — et comprendre `-i`
-```bash
-grep -c  "ATGCGT" genome.fasta   # → 29 lignes
-grep -ic "ATGCGT" genome.fasta   # → 31 lignes
-```
-La différence de 2 vient des régions **soft-masked en minuscules** : c'est exactement
-la raison pour laquelle `-i` existe. Pour voir où :
-```bash
-diff <(grep -n "ATGCGT" genome.fasta) <(grep -in "ATGCGT" genome.fasta)
-```
-
-### 6. Colorer et étiqueter (sections 9 et 10)
-```bash
-grep --color=always -E "ATGCGT|$" genome.fasta | less -R
-grep --color=always -E "ATG|TAA|TAG|TGA|$" genome.fasta | less -R
-sed 's/ATGCGT/[ATGCGT]/g' genome.fasta > results/genome_annotated.fasta
-diff <(grep -v "^>" genome.fasta | grep -o "ATGCGT" | wc -l) \
-     <(grep -v "^>" results/genome_annotated.fasta | grep -o "\[ATGCGT\]" | wc -l)
+Linux (01)
+   ↓
+Linux appliqué à la bioinformatique (02)
+   ↓
+Text processing sur données biologiques (03)
+   ↓
+Bash scripting (04)
+   ↓
+Formats biologiques : FASTA/FASTQ/SAM/BAM/VCF/BED/GFF/GTF (05)
+   ↓
+Environnements reproductibles : Conda/Mamba/Bioconda (06)
+   ↓
+Organisation de projet (07) → Acquisition de données publiques (08)
+   ↓
+Contrôle qualité (09) → Trimming/filtrage (10)
+   ↓
+Assemblage de novo (11) → Alignement (12) → Polishing/QC d'assemblage (13)
+   ↓
+Annotation de génome (14)
+   ↓
+RNA-seq (15) → ChIP-seq (16) → Méthylation ADN (17) → GWAS (18) → Protéomique (19)
+   ↓
+Métagénomique (20) → Variant calling (21) → R/Bioconductor (22) → Python (23)
+   ↓
+Workflows Snakemake/Nextflow/nf-core (24) → Conteneurs & Git (25) → HPC (26)
 ```
 
-### 7. FASTQ : compter les reads
-```bash
-echo $(( $(wc -l < reads.fastq) / 4 ))                    # → 500
-echo $(( $(zcat sample_01.fastq.gz | wc -l) / 4 ))        # → 1200
-echo $(( $(zcat sample_02.fastq.gz | wc -l) / 4 ))        # → 800
-echo $(( $(zcat sample_03.fastq.gz | wc -l) / 4 ))        # → 1500
-```
-Les reads contiennent volontairement des **adaptateurs Illumina** et des **N**.
-`awk 'NR%4==2'` isole la ligne de séquence de chaque read (les headers et les
-lignes de qualité contiennent eux aussi des `A`, `C`, `G`, `N`) :
-```bash
-awk 'NR%4==2' reads.fastq | grep -c "AGATCGGAAGAGC"    # → 56 reads contaminés
-awk 'NR%4==2' reads.fastq | grep -c "N"
-```
+**Les 26 modules ci-dessus sont tous rédigés.** La suite naturelle,
+mini-projets et projet final intégrateur, reste à construire dans
+`projects/` (voir `docs/audit_report.md`).
 
-### 8. Compression
-```bash
-gzip -k genome.fasta          # -k garde l'original
-ls -lh genome.fasta*
-zcat genome.fasta.gz | head
-zgrep -c "^>" genome.fasta.gz  # → 22
-du -sh *.fasta
-```
+## Architecture du dépôt
 
-### 9. Découper le FASTA par séquence (section 16)
-```bash
-mkdir -p results/split
-awk '/^>/ { if (f) close(f); f = "results/split/" substr($1,2) ".fasta" }
-     f    { print > f }' genome.fasta
-ls results/split | wc -l        # → 22 fichiers
-```
-Note : `substr($1,2)` et non `substr($0,2)` — sinon le nom de fichier contiendrait
-la description entière avec des espaces. Bon réflexe à prendre.
-`close(f)` évite de garder tous les fichiers de sortie ouverts simultanément.
+| Emplacement | Contenu |
+|---|---|
+| `00_orientation/` | Vue d'ensemble, méthode, feuille de route détaillée |
+| `01_linux_basics/` → `26_hpc/` | Les 26 modules de cours (voir tableau ci-dessous) |
+| `linux/` | Jeu de données d'entraînement synthétique (FASTA, FASTQ, TSV) et ses exercices corrigés |
+| `envs/` | Environnements Conda par domaine (`core_tools.yml`, `qc.yml`, `trimming.yml` ; d'autres viendront avec les modules et mini-projets suivants) |
+| `scripts/` | Scripts Bash réels et testés issus de `04_bash_scripting/` |
+| `legacy/` | Matériau pédagogique historique, préservé tel quel pour référence |
+| `docs/` | Rapport d'audit, référence des outils (à venir : formats, commandes, pipelines) |
 
-### 10. Le fichier TSV (`cut`, `awk`, `sort`, `uniq`)
-```bash
-head -1 annotations.tsv
-cut -f5 annotations.tsv | tail -n +2 | sort | uniq -c | sort -rn
-awk -F'\t' 'NR>1 {print $6}' annotations.tsv | sort -u
-awk -F'\t' 'NR>1 && $3-$2 > 500 {print $1, $6, $3-$2}' annotations.tsv | head
-```
+## Modules disponibles
 
-### 11. Boucle Bash sur les échantillons
-```bash
-for f in *.fastq.gz
-do
-    n=$(( $(zcat "$f" | wc -l) / 4 ))
-    printf '%s\t%d reads\n' "$f" "$n"
-done
-```
+| Module | Contenu |
+|---|---|
+| [`01_linux_basics`](01_linux_basics/README.md) | Terminal, navigation, fichiers, permissions, processus |
+| [`02_linux_for_bioinformatics`](02_linux_for_bioinformatics/README.md) | Premiers pas sur FASTA/FASTQ |
+| [`03_text_processing`](03_text_processing/README.md) | grep/sed/awk/cut/sort/uniq appliqués aux données biologiques |
+| [`04_bash_scripting`](04_bash_scripting/README.md) | Variables, boucles, fonctions, scripts robustes |
+| [`05_biological_formats`](05_biological_formats/README.md) | FASTA/FASTQ approfondis, introduction SAM/BAM/VCF/BED/GFF/GTF |
+| [`06_environment_management`](06_environment_management/README.md) | Conda/Mamba/Bioconda, reproductibilité |
+| [`07_project_organization`](07_project_organization/README.md) | Arborescence professionnelle d'un projet bioinformatique |
+| [`08_data_acquisition`](08_data_acquisition/README.md) | Téléchargement de données publiques (NCBI/SRA/ENA), intégrité, cas vérifié |
+| [`09_quality_control`](09_quality_control/README.md) | QC Illumina et Nanopore/PacBio, interprétation des métriques |
+| [`10_adapter_trimming_filtering`](10_adapter_trimming_filtering/README.md) | Trimming/filtrage, statuts d'outils Nanopore vérifiés (Porechop abandonware, NanoFilt → chopper) |
+| [`11_de_novo_assembly`](11_de_novo_assembly/README.md) | Assemblage long reads (Flye) et short reads (SPAdes/MEGAHIT) ; Canu confirmé terminé |
+| [`12_sequence_alignment`](12_sequence_alignment/README.md) | minimap2, BWA-MEM2, Bowtie2, STAR, HISAT2 |
+| [`13_assembly_quality`](13_assembly_quality/README.md) | Polishing (Racon), QUAST, BUSCO |
+| [`14_genome_annotation`](14_genome_annotation/README.md) | Annotation procaryote (Bakta) et eucaryote (BRAKER), annotation fonctionnelle |
+| [`15_rnaseq`](15_rnaseq/README.md) | Pipeline RNA-seq complet, de FASTQ à l'enrichissement fonctionnel |
+| [`16_chipseq`](16_chipseq/README.md) | Peak calling, QC, reproductibilité entre réplicats, motifs |
+| [`17_dna_methylation`](17_dna_methylation/README.md) | Bisulfite sequencing, analyse différentielle de méthylation |
+| [`18_gwas`](18_gwas/README.md) | Génotypage, QC, structure de population, association |
+| [`19_proteomics`](19_proteomics/README.md) | Identification/quantification MS, analyse différentielle |
+| [`20_metagenomics`](20_metagenomics/README.md) | Profilage taxonomique, assemblage/binning, qualité de MAG |
+| [`21_variant_analysis`](21_variant_analysis/README.md) | Variant calling, filtrage, annotation fonctionnelle |
+| [`22_r_statistics`](22_r_statistics/README.md) | Écosystème R/Bioconductor |
+| [`23_python_bioinformatics`](23_python_bioinformatics/README.md) | Biopython, pandas, NumPy/SciPy, pysam |
+| [`24_workflows`](24_workflows/README.md) | Snakemake, Nextflow, nf-core |
+| [`25_reproducibility`](25_reproducibility/README.md) | Conteneurs (Docker/Apptainer), Git/GitHub |
+| [`26_hpc`](26_hpc/README.md) | SLURM, modules logiciels, bonnes pratiques cluster |
 
-### 12. Script complet
-```bash
-cat > scripts/stats.sh <<'EOF'
-#!/bin/bash
-shopt -s nullglob
-echo "=== FASTA ==="
-for f in *.fasta; do
-    printf '%s\t%s séquences\n' "$f" "$(grep -c '^>' "$f")"
-done
-echo "=== FASTQ ==="
-for f in *.fastq.gz; do
-    printf '%s\t%d reads\n' "$f" "$(( $(zcat "$f" | wc -l) / 4 ))"
-done
-EOF
-chmod +x scripts/stats.sh
-./scripts/stats.sh
-```
+Les 26 modules de la feuille de route sont désormais tous disponibles.
+La suite (mini-projets, projet final) est planifiée dans `projects/`,
+voir `docs/audit_report.md`, section « Implementation roadmap ».
 
-### 13. SeqKit (si installé)
-```bash
-seqkit stats *.fasta *.fastq*
-seqkit grep -s -i -p "ATGCGT" genome.fasta | grep -c "^>"
-seqkit grep -p "chr1" genome.fasta
-seqkit fx2tab -nli genome.fasta | sort -t$'\t' -k2,2n   # séquences triées par longueur
-seqkit split -i genome.fasta                            # équivalent propre de l'exercice 9
-```
+## Jeux de données
 
----
+Le dossier [`linux/`](linux/README.md) contient un jeu de données
+synthétique conçu pour ce dépôt (22 séquences génomiques, 40 transcrits,
+25 protéines, 500 reads FASTQ avec adaptateurs Illumina, 3 échantillons
+compressés, une table d'annotations TSV), avec 13 exercices corrigés.
 
-## Piège utile à connaître
+## Outils couverts
 
-`grep -c "ATGCGT"` compte les **lignes** contenant le motif, pas les **occurrences**.
-Pour compter les occurrences réelles :
+Voir [`docs/tools_reference.md`](docs/tools_reference.md) pour la liste
+complète des outils déjà traités, chacun avec sa documentation officielle
+vérifiée (jamais d'URL inventée) et son statut de maintenance.
 
-```bash
-grep -v "^>" genome.fasta | grep -o "ATGCGT" | wc -l
-```
+## Documentation du dépôt
 
-Et comme les séquences sont repliées à 60 caractères, un motif à cheval sur deux
-lignes est **invisible** pour `grep`. C'est précisément la limite mentionnée dans la
-section 8 du guide, et la raison d'être de `seqkit`. Pour t'en convaincre :
+- [`docs/audit_report.md`](docs/audit_report.md) — audit initial complet,
+  méthodologie de transformation, feuille de route.
+- [`docs/tools_reference.md`](docs/tools_reference.md) — référence
+  centrale des outils.
 
-```bash
-grep -v "^>" genome.fasta | grep -o "ATGCGT" | wc -l
-seqkit locate -P -p "ATGCGT" genome.fasta | tail -n +2 | wc -l
-```
+## Reproductibilité
+
+Chaque module documente les commandes exécutées, leurs entrées, leurs
+sorties attendues, et les liens vers la documentation officielle des
+outils utilisés. Les environnements logiciels sont figés via Conda/Mamba
+dans `envs/` (voir `06_environment_management/`). Aucune URL ni référence
+scientifique n'est ajoutée à ce dépôt sans vérification préalable.
+
+## Contribution
+
+Ce dépôt est construit de façon incrémentale, module par module, jamais
+en une seule passe massive. La méthodologie détaillée se trouve dans
+`docs/audit_report.md`.
+
+## Licence
+
+Voir le dépôt GitHub pour les conditions de licence applicables.
