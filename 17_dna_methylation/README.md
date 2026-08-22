@@ -1,6 +1,4 @@
-============================================================
-MODULE 17 — MÉTHYLATION DE L'ADN
-============================================================
+# 17 — Méthylation de l'ADN
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -54,6 +52,18 @@ séquence de référence originale.
 ```
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/methylation.yml
+conda activate methylation
+```
+
+```text
+CONTENU: trim-galore, bismark, methylKit, DSS — voir envs/methylation.yml
+         pour le détail.
+```
 
 # 1. Préparation des reads
 
@@ -212,6 +222,10 @@ DOCUMENTATION
 
 SCIENTIFIC REFERENCES
 ------------------------------------------------------------
+- Krueger F, James F, Ewels P, Afyounian E, Weinstein M, Schuster-Boeckler
+  B, Hulselmans G, Sclamons (2023). "FelixKrueger/TrimGalore" [logiciel,
+  sans publication associée — citation du logiciel lui-même, via Zenodo].
+  DOI: 10.5281/zenodo.7598955
 - Krueger F, Andrews SR (2011). "Bismark: a flexible aligner and
   methylation caller for Bisulfite-Seq applications." Bioinformatics,
   27(11):1571-1572. DOI: 10.1093/bioinformatics/btr167

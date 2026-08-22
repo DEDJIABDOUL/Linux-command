@@ -1,6 +1,4 @@
-============================================================
-MODULE 20 — MÉTAGÉNOMIQUE
-============================================================
+# 20 — Métagénomique
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -45,6 +43,19 @@ avec un succès qui dépend fortement de la diversité et de la profondeur
 de l'échantillon.
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/metagenomics.yml
+conda activate metagenomics
+```
+
+```text
+CONTENU: kraken2, bracken, metabat2, checkm2, gtdbtk — voir
+         envs/metagenomics.yml pour le détail. CheckM1 (section 4.3,
+         référence historique) n'est pas inclus par défaut.
+```
 
 # 1. Deux stratégies, pas une seule
 
@@ -232,10 +243,14 @@ SCIENTIFIC REFERENCES
 - Kang DD et al. (2019). "MetaBAT 2: an adaptive binning algorithm for
   robust and efficient genome reconstruction from metagenome assemblies."
   PeerJ, 7:e7359. DOI: 10.7717/peerj.7359
+- Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW (2015).
+  "CheckM: assessing the quality of microbial genomes recovered from
+  isolates, single cells, and metagenomes." Genome Research, 25(7):1043-1055.
+  DOI: 10.1101/gr.186072.114 (référence d'origine de CheckM1)
 - Chklovski A, Parks DH, Woodcroft BJ, Tyson GW (2023). "CheckM2: a
   rapid, scalable and accurate tool for assessing microbial genome
   quality using machine learning." Nature Methods, 20:1203-1212.
-  DOI: 10.1038/s41592-023-01940-w
+  DOI: 10.1038/s41592-023-01940-w (recommandé pour les nouveaux projets)
 - Chaumeil PA, Mussig AJ, Hugenholtz P, Parks DH (2020). "GTDB-Tk: a
   toolkit to classify genomes with the Genome Taxonomy Database."
   Bioinformatics, 36(6):1925-1927. DOI: 10.1093/bioinformatics/btz848

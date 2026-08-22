@@ -1,6 +1,4 @@
-============================================================
-MODULE 12 — ALIGNEMENT DE SÉQUENCES
-============================================================
+# 12 — Alignement de séquences
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -46,6 +44,20 @@ RÈGLE: ne jamais utiliser un aligneur ADN classique (BWA-MEM2, Bowtie2)
 ```
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/alignment.yml
+conda activate alignment
+```
+
+```text
+CONTENU: minimap2, bwa-mem2, bowtie2, samtools — voir envs/alignment.yml
+         pour le détail. STAR et HISAT2 (section 3) ne sont pas inclus
+         ici : ils seront couverts par envs/rnaseq.yml au moment de leur
+         usage réel en 15_rnaseq/.
+```
 
 # 1. Minimap2 — reads longs et usages polyvalents
 
@@ -201,6 +213,10 @@ SCIENTIFIC REFERENCES
 ------------------------------------------------------------
 - Li H (2018). "Minimap2: pairwise alignment for nucleotide sequences."
   Bioinformatics, 34(18):3094-3100. DOI: 10.1093/bioinformatics/bty191
+- Vasimuddin M, Misra S, Li H, Aluru S (2019). "Efficient Architecture-Aware
+  Acceleration of BWA-MEM for Multicore Systems." 2019 IEEE International
+  Parallel and Distributed Processing Symposium (IPDPS), 314-324.
+  DOI: 10.1109/IPDPS.2019.00041
 - Langmead B, Salzberg SL (2012). "Fast gapped-read alignment with
   Bowtie 2." Nature Methods, 9(4):357-359. DOI: 10.1038/nmeth.1923
 - Dobin A et al. (2013). "STAR: ultrafast universal RNA-seq aligner."
@@ -208,6 +224,12 @@ SCIENTIFIC REFERENCES
 - Kim D, Paggi JM, Park C, Bennett C, Salzberg SL (2019). "Graph-based
   genome alignment and genotyping with HISAT2 and HISAT-genotype."
   Nature Biotechnology, 37(8):907-915. DOI: 10.1038/s41587-019-0201-4
+- Li H et al. (2009). "The Sequence Alignment/Map format and SAMtools."
+  Bioinformatics, 25(16):2078-2079. DOI: 10.1093/bioinformatics/btp352
+  (référence d'origine du format SAM/BAM)
+- Danecek P et al. (2021). "Twelve years of SAMtools and BCFtools."
+  GigaScience, 10(2):giab008. DOI: 10.1093/gigascience/giab008 (état
+  actuel de l'écosystème htslib/samtools/bcftools)
 
 NEXT MODULE
 ------------------------------------------------------------

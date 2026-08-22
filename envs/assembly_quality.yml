@@ -1,0 +1,38 @@
+# Environnement : assembly_quality
+#
+# PURPOSE
+#   Outils de polishing et de contrôle qualité d'assemblage utilisés dans
+#   13_assembly_quality/.
+#
+# TOOLS
+#   - racon : polishing d'assemblage par consensus (dépôt officiel déplacé
+#     vers lbcb-sci/racon, voir 13_assembly_quality/README.md, section 1).
+#     doc : https://github.com/lbcb-sci/racon
+#   - quast : statistiques d'assemblage (N50, misassemblies...).
+#     doc : https://quast.sourceforge.net/docs/manual.html
+#   - busco : complétude par orthologues universels à copie unique.
+#     doc : https://busco.ezlab.org/busco_userguide.html
+#     NOTE : busco télécharge lui-même, à la première exécution, le jeu de
+#     données de lignage demandé (option -l) — prévoir un accès réseau.
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/assembly_quality.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/assembly_quality.yml
+#
+# USAGE
+#   conda activate assembly_quality
+#   quast.py assembly.fasta -o resultats_quast/
+
+name: assembly_quality
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - racon
+  - quast
+  - busco

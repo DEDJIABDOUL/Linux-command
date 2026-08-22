@@ -1,6 +1,4 @@
-============================================================
-MODULE 02 — LINUX APPLIQUÉ À LA BIOINFORMATIQUE : PREMIERS PAS SUR FASTA/FASTQ
-============================================================
+# 02 — Linux appliqué à la bioinformatique : premiers pas sur FASTA/FASTQ
 
 OBJECTIVE
 ------------------------------------------------------------

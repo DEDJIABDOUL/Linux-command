@@ -1,6 +1,4 @@
-============================================================
-MODULE 05 — FORMATS BIOLOGIQUES : FASTA, FASTQ, ET INTRODUCTION À SAM/BAM/VCF/BED/GFF/GTF
-============================================================
+# 05 — Formats biologiques : FASTA, FASTQ, et introduction à SAM/BAM/VCF/BED/GFF/GTF
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -328,6 +326,10 @@ SCIENTIFIC REFERENCES
   DOI: 10.1093/nar/gkp1137
 - Li H et al. (2009). "The Sequence Alignment/Map format and SAMtools."
   Bioinformatics, 25(16):2078-2079. DOI: 10.1093/bioinformatics/btp352
+  (référence d'origine du format SAM/BAM)
+- Danecek P et al. (2021). "Twelve years of SAMtools and BCFtools."
+  GigaScience, 10(2):giab008. DOI: 10.1093/gigascience/giab008 (état
+  actuel de l'écosystème htslib/samtools/bcftools)
 
 NEXT MODULE
 ------------------------------------------------------------

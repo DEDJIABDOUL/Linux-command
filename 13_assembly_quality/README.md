@@ -1,6 +1,4 @@
-============================================================
-MODULE 13 — POLISHING ET QUALITÉ D'ASSEMBLAGE
-============================================================
+# 13 — Polishing et qualité d'assemblage
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -31,6 +29,18 @@ précis en réalignant les mêmes reads (ou des reads courts complémentaires)
 contre ce brouillon.
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/assembly_quality.yml
+conda activate assembly_quality
+```
+
+```text
+CONTENU: racon, quast, busco — voir envs/assembly_quality.yml pour le
+         détail.
+```
 
 # 1. Polishing avec Racon
 
@@ -187,7 +197,11 @@ SCIENTIFIC REFERENCES
   27(5):737-746. DOI: 10.1101/gr.214270.116
 - Gurevich A, Saveliev V, Vyahhi N, Tesler G (2013). "QUAST: quality
   assessment tool for genome assemblies." Bioinformatics, 29(8):1072-1075.
-  DOI: 10.1093/bioinformatics/btt086
+  DOI: 10.1093/bioinformatics/btt086 (référence d'origine de QUAST)
+- Mikheenko A, Prjibelski A, Saveliev V, Antipov D, Gurevich A (2018).
+  "Versatile genome assembly evaluation with QUAST-LG." Bioinformatics,
+  34(13):i142-i150. DOI: 10.1093/bioinformatics/bty266 (extension pour
+  les grands génomes, mentionnée en GO FURTHER ci-dessus)
 - Manni M, Berkeley MR, Seppey M, Simão FA, Zdobnov EM (2021). "BUSCO
   Update: Novel and Streamlined Workflows along with Broader and Deeper
   Phylogenetic Coverage for Scoring of Eukaryotic, Prokaryotic, and Viral

@@ -1,6 +1,4 @@
-============================================================
-MODULE 10 — TRIMMING D'ADAPTATEURS ET FILTRAGE QUALITÉ
-============================================================
+# 10 — Trimming d'adaptateurs et filtrage qualité
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -225,9 +223,14 @@ SCIENTIFIC REFERENCES
   adapters in Oxford Nanopore Technology sequencing reads for downstream
   trimming." Bioinformatics Advances, 3(1):vbac085.
   DOI: 10.1093/bioadv/vbac085
+- De Coster W, D'Hert S, Schultz DT, Cruts M, Van Broeckhoven C (2018).
+  "NanoPack: visualizing and processing long-read sequencing data."
+  Bioinformatics, 34(15):2666-2669. DOI: 10.1093/bioinformatics/bty149
+  (référence d'origine de NanoFilt)
 - De Coster W, Rademakers R (2023). "NanoPack2: population-scale
   evaluation of long-read sequencing data." Bioinformatics, 39(5):btad311.
-  DOI: 10.1093/bioinformatics/btad311
+  DOI: 10.1093/bioinformatics/btad311 (référence de chopper, successeur
+  de NanoFilt)
 
 NEXT MODULE
 ------------------------------------------------------------

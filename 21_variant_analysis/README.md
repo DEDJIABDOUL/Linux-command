@@ -1,6 +1,4 @@
-============================================================
-MODULE 21 — VARIANT CALLING ET ANNOTATION
-============================================================
+# 21 — Variant calling et annotation
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -32,6 +30,18 @@ germline vs somatic   un variant germline est présent dans toutes les
 ```
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/variant_calling.yml
+conda activate variant_calling
+```
+
+```text
+CONTENU: bcftools, gatk4, vep, snpeff — voir envs/variant_calling.yml
+         pour le détail.
+```
 
 # 1. Pipeline général
 
@@ -227,6 +237,14 @@ SCIENTIFIC REFERENCES
 - McKenna A et al. (2010). "The Genome Analysis Toolkit: a MapReduce
   framework for analyzing next-generation DNA sequencing data." Genome
   Research, 20(9):1297-1303. DOI: 10.1101/gr.107524.110
+- Van der Auwera GA et al. (2013). "From FastQ data to high-confidence
+  variant calls: the Genome Analysis Toolkit best practices pipeline."
+  Current Protocols in Bioinformatics, 43:11.10.1-11.10.33.
+  DOI: 10.1002/0471250953.bi1110s43 (référence du workflow GATK Best
+  Practices mentionné en section 2.2)
+- Danecek P et al. (2021). "Twelve years of SAMtools and BCFtools."
+  GigaScience, 10(2):giab008. DOI: 10.1093/gigascience/giab008 (référence
+  de bcftools, section 2.1 et 3)
 - McLaren W et al. (2016). "The Ensembl Variant Effect Predictor." Genome
   Biology, 17(1):122. DOI: 10.1186/s13059-016-0974-4
 - Cingolani P et al. (2012). "A program for annotating and predicting the

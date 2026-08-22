@@ -1,6 +1,4 @@
-============================================================
-MODULE 23 — PYTHON POUR LA BIOINFORMATIQUE
-============================================================
+# 23 — Python pour la bioinformatique
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -24,6 +22,18 @@ volumes de données, et l'intégration avec des pipelines (Snakemake, phase
 ultérieure, est lui-même écrit en Python).
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/python_bio.yml
+conda activate python_bio
+```
+
+```text
+CONTENU: biopython, pandas, numpy, scipy, pysam — voir
+         envs/python_bio.yml pour le détail.
+```
 
 # 1. Biopython — manipuler des séquences biologiques
 
@@ -181,6 +191,13 @@ SCIENTIFIC REFERENCES
 - McKinney W (2010). "Data Structures for Statistical Computing in
   Python." Proceedings of the 9th Python in Science Conference, 56-61.
   DOI: 10.25080/Majora-92bf1922-00a
+- pysam n'a pas de publication propre : la documentation officielle
+  recommande de citer les outils sous-jacents qu'il enveloppe — Li H et
+  al. (2009), "The Sequence Alignment/Map format and SAMtools."
+  Bioinformatics, 25(16):2078-2079. DOI: 10.1093/bioinformatics/btp352 ;
+  et Bonfield JK et al. (2021). "HTSlib: C library for reading/writing
+  high-throughput sequencing data." GigaScience, 10(2):giab007.
+  DOI: 10.1093/gigascience/giab007
 
 NEXT MODULE
 ------------------------------------------------------------

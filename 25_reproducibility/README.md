@@ -1,6 +1,4 @@
-============================================================
-MODULE 25 — REPRODUCTIBILITÉ : CONTENEURS, GIT ET GITHUB
-============================================================
+# 25 — Reproductibilité : conteneurs, Git et GitHub
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -24,6 +22,22 @@ souvent requise pour publier une analyse reproductible ou l'exécuter sur
 un cluster HPC partagé (module 26).
 
 ---
+
+# 0. Environnement de ce module
+
+```text
+EXCEPTION AU PATRON DES MODULES PRÉCÉDENTS: Docker et Apptainer sont des
+         moteurs de conteneurs au niveau du système d'exploitation (un
+         service/démon, pas une simple bibliothèque applicative) —
+         installer leur PARTIE FONCTIONNELLE via un paquet Conda dans un
+         environnement utilisateur n'a pas de sens : ils s'installent au
+         niveau système (généralement avec des privilèges administrateur,
+         voir la documentation officielle de chacun). Git est en général
+         déjà présent sur tout système de développement ; à défaut,
+         l'installer via le gestionnaire de paquets du système
+         d'exploitation (apt/dnf/brew) plutôt que Conda. Aucun
+         envs/*.yml n'est donc fourni pour ce module.
+```
 
 # 1. Conteneurs — Docker
 

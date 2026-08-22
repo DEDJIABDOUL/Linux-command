@@ -70,7 +70,7 @@ mini-projets et projet final intégrateur, reste à construire dans
 | `00_orientation/` | Vue d'ensemble, méthode, feuille de route détaillée |
 | `01_linux_basics/` → `26_hpc/` | Les 26 modules de cours (voir tableau ci-dessous) |
 | `linux/` | Jeu de données d'entraînement synthétique (FASTA, FASTQ, TSV) et ses exercices corrigés |
-| `envs/` | Environnements Conda par domaine (`core_tools.yml`, `qc.yml`, `trimming.yml` ; d'autres viendront avec les modules et mini-projets suivants) |
+| `envs/` | Environnements Conda par domaine (un par module 06-20 ; voir `06_environment_management/README.md`, section 4, pour la liste complète) |
 | `scripts/` | Scripts Bash réels et testés issus de `04_bash_scripting/` |
 | `legacy/` | Matériau pédagogique historique, préservé tel quel pour référence |
 | `docs/` | Rapport d'audit, référence des outils (à venir : formats, commandes, pipelines) |

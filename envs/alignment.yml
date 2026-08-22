@@ -1,0 +1,43 @@
+# Environnement : alignment
+#
+# PURPOSE
+#   Outils d'alignement de séquences et de manipulation SAM/BAM utilisés
+#   dans 12_sequence_alignment/, pour reads longs et courts (ADN).
+#   STAR et HISAT2 (aligneurs RNA-seq, présentés dans ce module au niveau
+#   "quel outil pour quel besoin" seulement) ne sont volontairement PAS
+#   inclus ici : ils seront couverts par un futur envs/rnaseq.yml au
+#   moment de l'usage réel en 15_rnaseq/.
+#
+# TOOLS
+#   - minimap2 : aligneur polyvalent long reads / overlaps / ARN épissé.
+#     doc : https://github.com/lh3/minimap2
+#   - bwa-mem2 : aligneur ADN court, accéléré.
+#     doc : https://github.com/bwa-mem2/bwa-mem2
+#   - bowtie2  : aligneur ADN court, historique et toujours utilisé.
+#     doc : https://bowtie-bio.sourceforge.net/bowtie2/index.shtml
+#   - samtools : manipulation SAM/BAM (view/sort/index/flagstat).
+#     doc : https://www.htslib.org
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/alignment.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/alignment.yml
+#
+# USAGE
+#   conda activate alignment
+#   minimap2 -ax map-ont reference.fasta reads.fastq > alignement.sam
+#   samtools sort alignement.sam -o alignement.sorted.bam
+
+name: alignment
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - minimap2
+  - bwa-mem2
+  - bowtie2
+  - samtools

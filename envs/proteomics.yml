@@ -1,0 +1,40 @@
+# Environnement : proteomics
+#
+# PURPOSE
+#   Outils de protéomique utilisés dans 19_proteomics/. La plupart des
+#   outils d'identification/quantification de ce module (MaxQuant,
+#   FragPipe, DIA-NN) ne sont volontairement PAS inclus ici : ce sont des
+#   applications distribuées comme binaires/installateurs spécifiques à la
+#   plateforme (MaxQuant : .NET/mono ; FragPipe : archive Java avec sa
+#   propre gestion de MSFragger/Philosopher ; DIA-NN : binaires GitHub
+#   Releases, pas de paquet bioconda confirmé à ce jour). Installer
+#   chacun séparément en suivant sa documentation officielle :
+#     MaxQuant : https://www.coxdocs.org
+#     FragPipe  : https://fragpipe.nesvilab.org/
+#     DIA-NN    : https://github.com/vdemichev/DiaNN/releases
+#
+# TOOLS
+#   - bioconductor-msstats : quantification différentielle statistique
+#     (section 3), seul outil de ce module directement installable comme
+#     paquet Conda/Bioconductor standard.
+#     doc : https://msstats.org/
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/proteomics.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/proteomics.yml
+#
+# USAGE
+#   conda activate proteomics
+#   R -e 'library(MSstats)'
+
+name: proteomics
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bioconductor-msstats

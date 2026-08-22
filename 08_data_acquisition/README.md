@@ -1,6 +1,4 @@
-============================================================
-MODULE 08 — ACQUISITION DE DONNÉES BIOLOGIQUES PUBLIQUES
-============================================================
+# 08 — Acquisition de données biologiques publiques
 
 OBJECTIVE
 ------------------------------------------------------------

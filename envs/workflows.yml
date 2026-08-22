@@ -1,0 +1,35 @@
+# Environnement : workflows
+#
+# PURPOSE
+#   Moteurs de workflow et outils associés utilisés dans 24_workflows/.
+#
+# TOOLS
+#   - snakemake : moteur de workflow déclaratif (section 1).
+#   - nextflow  : moteur de workflow process/channels (section 2).
+#   - nf-core   : outil d'assistance en ligne de commande pour utiliser
+#     et développer des pipelines nf-core (section 3) — distinct des
+#     pipelines eux-mêmes, qui sont exécutés directement via `nextflow
+#     run nf-core/<pipeline>` sans installation séparée.
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/workflows.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/workflows.yml
+#
+# USAGE
+#   conda activate workflows
+#   snakemake --version
+#   nextflow -version
+
+name: workflows
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - snakemake
+  - nextflow
+  - nf-core

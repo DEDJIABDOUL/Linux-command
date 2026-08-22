@@ -1,6 +1,4 @@
-============================================================
-MODULE 06 — GESTION DES ENVIRONNEMENTS : CONDA, MAMBA, BIOCONDA
-============================================================
+# 06 — Gestion des environnements : Conda, Mamba, Bioconda
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -140,15 +138,38 @@ EXERCISE: exporter l'environnement créé plus haut et examiner le fichier
 
 Le dossier `envs/` centralise les définitions d'environnements par
 domaine (pas un fichier par outil isolé — voir la charte du dépôt).
-`envs/core_tools.yml` couvre les outils génériques de manipulation
-FASTA/FASTQ utilisés dans les modules 02-05 (SeqKit). `envs/qc.yml`
-(FastQC, MultiQC, NanoPlot) et `envs/trimming.yml` (Cutadapt, fastp,
-chopper) couvrent respectivement les modules `09_quality_control/` et
-`10_adapter_trimming_filtering/`. D'autres environnements par domaine
-(assemblage, alignement...) seront ajoutés au fil des modules suivants.
 Chaque fichier `.yml` documente lui-même, en commentaire d'en-tête, son
 objectif, les outils inclus, la politique de version, l'installation et
 l'usage — pas de fichier `.md` séparé par environnement.
+
+| Fichier | Module couvert | Outils | Exclusions notables |
+|---|---|---|---|
+| `core_tools.yml` | `02_` à `05_` | SeqKit | — |
+| `qc.yml` | `09_quality_control/` | FastQC, MultiQC, NanoPlot | LongQC (compilation manuelle) |
+| `trimming.yml` | `10_adapter_trimming_filtering/` | Cutadapt, fastp, chopper | Porechop/NanoFilt (legacy, non maintenus) |
+| `assembly.yml` | `11_de_novo_assembly/` | Canu (figé 2.3), Flye, SPAdes, MEGAHIT | — |
+| `alignment.yml` | `12_sequence_alignment/` | minimap2, BWA-MEM2, Bowtie2, samtools | STAR/HISAT2 (voir `rnaseq.yml`) |
+| `assembly_quality.yml` | `13_assembly_quality/` | Racon, QUAST, BUSCO | — |
+| `annotation.yml` | `14_genome_annotation/` | Bakta, Prokka, DIAMOND, eggNOG-mapper, BLAST | BRAKER/AUGUSTUS/InterProScan (installation lourde) |
+| `rnaseq.yml` | `15_rnaseq/` | STAR, HISAT2, Subread, StringTie, Salmon, tximport, DESeq2, edgeR, limma, clusterProfiler | — |
+| `chipseq.yml` | `16_chipseq/` | MACS3, deepTools, bedtools, samtools, IDR, HOMER, Picard | — |
+| `methylation.yml` | `17_dna_methylation/` | Trim Galore, Bismark, methylKit, DSS | — |
+| `gwas.yml` | `18_gwas/` | PLINK2, bcftools, VCFtools, ADMIXTURE | — |
+| `proteomics.yml` | `19_proteomics/` | MSstats | MaxQuant/FragPipe/DIA-NN (installateurs dédiés, pas de paquet Conda simple) |
+| `metagenomics.yml` | `20_metagenomics/` | Kraken2, Bracken, MetaBAT2, CheckM2, GTDB-Tk | CheckM1 (legacy, optionnel) |
+| `variant_calling.yml` | `21_variant_analysis/` | bcftools, GATK4, Ensembl VEP, SnpEff | — |
+| `r_ecosystem.yml` | `22_r_statistics/` | Biostrings, GenomicRanges, ShortRead, ggplot2 | packages déjà couverts par `rnaseq.yml`/`methylation.yml`/`proteomics.yml` |
+| `python_bio.yml` | `23_python_bioinformatics/` | Biopython, pandas, NumPy, SciPy, pysam | — |
+| `workflows.yml` | `24_workflows/` | Snakemake, Nextflow, nf-core (l'outil CLI) | — |
+
+Les modules `25_reproducibility/` (Docker, Apptainer, Git) et `26_hpc/`
+(SLURM, Lmod) n'ont volontairement PAS de fichier `.yml` : ce sont des
+outils système/infrastructure, installés au niveau du système
+d'exploitation ou du cluster, jamais via un environnement Conda
+utilisateur — voir la note en tête de chacun de ces deux modules.
+
+Cette liste correspond à la feuille de route actuelle (01→26) ; d'autres
+environnements pourront être ajoutés avec les mini-projets (`projects/`).
 
 ```text
 DOCUMENTATION SeqKit:

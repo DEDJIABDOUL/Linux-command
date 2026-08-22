@@ -1,0 +1,44 @@
+# Environnement : assembly
+#
+# PURPOSE
+#   Outils d'assemblage de novo utilisés dans 11_de_novo_assembly/, pour
+#   reads longs (Nanopore/PacBio) et reads courts (Illumina).
+#
+# TOOLS
+#   - canu    : assemblage long-read historique, avec correction intégrée.
+#     STATUT : dernière release officielle (v2.3, 2024-12-17), déclarée
+#     définitive par les développeurs eux-mêmes. Inclus ici uniquement
+#     pour comprendre le principe et reproduire legacy/installation_and_execution.txt
+#     — voir 11_de_novo_assembly/README.md, section 1.1.
+#     doc : https://canu.readthedocs.io/en/latest/index.html
+#   - flye    : assemblage long-read actuellement recommandé (actif).
+#     doc : https://github.com/mikolmogorov/Flye
+#   - spades  : assemblage short-read (graphe de de Bruijn).
+#     doc : https://ablab.github.io/spades/
+#   - megahit : assemblage short-read ultra-rapide.
+#     doc : https://github.com/voutcn/megahit
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification), à l'exception de Canu :
+#   figer explicitement canu=2.3 est recommandé puisqu'aucune version
+#   ultérieure n'existera.
+#
+# INSTALLATION
+#   conda env create -f envs/assembly.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/assembly.yml
+#
+# USAGE
+#   conda activate assembly
+#   flye --nanopore-raw reads.fastq.gz --out-dir resultats_flye/ --threads 8
+
+name: assembly
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - canu=2.3
+  - flye
+  - spades
+  - megahit

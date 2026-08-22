@@ -1,6 +1,4 @@
-============================================================
-MODULE 19 — INTRODUCTION À LA PROTÉOMIQUE
-============================================================
+# 19 — Introduction à la protéomique
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -45,6 +43,22 @@ séquences protéiques attendues (souvent UniProt, module 08) pour inférer
 l'identité des peptides puis des protéines présentes.
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/proteomics.yml
+conda activate proteomics
+```
+
+```text
+CONTENU: MSstats uniquement — voir envs/proteomics.yml pour le détail.
+         MaxQuant, FragPipe et DIA-NN (section 2) nécessitent une
+         installation séparée (binaires/installateurs spécifiques à la
+         plateforme, pas de paquet Conda simple) — voir le commentaire
+         d'en-tête d'envs/proteomics.yml et la documentation officielle
+         de chacun.
+```
 
 # 1. Vue d'ensemble du pipeline
 
@@ -216,7 +230,13 @@ SCIENTIFIC REFERENCES
 - Kong AT, Leprevost FV, Avtonomov DM, Mellacheruvu D, Nesvizhskii AI
   (2017). "MSFragger: ultrafast and comprehensive peptide identification
   in mass spectrometry-based proteomics." Nature Methods, 14:513-520.
-  DOI: 10.1038/nmeth.4256
+  DOI: 10.1038/nmeth.4256 (référence d'origine du moteur de recherche
+  MSFragger)
+- Yu F, Teo GC, Kong AT, Fröhlich K, Li GX, Demichev V, Nesvizhskii AI
+  (2023). "Analysis of DIA proteomics data using MSFragger-DIA and
+  FragPipe computational platform." Nature Communications, 14:4154.
+  DOI: 10.1038/s41467-023-39869-5 (référence de la plateforme FragPipe
+  et de son support DIA, état actuel de l'outil)
 - Demichev V, Messner CB, Vernardis SI, Lilley KS, Ralser M (2020).
   "DIA-NN: neural networks and interference correction enable deep
   proteome coverage in high throughput." Nature Methods, 17:41-44.

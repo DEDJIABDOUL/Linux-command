@@ -1,6 +1,4 @@
-============================================================
-MODULE 14 — ANNOTATION DE GÉNOME
-============================================================
+# 14 — Annotation de génome
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -42,6 +40,22 @@ deux règnes ne doit PAS être utilisé sur l'autre.
 ```
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/annotation.yml
+conda activate annotation
+```
+
+```text
+CONTENU: bakta, prokka, diamond, eggnog-mapper, blast — voir
+         envs/annotation.yml pour le détail. BRAKER, AUGUSTUS et
+         InterProScan (sections 2 et 3.2) nécessitent une installation
+         séparée, plus lourde qu'un simple paquet Conda — voir le
+         commentaire d'en-tête d'envs/annotation.yml et la documentation
+         officielle de chacun.
+```
 
 # 1. Annotation structurale et fonctionnelle — génomes procaryotes
 
@@ -239,12 +253,27 @@ SCIENTIFIC REFERENCES
   automatic eukaryotic genome annotation with GeneMark-EP+ and AUGUSTUS
   supported by a protein database." NAR Genomics and Bioinformatics,
   3(1):lqaa108. DOI: 10.1093/nargab/lqaa108
+- Stanke M, Waack S (2003). "Gene prediction with a hidden Markov model
+  and a new intron submodel." Bioinformatics, 19(Suppl 2):ii215-ii225.
+  DOI: 10.1093/bioinformatics/btg1080 (référence d'origine d'AUGUSTUS,
+  utilisé au sein de BRAKER)
 - Altschul SF, Gish W, Miller W, Myers EW, Lipman DJ (1990). "Basic local
   alignment search tool." Journal of Molecular Biology, 215(3):403-410.
-  DOI: 10.1016/S0022-2836(05)80360-2
+  DOI: 10.1016/S0022-2836(05)80360-2 (référence historique fondatrice de
+  l'algorithme BLAST)
+- Camacho C et al. (2009). "BLAST+: architecture and applications." BMC
+  Bioinformatics, 10:421. DOI: 10.1186/1471-2105-10-421 (référence de la
+  suite en ligne de commande BLAST+ réellement utilisée aujourd'hui, dont
+  `blastp` fait partie — voir section 3.1)
 - Buchfink B, Xie C, Huson DH (2015). "Fast and sensitive protein
   alignment using DIAMOND." Nature Methods, 12:59-60.
   DOI: 10.1038/nmeth.3176
+- Jones P et al. (2014). "InterProScan 5: genome-scale protein function
+  classification." Bioinformatics, 30(9):1236-1240.
+  DOI: 10.1093/bioinformatics/btu031 (référence d'origine d'InterProScan 5)
+- Blum M et al. (2021). "The InterPro protein families and domains
+  database: 20 years on." Nucleic Acids Research, 49(D1):D344-D354.
+  DOI: 10.1093/nar/gkaa977 (état actuel de la base InterPro sous-jacente)
 - Cantalapiedra CP, Hernández-Plaza A, Letunic I, Bork P, Huerta-Cepas J
   (2021). "eggNOG-mapper v2: Functional Annotation, Orthology
   Assignments, and Domain Prediction at the Metagenomic Scale."

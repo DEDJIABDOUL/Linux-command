@@ -1,0 +1,36 @@
+# Environnement : python_bio
+#
+# PURPOSE
+#   Bibliothèques Python généralistes et bioinformatiques utilisées dans
+#   23_python_bioinformatics/.
+#
+# TOOLS
+#   - biopython : manipulation de séquences biologiques (section 1).
+#   - pandas    : données tabulaires (section 2).
+#   - numpy     : calcul numérique (section 3).
+#   - scipy     : routines statistiques et numériques (section 3).
+#   - pysam     : interface Python à htslib (SAM/BAM/VCF/BCF, section 4).
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/python_bio.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/python_bio.yml
+#
+# USAGE
+#   conda activate python_bio
+#   python -c "from Bio import SeqIO; [print(r.id) for r in SeqIO.parse('linux/genome.fasta', 'fasta')]"
+
+name: python_bio
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - biopython
+  - pandas
+  - numpy
+  - scipy
+  - pysam

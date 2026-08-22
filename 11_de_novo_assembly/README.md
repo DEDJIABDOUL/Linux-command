@@ -1,6 +1,4 @@
-============================================================
-MODULE 11 — ASSEMBLAGE DE NOVO
-============================================================
+# 11 — Assemblage de novo
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -40,6 +38,19 @@ généralement un assemblage médiocre, même avec des données de bonne
 qualité.
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/assembly.yml
+conda activate assembly
+```
+
+```text
+CONTENU: canu (figé à 2.3, dernière version), flye, spades, megahit —
+         voir envs/assembly.yml pour le détail et la justification du
+         choix de chaque outil.
+```
 
 # 1. Statut vérifié des outils du fichier legacy
 
@@ -175,9 +186,13 @@ SCIENTIFIC REFERENCES
 - Kolmogorov M, Yuan J, Lin Y, Pevzner PA (2019). "Assembly of long,
   error-prone reads using repeat graphs." Nature Biotechnology,
   37:540-546. DOI: 10.1038/s41587-019-0072-8
+- Bankevich A et al. (2012). "SPAdes: a new genome assembly algorithm and
+  its applications to single-cell sequencing." Journal of Computational
+  Biology, 19(5):455-477. DOI: 10.1089/cmb.2012.0021
 - Li D, Liu CM, Luo R, Sadakane K, Lam TW (2015). "MEGAHIT: an ultra-fast
   single-node solution for large and complex metagenomics assembly via
   succinct de Bruijn graph." Bioinformatics, 31(10):1674-1676.
+  DOI: 10.1093/bioinformatics/btv033
 
 NEXT MODULE
 ------------------------------------------------------------

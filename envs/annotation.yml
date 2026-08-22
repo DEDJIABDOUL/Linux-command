@@ -1,0 +1,51 @@
+# Environnement : annotation
+#
+# PURPOSE
+#   Outils d'annotation légers et directement installables via Conda,
+#   utilisés dans 14_genome_annotation/. BRAKER, AUGUSTUS et InterProScan
+#   ne sont volontairement PAS inclus ici : leur installation dépasse un
+#   simple paquet Conda (GeneMark-ES/ET nécessite un enregistrement et une
+#   clé de licence séparée pour BRAKER/AUGUSTUS ; InterProScan requiert un
+#   téléchargement manuel de plusieurs Go de données de bases externes).
+#   Suivre la documentation officielle de chacun avant de les utiliser :
+#     BRAKER  : https://github.com/Gaius-Augustus/BRAKER/wiki
+#     AUGUSTUS: https://github.com/Gaius-Augustus/Augustus
+#     InterProScan : https://interproscan-docs.readthedocs.io/
+#
+# TOOLS
+#   - bakta         : annotation standardisée de génomes bactériens (module 14, 1.1).
+#     doc : https://github.com/oschwengers/bakta
+#   - prokka        : inclus pour reproduire legacy/installation_and_execution.txt
+#     et comparer à Bakta (voir module 14, section 1.1). Non maintenu par
+#     son auteur, qui recommande explicitement Bakta.
+#     doc : https://github.com/tseemann/prokka
+#   - diamond       : recherche de similarité protéique accélérée (module 14, 3.1).
+#     doc : https://github.com/bbuchfink/diamond/wiki
+#   - eggnog-mapper : annotation fonctionnelle par orthologie (module 14, 3.2).
+#     doc : https://github.com/eggnogdb/eggnog-mapper/wiki
+#   - blast         : blastp/blastn (module 14, 3.1) — paquet bioconda "blast".
+#     doc : https://www.ncbi.nlm.nih.gov/books/NBK279690/
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/annotation.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/annotation.yml
+#
+# USAGE
+#   conda activate annotation
+#   bakta --db chemin_vers_base_bakta genome_bacterien.fasta -o resultats_bakta/
+
+name: annotation
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bakta
+  - prokka
+  - diamond
+  - eggnog-mapper
+  - blast

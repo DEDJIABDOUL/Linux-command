@@ -1,0 +1,42 @@
+# Environnement : metagenomics
+#
+# PURPOSE
+#   Outils de profilage taxonomique, binning et classification utilisés
+#   dans 20_metagenomics/. MEGAHIT (assemblage, section 4.1) est déjà
+#   dans envs/assembly.yml (module 11).
+#
+# TOOLS
+#   - kraken2 : profilage taxonomique par k-mers (section 2). Nécessite
+#     une base de référence téléchargée séparément (non incluse ici).
+#   - bracken : ré-estimation d'abondance à partir de Kraken2 (section 2).
+#   - metabat2: binning de contigs (section 4.2).
+#   - checkm2 : qualité de MAG, recommandé (section 4.3). CheckM1
+#     (legacy, toujours maintenu) n'est pas inclus par défaut — ajouter
+#     le paquet "checkm-genome" séparément si une comparaison est requise.
+#   - gtdbtk  : classification taxonomique de MAGs (section 4.4).
+#     Nécessite le téléchargement séparé de la base de référence GTDB
+#     (plusieurs dizaines de Go) — voir la documentation officielle.
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/metagenomics.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/metagenomics.yml
+#
+# USAGE
+#   conda activate metagenomics
+#   kraken2 --db base_kraken2/ --paired R1.fastq.gz R2.fastq.gz --report rapport.txt --output classification.txt
+
+name: metagenomics
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - kraken2
+  - bracken
+  - metabat2
+  - checkm2
+  - gtdbtk

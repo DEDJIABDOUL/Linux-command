@@ -1,0 +1,49 @@
+# Environnement : rnaseq
+#
+# PURPOSE
+#   Outils d'alignement, quantification et analyse différentielle RNA-seq
+#   utilisés dans 15_rnaseq/. Inclut STAR et HISAT2, annoncés comme
+#   couverts ici depuis envs/alignment.yml (module 12).
+#
+# TOOLS
+#   - star            : aligneur RNA-seq tolérant à l'épissage.
+#   - hisat2          : aligneur RNA-seq, économe en mémoire.
+#   - subread         : fournit featureCounts (comptage par gène).
+#   - stringtie       : assemblage/quantification de transcrits.
+#   - salmon          : pseudoalignement / quantification de transcrits.
+#   - bioconductor-tximport       : import transcrit → gène (R).
+#   - bioconductor-deseq2         : expression différentielle (R).
+#   - bioconductor-edger          : expression différentielle (R).
+#   - bioconductor-limma          : modèles linéaires (R).
+#   - bioconductor-clusterprofiler: enrichissement fonctionnel (R).
+#   Documentation de chaque outil : voir 15_rnaseq/README.md, section
+#   DOCUMENTATION.
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/rnaseq.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/rnaseq.yml
+#
+# USAGE
+#   conda activate rnaseq
+#   salmon index -t transcriptome.fasta -i index_salmon/
+
+name: rnaseq
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - star
+  - hisat2
+  - subread
+  - stringtie
+  - salmon
+  - bioconductor-tximport
+  - bioconductor-deseq2
+  - bioconductor-edger
+  - bioconductor-limma
+  - bioconductor-clusterprofiler

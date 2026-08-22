@@ -1,6 +1,4 @@
-============================================================
-MODULE 24 — WORKFLOWS FORMELS : SNAKEMAKE, NEXTFLOW, NF-CORE
-============================================================
+# 24 — Workflows formels : Snakemake, Nextflow, nf-core
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -49,6 +47,19 @@ construite sur ces mêmes concepts.
 ```
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/workflows.yml
+conda activate workflows
+```
+
+```text
+CONTENU: snakemake, nextflow, nf-core (l'outil d'assistance en ligne de
+         commande, distinct des pipelines eux-mêmes) — voir
+         envs/workflows.yml pour le détail.
+```
 
 # 1. Snakemake
 

@@ -1,6 +1,4 @@
-============================================================
-MODULE 18 — GWAS (GENOME-WIDE ASSOCIATION STUDY)
-============================================================
+# 18 — GWAS (Genome-Wide Association Study)
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -42,6 +40,18 @@ faux positifs dus au bruit technique ou à la stratification de population,
 pas à une réalité biologique.
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/gwas.yml
+conda activate gwas
+```
+
+```text
+CONTENU: plink2, bcftools, vcftools, admixture — voir envs/gwas.yml pour
+         le détail.
+```
 
 # 1. Pipeline général
 

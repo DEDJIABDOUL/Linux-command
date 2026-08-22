@@ -1,0 +1,38 @@
+# Environnement : variant_calling
+#
+# PURPOSE
+#   Outils d'appel de variants, filtrage et annotation fonctionnelle
+#   utilisés dans 21_variant_analysis/, en amont du GWAS (module 18).
+#
+# TOOLS
+#   - bcftools : pipeline de variant calling léger (section 2.1) et
+#     filtrage (section 3). Même paquet que dans envs/gwas.yml.
+#   - gatk4    : appel de variants germline/somatique rigoureux (section 2.2).
+#     doc : https://gatk.broadinstitute.org/hc/en-us/categories/360002302312-Getting-Started
+#   - vep      : prédiction d'effet fonctionnel des variants (section 4.1).
+#     doc : https://www.ensembl.org/info/docs/tools/vep/index.html
+#   - snpeff   : alternative à VEP (section 4.2).
+#     doc : https://pcingola.github.io/SnpEff/
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/variant_calling.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/variant_calling.yml
+#
+# USAGE
+#   conda activate variant_calling
+#   bcftools mpileup -f reference.fasta alignement.bam | bcftools call -mv -Oz -o variants.vcf.gz
+
+name: variant_calling
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bcftools
+  - gatk4
+  - ensembl-vep
+  - snpeff

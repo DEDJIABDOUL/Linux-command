@@ -1,0 +1,35 @@
+# Environnement : methylation
+#
+# PURPOSE
+#   Outils de préparation, alignement bisulfite et analyse différentielle
+#   de méthylation utilisés dans 17_dna_methylation/.
+#
+# TOOLS
+#   - trim-galore : wrapper Cutadapt+FastQC, mode RRBS (section 1).
+#   - bismark     : alignement bisulfite et methylation calling (section 2).
+#   - bioconductor-methylkit : analyse différentielle de méthylation (R).
+#   - bioconductor-dss       : DML/DMR par modèle bayésien, faible
+#     réplication (R).
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/methylation.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/methylation.yml
+#
+# USAGE
+#   conda activate methylation
+#   bismark_genome_preparation dossier_reference/
+
+name: methylation
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - trim-galore
+  - bismark
+  - bioconductor-methylkit
+  - bioconductor-dss

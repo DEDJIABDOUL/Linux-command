@@ -368,3 +368,23 @@ effectuées sur l'ensemble du dépôt :
    exécution sur `linux/`) des scripts expliqués dans `04_bash_scripting/README.md`,
    plus `scripts/README.md`. Référencé depuis le module 04 et depuis
    `README.md` (table « Architecture du dépôt »).
+
+## 16. RÈGLES DE STYLE ET DE RÉFÉRENCEMENT (mise à jour 2026-08-22)
+
+Sur demande explicite de l'utilisateur, deux règles supplémentaires s'appliquent
+désormais à tous les modules, passés et futurs :
+
+1. **Pas de bannière `====`** : les titres de module utilisent un simple
+   titre Markdown (`# NN — Titre`), jamais un encadrement en `====`. Retiré
+   des 26 modules (`01_linux_basics/` à `26_hpc/`), y compris le bloc de
+   clôture de `26_hpc/README.md`.
+2. **Références toujours à jour** : quand un outil dispose d'un article
+   fondateur ancien ET d'un article de mise à jour plus récent décrivant la
+   version réellement utilisée aujourd'hui, les DEUX doivent être cités,
+   avec une note distinguant leur rôle (fondateur / état actuel) — jamais
+   l'un à la place de l'autre (voir §52 de la charte pédagogique originale :
+   FOUNDATIONAL PAPER vs RECENT RECOMMENDATION). Appliqué rétroactivement à
+   BLAST (Altschul 1990 + Camacho et al. 2009 pour BLAST+), et à SAMtools
+   (Li et al. 2009 + Danecek et al. 2021 « Twelve years of SAMtools and
+   BCFtools ») dans `05_biological_formats/` et `12_sequence_alignment/`.
+   Cette règle continuera d'être appliquée à chaque nouvelle citation.

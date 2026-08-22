@@ -1,0 +1,43 @@
+# Environnement : chipseq
+#
+# PURPOSE
+#   Outils de peak calling, QC et analyse de motifs utilisés dans
+#   16_chipseq/. bedtools et samtools sont déjà dans envs/alignment.yml
+#   (module 12) mais repris ici en dépendance pour que cet environnement
+#   soit autonome.
+#
+# TOOLS
+#   - macs3    : peak calling (voir 16_chipseq/README.md, section 3, pour
+#     le statut vérifié MACS2 -> MACS3).
+#   - deeptools: bamCoverage, plotFingerprint, multiBamSummary.
+#   - bedtools : intersections/arithmétique d'intervalles (FRiP notamment).
+#   - samtools : filtrage post-alignement (section 2.1).
+#   - idr      : reproductibilité entre réplicats.
+#   - homer    : découverte de motifs (findMotifsGenome.pl).
+#   - picard   : marquage des doublons PCR (MarkDuplicates).
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/chipseq.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/chipseq.yml
+#
+# USAGE
+#   conda activate chipseq
+#   macs3 callpeak -t chip.final.bam -c input.final.bam -f BAM -g hs -n echantillon
+
+name: chipseq
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - macs3
+  - deeptools
+  - bedtools
+  - samtools
+  - idr
+  - homer
+  - picard

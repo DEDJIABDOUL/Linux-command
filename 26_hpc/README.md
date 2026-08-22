@@ -1,6 +1,4 @@
-============================================================
-MODULE 26 — CALCUL HAUTE PERFORMANCE (HPC)
-============================================================
+# 26 — Calcul haute performance (HPC)
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -24,6 +22,19 @@ arbitre l'accès au CPU, à la RAM et au temps de calcul — jamais en accès
 direct et illimité comme sur une machine personnelle.
 
 ---
+
+# 0. Environnement de ce module
+
+```text
+EXCEPTION AU PATRON DES MODULES PRÉCÉDENTS: SLURM et Lmod sont des
+         infrastructures installées et administrées par l'équipe du
+         cluster HPC, jamais par un utilisateur individuel via Conda —
+         il n'y a donc pas d'envs/*.yml pour ce module. L'utilisateur se
+         contente d'utiliser les commandes SLURM déjà présentes sur le
+         cluster (section 2), et charge ses propres outils via `module
+         load` (section 3) ou via un environnement Conda créé avec les
+         fichiers des modules précédents, activé DANS le script de job.
+```
 
 # 1. Ressources système — rappel et approfondissement (module 01)
 
@@ -207,11 +218,16 @@ DOCUMENTATION
 - SLURM — https://slurm.schedmd.com/documentation.html
 - Lmod — https://lmod.readthedocs.io/ · source : https://github.com/TACC/Lmod
 
+SCIENTIFIC REFERENCES
+------------------------------------------------------------
+- Yoo AB, Jette MA, Grondona M (2003). "SLURM: Simple Linux Utility for
+  Resource Management." In: Job Scheduling Strategies for Parallel
+  Processing (JSSPP 2003), Lecture Notes in Computer Science, 2862:44-60.
+  DOI: 10.1007/10968987_3
+
 ---
 
-============================================================
-FIN DE LA FEUILLE DE ROUTE NUMÉROTÉE (01 → 26)
-============================================================
+## Fin de la feuille de route numérotée (01 → 26)
 
 Ce module clôt le parcours structuré Linux → bioinformatique
 professionnelle. Voir `docs/audit_report.md` pour la trajectoire complète

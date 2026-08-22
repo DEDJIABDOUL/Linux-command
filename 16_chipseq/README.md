@@ -1,6 +1,4 @@
-============================================================
-MODULE 16 — CHIP-SEQ : DE FASTQ AUX PICS D'ENRICHISSEMENT
-============================================================
+# 16 — ChIP-seq : de FASTQ aux pics d'enrichissement
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -38,6 +36,18 @@ ChIP-seq sans contrôle input n'est généralement pas interprétable de
 façon fiable.
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/chipseq.yml
+conda activate chipseq
+```
+
+```text
+CONTENU: macs3, deeptools, bedtools, samtools, idr, homer, picard — voir
+         envs/chipseq.yml pour le détail.
+```
 
 # 1. Pipeline général
 
@@ -274,6 +284,10 @@ SCIENTIFIC REFERENCES
 - Landt SG et al. (2012). "ChIP-seq guidelines and practices of the
   ENCODE and modENCODE consortia." Genome Research, 22(9):1813-1831.
   DOI: 10.1101/gr.136184.111
+- Li Q, Brown JB, Huang H, Bickel PJ (2011). "Measuring reproducibility
+  of high-throughput experiments." The Annals of Applied Statistics,
+  5(3):1752-1779. DOI: 10.1214/11-AOAS466 (référence méthodologique de
+  l'IDR)
 - Heinz S et al. (2010). "Simple Combinations of Lineage-Determining
   Transcription Factors Prime cis-Regulatory Elements Required for
   Macrophage and B Cell Identities." Molecular Cell, 38(4):576-589.

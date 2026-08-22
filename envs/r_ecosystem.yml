@@ -1,0 +1,37 @@
+# Environnement : r_ecosystem
+#
+# PURPOSE
+#   Packages R/Bioconductor transversaux utilisés dans 22_r_statistics/.
+#   Les packages déjà installés dans d'autres environnements du dépôt
+#   (DESeq2, edgeR, limma, clusterProfiler dans envs/rnaseq.yml ;
+#   methylKit, DSS dans envs/methylation.yml ; MSstats dans
+#   envs/proteomics.yml) ne sont pas dupliqués ici.
+#
+# TOOLS
+#   - bioconductor-biostrings     : manipulation de séquences biologiques (section 2).
+#   - bioconductor-genomicranges  : intervalles génomiques (section 3).
+#   - bioconductor-shortread      : manipulation de FASTQ en R (section 4).
+#   - r-ggplot2                   : grammaire des graphiques (section 5).
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/r_ecosystem.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/r_ecosystem.yml
+#
+# USAGE
+#   conda activate r_ecosystem
+#   R -e 'library(Biostrings); readDNAStringSet("linux/genome.fasta")'
+
+name: r_ecosystem
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bioconductor-biostrings
+  - bioconductor-genomicranges
+  - bioconductor-shortread
+  - r-ggplot2

@@ -1,6 +1,4 @@
-============================================================
-MODULE 09 — CONTRÔLE QUALITÉ (QC) DES DONNÉES DE SÉQUENÇAGE
-============================================================
+# 09 — Contrôle qualité (QC) des données de séquençage
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -232,9 +230,17 @@ DOCUMENTATION
 
 SCIENTIFIC REFERENCES
 ------------------------------------------------------------
-- De Coster W, Rademakers R (2023). "NanoPack2: population-scale
-  evaluation of long-read sequencing data." Bioinformatics, 39(5):btad311.
-  DOI: 10.1093/bioinformatics/btad311
+- Andrews S (2010). "FastQC: A Quality Control Tool for High Throughput
+  Sequence Data" [logiciel, sans publication associée — citation du
+  logiciel lui-même]. https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+- Ewels P, Magnusson M, Lundin S, Käller M (2016). "MultiQC: summarize
+  analysis results for multiple tools and samples in a single report."
+  Bioinformatics, 32(19):3047-3048. DOI: 10.1093/bioinformatics/btw354
+- De Coster W, D'Hert S, Schultz DT, Cruts M, Van Broeckhoven C (2018).
+  "NanoPack: visualizing and processing long-read sequencing data."
+  Bioinformatics, 34(15):2666-2669. DOI: 10.1093/bioinformatics/bty149
+  (référence d'origine de NanoPlot ; mis à jour par NanoPack2, De Coster
+  & Rademakers 2023, DOI: 10.1093/bioinformatics/btad311)
 - Fukasawa Y, Ermini L, Wang H, Carty K, Cheung MS (2020). "LongQC: A
   Quality Control Tool for Third Generation Sequencing Long Read Data."
   G3 (Bethesda), 10(4):1193-1196. DOI: 10.1534/g3.119.400864

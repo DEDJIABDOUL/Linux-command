@@ -1,0 +1,37 @@
+# Environnement : gwas
+#
+# PURPOSE
+#   Outils de génotypage, QC, structure de population et association
+#   utilisés dans 18_gwas/.
+#
+# TOOLS
+#   - plink2    : QC, PCA, test d'association (sections 2 à 4).
+#   - bcftools  : manipulation de VCF/BCF (déjà en usage depuis le
+#     module 21_variant_analysis/, en amont du GWAS).
+#   - vcftools  : manipulation de VCF historique — activité de mise à
+#     jour réduite, voir 18_gwas/README.md pour le détail ; bcftools
+#     reste l'option recommandée pour les nouveaux usages.
+#   - admixture : estimation d'ascendance/structure de population (section 3).
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/gwas.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/gwas.yml
+#
+# USAGE
+#   conda activate gwas
+#   plink2 --bfile donnees --missing --out qc_missing
+
+name: gwas
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - plink2
+  - bcftools
+  - vcftools
+  - admixture

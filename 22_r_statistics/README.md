@@ -1,6 +1,4 @@
-============================================================
-MODULE 22 — R ET BIOCONDUCTOR POUR LA BIOINFORMATIQUE
-============================================================
+# 22 — R et Bioconductor pour la bioinformatique
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -23,6 +21,21 @@ lui-même et les packages transversaux de manipulation de données
 génomiques (Biostrings, GenomicRanges, ShortRead, ggplot2).
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/r_ecosystem.yml
+conda activate r_ecosystem
+```
+
+```text
+CONTENU: Biostrings, GenomicRanges, ShortRead, ggplot2 — voir
+         envs/r_ecosystem.yml pour le détail. DESeq2, edgeR, limma,
+         methylKit, DSS, clusterProfiler, MSstats (déjà rencontrés dans
+         les modules 15-19) restent dans leurs environnements respectifs,
+         pas dupliqués ici.
+```
 
 # 1. Bioconductor — l'écosystème, pas juste des packages
 
@@ -176,6 +189,12 @@ SCIENTIFIC REFERENCES
 - Lawrence M et al. (2013). "Software for Computing and Annotating
   Genomic Ranges." PLoS Computational Biology, 9(8):e1003118.
   DOI: 10.1371/journal.pcbi.1003118
+- Morgan M, Anders S, Lawrence M, Aboyoun P, Pagès H, Gentleman R (2009).
+  "ShortRead: a bioconductor package for input, quality assessment and
+  exploration of high-throughput sequence data." Bioinformatics,
+  25(19):2607-2608. DOI: 10.1093/bioinformatics/btp450
+- Wickham H (2016). "ggplot2: Elegant Graphics for Data Analysis."
+  Springer-Verlag New York. ISBN: 978-3-319-24277-4
 
 NEXT MODULE
 ------------------------------------------------------------

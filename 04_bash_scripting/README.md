@@ -1,6 +1,4 @@
-============================================================
-MODULE 04 — BASH SCRIPTING POUR PIPELINES BIOINFORMATIQUES
-============================================================
+# 04 — Bash scripting pour pipelines bioinformatiques
 
 OBJECTIVE
 ------------------------------------------------------------

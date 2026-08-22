@@ -1,6 +1,4 @@
-============================================================
-MODULE 15 — RNA-SEQ : DE FASTQ À L'INTERPRÉTATION BIOLOGIQUE
-============================================================
+# 15 — RNA-seq : de FASTQ à l'interprétation biologique
 
 OBJECTIVE
 ------------------------------------------------------------
@@ -26,6 +24,19 @@ accélérateur, jamais comme une boîte noire.
 ```
 
 ---
+
+# 0. Environnement de ce module
+
+```bash
+conda env create -f envs/rnaseq.yml
+conda activate rnaseq
+```
+
+```text
+CONTENU: STAR, HISAT2, subread (featureCounts), StringTie, Salmon,
+         tximport, DESeq2, edgeR, limma, clusterProfiler — voir
+         envs/rnaseq.yml pour le détail.
+```
 
 # 1. Vue d'ensemble du pipeline
 
@@ -326,6 +337,12 @@ SCIENTIFIC REFERENCES
 - Robinson MD, McCarthy DJ, Smyth GK (2010). "edgeR: a Bioconductor
   package for differential expression analysis of digital gene expression
   data." Bioinformatics, 26(1):139-140. DOI: 10.1093/bioinformatics/btp616
+  (référence d'origine d'edgeR)
+- Chen Y, Chen L, Lun ATL, Baldoni PL, Smyth GK (2025). "edgeR v4:
+  powerful differential analysis of sequencing data with expanded
+  functionality and improved support for small counts and larger
+  datasets." Nucleic Acids Research, 53(2):gkaf018.
+  DOI: 10.1093/nar/gkaf018 (état actuel du package, octobre 2023)
 - Ritchie ME et al. (2015). "limma powers differential expression
   analyses for RNA-sequencing and microarray studies." Nucleic Acids
   Research, 43(7):e47. DOI: 10.1093/nar/gkv007
