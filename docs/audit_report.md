@@ -388,3 +388,101 @@ désormais à tous les modules, passés et futurs :
    (Li et al. 2009 + Danecek et al. 2021 « Twelve years of SAMtools and
    BCFtools ») dans `05_biological_formats/` et `12_sequence_alignment/`.
    Cette règle continuera d'être appliquée à chaque nouvelle citation.
+
+## 17. PROJET FINAL INTÉGRATEUR LIVRÉ (mise à jour 2026-08-30)
+
+Le premier des deux chantiers listés en section 14 (« Reste à faire »)
+est désormais livré : `projects/final_project_ltee_ecoli/`, un projet
+qui applique bout à bout le parcours `01_linux_basics/` → `26_hpc/` sur
+une vraie question biologique.
+
+**Choix du sujet** : accumulation de mutations dans la population
+*Escherichia coli* Ara-3 de la Long-Term Evolution Experiment (Lenski
+lab), entre les générations 5 000, 15 000 et 50 000, par rapport à
+l'ancêtre REL606. Choisi après comparaison avec deux autres candidats
+(RNA-seq différentiel chez la levure ; assemblage/annotation Nanopore
+réutilisant `SRR18392380`), retenu pour sa couverture maximale du
+parcours (acquisition → QC → trimming → alignement → variant calling →
+annotation → synthèse statistique) et pour l'existence d'une vérité
+biologique publiée et vérifiable, plutôt qu'un simple VCF isolé sans
+contexte interprétable.
+
+**Données et références, vérifiées par recherche officielle avant
+utilisation** (jamais d'accession ni de DOI inventés) :
+- 3 accessions SRA réelles (`SRR2589044`, `SRR2584863`, `SRR2584866`),
+  également utilisées par la leçon officielle Data Carpentry
+  *Wrangling and Processing for Genomics* — double vérifiabilité.
+- Référence *E. coli* B str. REL606 : `CP000819.1` /
+  assemblage `GCA_000017985.1`.
+- Trois références scientifiques à rôles distincts : Jeong et al. 2009
+  *J Mol Biol* (génome de référence), Blount et al. 2008 *PNAS*
+  (découverte fondatrice du phénotype Cit+ dans Ara-3), Blount et al.
+  2012 *Nature* (base génomique du trait, état actuel/mécanisme).
+
+**Piège de citation écarté pendant la vérification** : Barrick et al.
+2009 (*Nature*, DOI 10.1038/nature08480), qui porte sur la même
+expérience LTEE mais séquence la population **Ara-1** et non Ara-3, a
+été identifié comme non pertinent pour ce projet et volontairement
+exclu des références — malgré une ressemblance de sujet qui aurait pu
+conduire à une citation incorrecte.
+
+**Décisions méthodologiques documentées dans le README du projet** :
+`bcftools csq` choisi plutôt que VEP/SnpEff pour l'annotation
+fonctionnelle (génome bactérien custom sans base précompilée) ;
+`samtools markdup` choisi plutôt que Picard MarkDuplicates pour éviter
+une dépendance croisée à `envs/chipseq.yml`.
+
+**Fichiers créés** : `projects/final_project_ltee_ecoli/{README.md,
+config.yaml, Snakefile, data/metadata/samples.tsv,
+scripts/summarize_variants.py}`, `envs/data_acquisition.yml` (nouveau —
+comblait un manque réel : le module 08 documentait `prefetch`/
+`fasterq-dump` sans environnement Conda dédié). `envs/python_bio.yml`
+étendu avec `matplotlib` et `pyyaml`, utilisés par
+`scripts/summarize_variants.py` (les deux ajoutés à
+`docs/tools_reference.md`, avec documentation officielle vérifiée).
+`projects/README.md` et `README.md` (racine) mis à jour en conséquence.
+
+**Limite explicitement documentée dans le projet** : aucun jeu de
+variants de vérité terrain publié n'existe pour ces 3 clones précis —
+contrairement à un jeu de benchmark formel. L'interprétation attendue
+reste une tendance illustrative (accumulation croissante de variants
+avec la génération), pas un résultat statistiquement validé en soi.
+
+**Vérification effectuée dans cette session (rédaction)** : aucun outil
+bioinformatique n'étant installé au moment de la rédaction, seule une
+vérification à froid a été menée : `scripts/summarize_variants.py`
+testé de bout en bout contre un VCF synthétique local, `Snakefile` relu
+manuellement contre la syntaxe du module 24 et la documentation
+officielle Snakemake. Cette relecture a détecté et corrigé un vrai bug
+de correction biologique : la règle `align` triait par coordonnée avant
+`samtools fixmate`, qui exige des reads groupés par nom — corrigé en
+retirant le tri prématuré (voir commentaires dans le `Snakefile`,
+règles `align`/`markdup`).
+
+**Exécution réelle effectuée ensuite, sur demande explicite de
+l'utilisateur** (mise à jour 2026-08-30, même session) : bwa-mem2,
+samtools, bcftools, fastp installés via Conda ; les 3 échantillons réels
+téléchargés depuis ENA (confirmés : 263/374/634 Mo, total 1,27 Go,
+tailles identiques à celles annoncées par l'API ENA avant
+téléchargement) ; pipeline complet exécuté (trimming → alignement →
+dédoublonnage → variant calling → filtrage → annotation) en ~4 minutes
+sur les 3 échantillons. Résultat réel : 42 variants filtrés (gen5000),
+29 (gen15000), 812 (gen50000) — profondeurs moyennes respectives 56,7x,
+79,3x, 141,7x. Le bond à gen50000 (×28, très supérieur au facteur de
+profondeur ×1,8) a été recoupé avec la littérature (recherche officielle
+menée avant toute affirmation) : Maddamsetti & Grant (2020, *Genome
+Biology and Evolution*, DOI 10.1093/gbe/evaa178) documentent un
+phénotype hypermutateur (défaut *mutS*) apparu dans Ara-3 vers la
+génération 34 750 — entre les échantillons gen15000 et gen50000 de ce
+projet, ce qui rend le résultat observé cohérent avec une explication
+biologique publiée plutôt qu'un simple artefact. Détail complet et
+limites (profondeurs inégales, non contrôlées) dans
+`projects/final_project_ltee_ecoli/README.md`, section 5 (ACTUAL
+RESULTS). Fichiers de résultats (`results/`) volontairement non
+versionnés (`.gitignore`), conservés localement uniquement.
+
+**Reste à faire** : les mini-projets par domaine (toujours en attente,
+voir `projects/README.md`) et les trois tableaux de référence
+complémentaires (`docs/formats_reference.md`,
+`docs/linux_commands_reference.md`, `docs/pipelines_reference.md`),
+non traités dans cette session — hors périmètre de la demande.

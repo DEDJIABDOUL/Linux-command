@@ -59,9 +59,12 @@ Métagénomique (20) → Variant calling (21) → R/Bioconductor (22) → Python
 Workflows Snakemake/Nextflow/nf-core (24) → Conteneurs & Git (25) → HPC (26)
 ```
 
-**Les 26 modules ci-dessus sont tous rédigés.** La suite naturelle,
-mini-projets et projet final intégrateur, reste à construire dans
-`projects/` (voir `docs/audit_report.md`).
+**Les 26 modules ci-dessus sont tous rédigés.** Le projet final
+intégrateur est désormais livré dans
+[`projects/final_project_ltee_ecoli/`](projects/final_project_ltee_ecoli/README.md)
+(accumulation de variants dans une population *E. coli* de la Long-Term
+Evolution Experiment, Lenski lab). Les mini-projets par domaine restent
+à construire (voir `projects/README.md` et `docs/audit_report.md`).
 
 ## Architecture du dépôt
 
@@ -106,9 +109,10 @@ mini-projets et projet final intégrateur, reste à construire dans
 | [`25_reproducibility`](25_reproducibility/README.md) | Conteneurs (Docker/Apptainer), Git/GitHub |
 | [`26_hpc`](26_hpc/README.md) | SLURM, modules logiciels, bonnes pratiques cluster |
 
-Les 26 modules de la feuille de route sont désormais tous disponibles.
-La suite (mini-projets, projet final) est planifiée dans `projects/`,
-voir `docs/audit_report.md`, section « Implementation roadmap ».
+Les 26 modules de la feuille de route sont désormais tous disponibles,
+ainsi que le projet final intégrateur (`projects/final_project_ltee_ecoli/`).
+Les mini-projets par domaine restent planifiés dans `projects/`, voir
+`docs/audit_report.md`, section « Implementation roadmap ».
 
 ## Jeux de données
 

@@ -1,0 +1,4 @@
+sample_id	sra_accession	organism	population	generation	technology	strategy	submitted_by
+gen5000	SRR2589044	Escherichia coli	Ara-3	5000	Illumina	WGS	Data Carpentry / Lenski lab (LTEE)
+gen15000	SRR2584863	Escherichia coli	Ara-3	15000	Illumina	WGS	Data Carpentry / Lenski lab (LTEE)
+gen50000	SRR2584866	Escherichia coli	Ara-3	50000	Illumina	WGS	Data Carpentry / Lenski lab (LTEE)

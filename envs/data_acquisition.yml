@@ -1,0 +1,35 @@
+# Environnement : data_acquisition
+#
+# PURPOSE
+#   SRA Toolkit, pour télécharger de vraies données publiques de
+#   séquençage documentées dans 08_data_acquisition/ (prefetch,
+#   fasterq-dump). Ce fichier manquait jusqu'ici : le module 08
+#   documente ces commandes sans environnement Conda dédié ; comblé à
+#   l'occasion du projet final (projects/final_project_ltee_ecoli/).
+#
+# TOOLS
+#   - sra-tools (prefetch, fasterq-dump) : téléchargement/conversion de
+#     runs NCBI SRA en FASTQ.
+#     doc : https://github.com/ncbi/sra-tools/wiki/08.-prefetch-and-fasterq-dump
+#     source : https://github.com/ncbi/sra-tools
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/data_acquisition.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/data_acquisition.yml
+#
+# USAGE
+#   conda activate data_acquisition
+#   prefetch SRR18392380
+#   fasterq-dump SRR18392380
+
+name: data_acquisition
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - sra-tools

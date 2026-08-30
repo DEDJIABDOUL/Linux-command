@@ -110,6 +110,8 @@ aucune n'est inventée.
 | NumPy | Python / calcul numérique | Tableaux numériques | https://numpy.org/doc/ | — | Actif |
 | SciPy | Python / statistiques | Routines statistiques et numériques | https://docs.scipy.org/doc/scipy/ | — | Actif |
 | pysam | Python / SAM-BAM-VCF | Interface Python à htslib | https://pysam.readthedocs.io/ | https://github.com/pysam-developers/pysam | Actif |
+| matplotlib | Python / visualisation | Tracé de graphiques (utilisé dans projects/final_project_ltee_ecoli/) | https://matplotlib.org/stable/index.html | https://github.com/matplotlib/matplotlib | Actif |
+| PyYAML | Python / configuration | Lecture/écriture de fichiers YAML (utilisé dans projects/final_project_ltee_ecoli/) | https://pyyaml.org/ | https://github.com/yaml/pyyaml | Actif |
 | Cookiecutter Data Science | Organisation de projet | Template de structure de projet de données | https://cookiecutter-data-science.drivendata.org/ | https://github.com/drivendataorg/cookiecutter-data-science | Actif |
 | Snakemake | Workflows | Moteur de workflow déclaratif (règles) | https://snakemake.readthedocs.io/ | — | Actif |
 | Nextflow | Workflows | Moteur de workflow (process/channels) | https://www.nextflow.io/docs/latest/ | https://github.com/nextflow-io/nextflow | Actif |

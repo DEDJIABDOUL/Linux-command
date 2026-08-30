@@ -5,11 +5,14 @@
 #   23_python_bioinformatics/.
 #
 # TOOLS
-#   - biopython : manipulation de séquences biologiques (section 1).
-#   - pandas    : données tabulaires (section 2).
-#   - numpy     : calcul numérique (section 3).
-#   - scipy     : routines statistiques et numériques (section 3).
-#   - pysam     : interface Python à htslib (SAM/BAM/VCF/BCF, section 4).
+#   - biopython  : manipulation de séquences biologiques (section 1).
+#   - pandas     : données tabulaires (section 2).
+#   - numpy      : calcul numérique (section 3).
+#   - scipy      : routines statistiques et numériques (section 3).
+#   - pysam      : interface Python à htslib (SAM/BAM/VCF/BCF, section 4).
+#   - matplotlib : visualisation, utilisé par
+#     projects/final_project_ltee_ecoli/scripts/summarize_variants.py.
+#   - pyyaml     : lecture de config.yaml, même script.
 #
 # VERSION
 #   Non figée volontairement dans ce fichier d'introduction (voir
@@ -34,3 +37,5 @@ dependencies:
   - numpy
   - scipy
   - pysam
+  - matplotlib
+  - pyyaml

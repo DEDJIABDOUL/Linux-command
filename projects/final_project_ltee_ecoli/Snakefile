@@ -1,0 +1,264 @@
+"""
+Pipeline Snakemake du projet final — LTEE Ara-3 vs REL606.
+
+Applique, sur 3 échantillons réels (voir data/metadata/samples.tsv), le
+pipeline déjà enseigné manuellement modules 08 à 21 : acquisition, QC,
+trimming, alignement, variant calling, filtrage, annotation. Ce fichier
+ne réexplique aucune commande en détail — chaque règle renvoie vers le
+module qui l'enseigne (voir README.md, section PREREQUISITES).
+
+Usage :
+    conda activate workflows   # snakemake (voir envs/workflows.yml, module 24)
+    snakemake --use-conda -j 4 --configfile config.yaml
+    snakemake -n                # dry-run : vérifie le DAG sans rien exécuter
+"""
+
+configfile: "config.yaml"
+
+SAMPLES = list(config["samples"].keys())
+REF_FASTA = f"{config['paths']['reference']}/{config['reference']['sequence_accession']}.fasta"
+REF_GFF = f"{config['paths']['reference']}/{config['reference']['sequence_accession']}.gff"
+
+
+rule all:
+    input:
+        expand("{results}/{sample}.filtered.vcf.gz", results=config["paths"]["results"], sample=SAMPLES),
+        f"{config['paths']['results']}/variant_summary.tsv",
+        f"{config['paths']['results']}/variants_vs_generation.png",
+
+
+# ---------------------------------------------------------------------
+# Référence (module 08 — acquisition de données publiques)
+# ---------------------------------------------------------------------
+
+rule get_reference:
+    output:
+        fasta=REF_FASTA,
+        gff=REF_GFF,
+    params:
+        fasta_url=config["reference"]["fasta_url"],
+        gff_url=config["reference"]["gff_url"],
+    shell:
+        """
+        mkdir -p {config[paths][reference]}
+        wget -O {output.fasta}.gz {params.fasta_url}
+        wget -O {output.gff}.gz {params.gff_url}
+        gunzip -f {output.fasta}.gz
+        gunzip -f {output.gff}.gz
+        """
+
+
+rule index_reference:
+    input:
+        REF_FASTA,
+    output:
+        fai=f"{REF_FASTA}.fai",
+        bwt=f"{REF_FASTA}.bwt.2bit.64",
+    conda:
+        "../../envs/alignment.yml"
+    shell:
+        """
+        samtools faidx {input}
+        bwa-mem2 index {input}
+        """
+
+
+# ---------------------------------------------------------------------
+# Acquisition des reads (module 08, section 5.1 — SRA Toolkit)
+# ---------------------------------------------------------------------
+
+rule get_reads:
+    output:
+        r1="{raw}/{{sample}}_1.fastq.gz".format(raw=config["paths"]["raw"]),
+        r2="{raw}/{{sample}}_2.fastq.gz".format(raw=config["paths"]["raw"]),
+    params:
+        accession=lambda wc: config["samples"][wc.sample],
+        raw=config["paths"]["raw"],
+    conda:
+        "../../envs/data_acquisition.yml"
+    shell:
+        """
+        mkdir -p {params.raw}
+        prefetch {params.accession} -O {params.raw}
+        fasterq-dump {params.raw}/{params.accession} -O {params.raw} --split-files
+        gzip -f {params.raw}/{params.accession}_1.fastq
+        gzip -f {params.raw}/{params.accession}_2.fastq
+        mv {params.raw}/{params.accession}_1.fastq.gz {output.r1}
+        mv {params.raw}/{params.accession}_2.fastq.gz {output.r2}
+        """
+
+
+# ---------------------------------------------------------------------
+# QC brut (module 09) et trimming (module 10)
+# ---------------------------------------------------------------------
+
+rule fastqc_raw:
+    input:
+        r1=rules.get_reads.output.r1,
+        r2=rules.get_reads.output.r2,
+    output:
+        directory("{results}/fastqc/{{sample}}".format(results=config["paths"]["results"])),
+    conda:
+        "../../envs/qc.yml"
+    shell:
+        "mkdir -p {output} && fastqc {input.r1} {input.r2} -o {output}"
+
+
+rule trim:
+    input:
+        r1=rules.get_reads.output.r1,
+        r2=rules.get_reads.output.r2,
+    output:
+        r1="{results}/trimmed/{{sample}}_1.trim.fastq.gz".format(results=config["paths"]["results"]),
+        r2="{results}/trimmed/{{sample}}_2.trim.fastq.gz".format(results=config["paths"]["results"]),
+        html="{results}/trimmed/{{sample}}.fastp.html".format(results=config["paths"]["results"]),
+    conda:
+        "../../envs/trimming.yml"
+    shell:
+        """
+        mkdir -p {config[paths][results]}/trimmed
+        fastp -i {input.r1} -I {input.r2} -o {output.r1} -O {output.r2} -h {output.html}
+        """
+
+
+# ---------------------------------------------------------------------
+# Alignement (module 12) et déduplication (samtools markdup, sans
+# dépendre de l'env chipseq/Picard — reste dans envs/alignment.yml)
+# ---------------------------------------------------------------------
+
+rule align:
+    # Sortie volontairement NON triée par coordonnée : samtools fixmate
+    # (règle markdup) exige des reads groupés par nom, comme les produit
+    # directement un aligneur (bwa-mem2, bowtie2...) — trier par
+    # coordonnée AVANT fixmate casserait l'identification des paires.
+    # Voir https://www.htslib.org/doc/samtools-fixmate.html
+    input:
+        r1=rules.trim.output.r1,
+        r2=rules.trim.output.r2,
+        ref=REF_FASTA,
+        idx=rules.index_reference.output.bwt,
+    output:
+        bam="{results}/aligned/{{sample}}.bam".format(results=config["paths"]["results"]),
+    threads: config["threads"]
+    conda:
+        "../../envs/alignment.yml"
+    shell:
+        """
+        mkdir -p {config[paths][results]}/aligned
+        bwa-mem2 mem -t {threads} {input.ref} {input.r1} {input.r2} \
+          | samtools view -@ {threads} -b -o {output.bam}
+        """
+
+
+rule markdup:
+    # Pipeline officiel samtools (fixmate -> sort -> markdup), voir
+    # https://www.htslib.org/doc/samtools-markdup.html
+    input:
+        rules.align.output.bam,
+    output:
+        bam="{results}/aligned/{{sample}}.dedup.bam".format(results=config["paths"]["results"]),
+        bai="{results}/aligned/{{sample}}.dedup.bam.bai".format(results=config["paths"]["results"]),
+    threads: config["threads"]
+    conda:
+        "../../envs/alignment.yml"
+    shell:
+        """
+        samtools fixmate -@ {threads} -m {input} - \
+          | samtools sort -@ {threads} -o - - \
+          | samtools markdup -@ {threads} - {output.bam}
+        samtools index {output.bam}
+        """
+
+
+# ---------------------------------------------------------------------
+# Variant calling, filtrage, annotation (module 21)
+# ---------------------------------------------------------------------
+
+rule call_variants:
+    input:
+        bam=rules.markdup.output.bam,
+        ref=REF_FASTA,
+        fai=rules.index_reference.output.fai,
+    output:
+        vcf="{results}/{{sample}}.vcf.gz".format(results=config["paths"]["results"]),
+    conda:
+        "../../envs/variant_calling.yml"
+    shell:
+        """
+        bcftools mpileup -f {input.ref} {input.bam} | bcftools call -mv -Oz -o {output.vcf}
+        bcftools index -t {output.vcf}
+        """
+
+
+rule filter_variants:
+    input:
+        rules.call_variants.output.vcf,
+    output:
+        vcf="{results}/{{sample}}.filtered.vcf.gz".format(results=config["paths"]["results"]),
+    params:
+        min_qual=config["filtering"]["min_qual"],
+        min_depth=config["filtering"]["min_depth"],
+    conda:
+        "../../envs/variant_calling.yml"
+    shell:
+        """
+        bcftools filter -e 'QUAL<{params.min_qual} || DP<{params.min_depth}' \
+          {input} -Oz -o {output.vcf}
+        bcftools index -t {output.vcf}
+        """
+
+
+rule annotate_variants:
+    # bcftools csq plutôt que VEP/SnpEff : REL606 est un génome bactérien
+    # custom sans base d'annotation précompilée, ce que csq n'exige pas
+    # (il consomme directement le GFF3 déjà téléchargé). Voir README,
+    # section DECISIONS.
+    input:
+        vcf=rules.filter_variants.output.vcf,
+        ref=REF_FASTA,
+        gff=REF_GFF,
+    output:
+        vcf="{results}/{{sample}}.annotated.vcf.gz".format(results=config["paths"]["results"]),
+    conda:
+        "../../envs/variant_calling.yml"
+    shell:
+        """
+        bcftools csq -f {input.ref} -g {input.gff} {input.vcf} -Oz -o {output.vcf}
+        """
+
+
+rule variant_stats:
+    input:
+        rules.annotate_variants.output.vcf,
+    output:
+        "{results}/{{sample}}.stats.txt".format(results=config["paths"]["results"]),
+    conda:
+        "../../envs/variant_calling.yml"
+    shell:
+        "bcftools stats {input} > {output}"
+
+
+# ---------------------------------------------------------------------
+# Synthèse (modules 22/23 — ici en Python/pysam)
+# ---------------------------------------------------------------------
+
+rule summarize:
+    input:
+        vcfs=expand(
+            "{results}/{sample}.filtered.vcf.gz",
+            results=config["paths"]["results"],
+            sample=SAMPLES,
+        ),
+        stats=expand(
+            "{results}/{sample}.stats.txt",
+            results=config["paths"]["results"],
+            sample=SAMPLES,
+        ),
+    output:
+        table="{results}/variant_summary.tsv".format(results=config["paths"]["results"]),
+        plot="{results}/variants_vs_generation.png".format(results=config["paths"]["results"]),
+    conda:
+        "../../envs/python_bio.yml"
+    shell:
+        "python3 scripts/summarize_variants.py --config config.yaml "
+        "--output-table {output.table} --output-plot {output.plot}"
