@@ -1,0 +1,66 @@
+# Environnement : amr_typing
+#
+# PURPOSE
+#   Profilage de résistance aux antimicrobiens (AMR), typage moléculaire
+#   et phylogénie de routine (SNP-based) pour isolats bactériens. Aucun
+#   module numéroté (00-26) ne couvrait ce domaine jusqu'ici : ce fichier
+#   comble ce manque à l'occasion de
+#   projects/mini_project_amr_kpneumoniae/, sur le même principe que
+#   envs/data_acquisition.yml (comblé à l'occasion du projet final). Un
+#   futur module dédié (surveillance AMR / épidémiologie génomique)
+#   pourrait s'appuyer sur cet environnement.
+#
+# TOOLS
+#   - abricate           : détection de gènes de résistance/virulence par
+#     recherche de similarité contre plusieurs bases (CARD, VFDB,
+#     PlasmidFinder...). doc : https://github.com/tseemann/abricate
+#   - ncbi-amrfinderplus : détection AMR faisant autorité chez NCBI,
+#     incluant les mutations ponctuelles (pas seulement les gènes acquis).
+#     NOTE : exécuter `amrfinder -u` une fois après installation pour
+#     télécharger sa base de données (petite, contrairement à
+#     BUSCO/Bakta/CheckM) — étape à ne jamais oublier silencieusement.
+#     doc : https://github.com/ncbi/amr/wiki
+#   - kleborate           : typage MLST, criblage AMR/virulence et
+#     détection de capsule spécifiquement conçus pour le complexe
+#     d'espèces Klebsiella pneumoniae — préférer cet outil à un typage
+#     MLST générique dès que l'organisme est Klebsiella (voir
+#     projects/mini_project_amr_kpneumoniae/README.md, section DECISIONS).
+#     ATTENTION : l'interface en ligne de commande a changé entre
+#     Kleborate v2 (--all) et v3 (système de presets -p/--preset) —
+#     vérifier `kleborate --version` et `kleborate --help` avant usage.
+#     doc : https://github.com/klebgenomics/Kleborate
+#   - snippy / snippy-core : appel de variants rapide par isolat contre
+#     une référence, puis alignement SNP « core » multi-échantillons —
+#     utilisé ici pour construire un arbre phylogénétique simple.
+#     doc : https://github.com/tseemann/snippy
+#   - fasttree             : construction d'arbre phylogénétique par
+#     maximum de vraisemblance approché, à partir d'un alignement.
+#     doc : http://www.microbesonline.org/fasttree/
+#
+# VERSION
+#   Non figée volontairement dans ce fichier d'introduction (voir
+#   envs/core_tools.yml pour la justification).
+#
+# INSTALLATION
+#   conda env create -f envs/amr_typing.yml
+#   # ou, plus rapide :
+#   mamba env create -f envs/amr_typing.yml
+#
+# USAGE
+#   conda activate amr_typing
+#   amrfinder -u                                    # une seule fois
+#   abricate --db card contigs.fasta > resultats_card.tsv
+#   amrfinder -n contigs.fasta --organism Klebsiella_pneumoniae -o resultats_amrfinder.tsv
+#   kleborate --help                                # vérifier la syntaxe de la version installée
+#   snippy --outdir sortie --ref reference.fasta --R1 R1.fastq.gz --R2 R2.fastq.gz
+
+name: amr_typing
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - abricate
+  - ncbi-amrfinderplus
+  - kleborate
+  - snippy
+  - fasttree

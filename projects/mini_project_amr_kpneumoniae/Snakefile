@@ -1,0 +1,376 @@
+"""
+Pipeline Snakemake du mini-projet — AMR/typage/phylogénie sur 3 isolats
+cliniques de Klebsiella pneumoniae résistants aux carbapénèmes (Tada et
+al. 2017, voir README.md, section DATASET).
+
+Reprend, en les corrigeant, les 7 étapes du pipeline bash de référence
+critiqué dans README.md (section DECISIONS) : QC, assemblage,
+annotation, profilage AMR, typage moléculaire, SNP calling et
+phylogénie. Chaque règle renvoie vers le module qui enseigne la commande
+sous-jacente — ce fichier ne réexplique aucune commande en détail.
+
+Usage :
+    conda activate workflows   # snakemake (voir envs/workflows.yml, module 24)
+    snakemake -n --configfile config.yaml         # dry-run : vérifie le DAG
+    snakemake --use-conda -j 4 --configfile config.yaml
+"""
+
+configfile: "config.yaml"
+
+SAMPLES = list(config["samples"].keys())
+RAW = config["paths"]["raw"]
+REFDIR = config["paths"]["reference"]
+RESULTS = config["paths"]["results"]
+REF_FASTA = f"{REFDIR}/{config['reference']['strain_name']}.fasta"
+BAKTA_DB = config["paths"]["bakta_db"]
+
+
+rule all:
+    input:
+        f"{RESULTS}/qc/multiqc/multiqc_report.html",
+        expand(f"{RESULTS}/assembly/{{sample}}/contigs.fasta", sample=SAMPLES),
+        expand(f"{RESULTS}/assembly_qc/{{sample}}/quast_report.txt", sample=SAMPLES),
+        expand(f"{RESULTS}/assembly_qc/{{sample}}/busco", sample=SAMPLES),
+        expand(f"{RESULTS}/annotation/{{sample}}", sample=SAMPLES),
+        expand(f"{RESULTS}/amr/{{sample}}.consensus.tsv", sample=SAMPLES),
+        f"{RESULTS}/typing/kleborate_report.txt",
+        f"{RESULTS}/phylo/tree.nwk",
+
+
+# ---------------------------------------------------------------------
+# Référence et lecture bruts (module 08, section 5.2 — méthode ENA,
+# en alternance avec la méthode SRA Toolkit du module 08 §5.1 déjà
+# illustrée par projects/final_project_ltee_ecoli/)
+# ---------------------------------------------------------------------
+
+rule get_reference:
+    output:
+        fasta=REF_FASTA,
+    params:
+        url=config["reference"]["fasta_url"],
+        md5=config["reference"]["fasta_md5"],
+    shell:
+        """
+        mkdir -p {REFDIR}
+        wget -c -O {output.fasta}.gz {params.url}
+        echo "{params.md5}  {output.fasta}.gz" | md5sum -c -
+        gunzip -f {output.fasta}.gz
+        """
+
+
+rule index_reference:
+    input:
+        REF_FASTA,
+    output:
+        fai=f"{REF_FASTA}.fai",
+    conda:
+        "../../envs/alignment.yml"
+    shell:
+        "samtools faidx {input}"
+
+
+def _run_accession(wildcards):
+    return config["samples"][wildcards.sample]
+
+
+rule get_reads:
+    output:
+        r1=f"{RAW}/{{sample}}_1.fastq.gz",
+        r2=f"{RAW}/{{sample}}_2.fastq.gz",
+    params:
+        accession=_run_accession,
+        md5_r1=lambda wc: config["checksums"][config["samples"][wc.sample]]["r1"],
+        md5_r2=lambda wc: config["checksums"][config["samples"][wc.sample]]["r2"],
+        prefix=lambda wc: config["samples"][wc.sample][:6],
+    shell:
+        """
+        mkdir -p {RAW}
+        wget -c -O {output.r1} \
+            ftp://ftp.sra.ebi.ac.uk/vol1/fastq/{params.prefix}/{params.accession}/{params.accession}_1.fastq.gz
+        wget -c -O {output.r2} \
+            ftp://ftp.sra.ebi.ac.uk/vol1/fastq/{params.prefix}/{params.accession}/{params.accession}_2.fastq.gz
+        echo "{params.md5_r1}  {output.r1}" | md5sum -c -
+        echo "{params.md5_r2}  {output.r2}" | md5sum -c -
+        """
+
+
+# ---------------------------------------------------------------------
+# QC (module 09) et trimming (module 10)
+# ---------------------------------------------------------------------
+
+rule fastqc_raw:
+    input:
+        r1=rules.get_reads.output.r1,
+        r2=rules.get_reads.output.r2,
+    output:
+        directory(f"{RESULTS}/qc/fastqc_raw/{{sample}}"),
+    conda:
+        "../../envs/qc.yml"
+    shell:
+        "mkdir -p {output} && fastqc {input.r1} {input.r2} -o {output}"
+
+
+rule trim:
+    input:
+        r1=rules.get_reads.output.r1,
+        r2=rules.get_reads.output.r2,
+    output:
+        r1=f"{RESULTS}/trimmed/{{sample}}_1.trim.fastq.gz",
+        r2=f"{RESULTS}/trimmed/{{sample}}_2.trim.fastq.gz",
+        html=f"{RESULTS}/trimmed/{{sample}}.fastp.html",
+        json=f"{RESULTS}/trimmed/{{sample}}.fastp.json",
+    threads: config["threads"]
+    conda:
+        "../../envs/trimming.yml"
+    shell:
+        """
+        mkdir -p {RESULTS}/trimmed
+        fastp -i {input.r1} -I {input.r2} -o {output.r1} -O {output.r2} \
+            --detect_adapter_for_pe --html {output.html} --json {output.json} \
+            --thread {threads}
+        """
+
+
+rule multiqc:
+    input:
+        expand(f"{RESULTS}/qc/fastqc_raw/{{sample}}", sample=SAMPLES),
+        expand(f"{RESULTS}/trimmed/{{sample}}.fastp.json", sample=SAMPLES),
+    output:
+        f"{RESULTS}/qc/multiqc/multiqc_report.html",
+    conda:
+        "../../envs/qc.yml"
+    shell:
+        "multiqc {RESULTS}/qc/fastqc_raw {RESULTS}/trimmed -o {RESULTS}/qc/multiqc/ -f"
+
+
+# ---------------------------------------------------------------------
+# Assemblage de novo (module 11) et contrôle qualité (module 13)
+#
+# SPAdes utilisé directement plutôt que le wrapper Shovill du pipeline
+# de référence critiqué : SPAdes est déjà l'outil documenté par
+# envs/assembly.yml (module 11), et fastp a déjà fait le trimming — la
+# valeur ajoutée de Shovill (orchestrer trimming+assemblage+correction)
+# est ici redondante. Voir README.md, section DECISIONS.
+# ---------------------------------------------------------------------
+
+rule assemble:
+    input:
+        r1=rules.trim.output.r1,
+        r2=rules.trim.output.r2,
+    output:
+        contigs=f"{RESULTS}/assembly/{{sample}}/contigs.fasta",
+    threads: config["threads"]
+    conda:
+        "../../envs/assembly.yml"
+    shell:
+        """
+        spades.py --isolate -1 {input.r1} -2 {input.r2} \
+            -o {RESULTS}/assembly/{wildcards.sample} -t {threads}
+        cp {RESULTS}/assembly/{wildcards.sample}/contigs.fasta {output.contigs}
+        """
+
+
+rule assembly_qc_quast:
+    input:
+        contigs=rules.assemble.output.contigs,
+        ref=REF_FASTA,
+    output:
+        f"{RESULTS}/assembly_qc/{{sample}}/quast_report.txt",
+    threads: config["threads"]
+    conda:
+        "../../envs/assembly_quality.yml"
+    shell:
+        """
+        quast.py {input.contigs} -r {input.ref} \
+            -o {RESULTS}/assembly_qc/{wildcards.sample} --threads {threads}
+        cp {RESULTS}/assembly_qc/{wildcards.sample}/report.txt {output}
+        """
+
+
+rule assembly_qc_busco:
+    # BUSCO télécharge lui-même le jeu de données de lignage à la
+    # première exécution (voir envs/assembly_quality.yml) — prévoir un
+    # accès réseau au premier lancement de cette règle.
+    input:
+        contigs=rules.assemble.output.contigs,
+    output:
+        directory(f"{RESULTS}/assembly_qc/{{sample}}/busco"),
+    params:
+        lineage=config["busco_lineage"],
+    threads: config["threads"]
+    conda:
+        "../../envs/assembly_quality.yml"
+    shell:
+        """
+        busco -i {input.contigs} -o busco -l {params.lineage} \
+            -m genome --out_path {RESULTS}/assembly_qc/{wildcards.sample} \
+            --cpu {threads} -f
+        """
+
+
+# ---------------------------------------------------------------------
+# Annotation (module 14) — Bakta plutôt que DFAST+KofamScan : voir
+# README.md, section DECISIONS, pour la justification.
+# ---------------------------------------------------------------------
+
+rule get_bakta_db:
+    # Base "light" (~1.2 Go) suffisante pour ce mini-projet — voir
+    # https://github.com/oschwengers/bakta#database. Étape explicite et
+    # documentée, contrairement aux bases KofamScan/CheckM non
+    # documentées du pipeline de référence critiqué (README, DECISIONS).
+    output:
+        directory(BAKTA_DB),
+    conda:
+        "../../envs/annotation.yml"
+    shell:
+        "bakta_db download --output {BAKTA_DB} --type light"
+
+
+rule annotate:
+    input:
+        contigs=rules.assemble.output.contigs,
+        db=rules.get_bakta_db.output,
+    output:
+        directory(f"{RESULTS}/annotation/{{sample}}"),
+    threads: config["threads"]
+    conda:
+        "../../envs/annotation.yml"
+    shell:
+        """
+        bakta --db {input.db} --output {output} --prefix {wildcards.sample} \
+            --threads {threads} --force {input.contigs}
+        """
+
+
+# ---------------------------------------------------------------------
+# Profilage AMR (ABRicate + AMRFinderPlus + arbitre) — module hors
+# curriculum actuel, voir envs/amr_typing.yml.
+# ---------------------------------------------------------------------
+
+rule amr_abricate:
+    input:
+        contigs=rules.assemble.output.contigs,
+    output:
+        f"{RESULTS}/amr/{{sample}}.card.tsv",
+    conda:
+        "../../envs/amr_typing.yml"
+    shell:
+        "abricate --db card {input.contigs} > {output}"
+
+
+rule amr_amrfinder:
+    # `amrfinder -u` (mise à jour de la base, petite, contrairement à
+    # BUSCO/Bakta) doit avoir été exécuté une fois après la création de
+    # l'environnement — voir README.md, section « Comment exécuter ».
+    input:
+        contigs=rules.assemble.output.contigs,
+    output:
+        f"{RESULTS}/amr/{{sample}}.amrfinder.tsv",
+    params:
+        organism=config["amrfinder_organism"],
+    threads: config["threads"]
+    conda:
+        "../../envs/amr_typing.yml"
+    shell:
+        """
+        amrfinder -n {input.contigs} --organism {params.organism} \
+            -o {output} --threads {threads}
+        """
+
+
+rule amr_consensus:
+    input:
+        abricate=rules.amr_abricate.output,
+        amrfinder=rules.amr_amrfinder.output,
+    output:
+        table=f"{RESULTS}/amr/{{sample}}.consensus.tsv",
+        plot=f"{RESULTS}/amr/{{sample}}.venn.png",
+    params:
+        min_cov=config["amr_thresholds"]["min_coverage"],
+        min_id=config["amr_thresholds"]["min_identity"],
+    conda:
+        "../../envs/python_bio.yml"
+    shell:
+        """
+        python3 scripts/arbitre_amr.py \
+            --abricate-tsv {input.abricate} --amrfinder-tsv {input.amrfinder} \
+            --sample-name {wildcards.sample} \
+            --min-coverage {params.min_cov} --min-identity {params.min_id} \
+            --output-table {output.table} --output-plot {output.plot}
+        """
+
+
+# ---------------------------------------------------------------------
+# Typage moléculaire (Kleborate) — inclut le génome de référence PMK1
+# comme témoin positif connu (ST15, NDM-1) : si Kleborate ne le
+# retrouve pas correctement, le reste des résultats est suspect avant
+# même d'être interprété. Voir README.md, section DECISIONS.
+# ---------------------------------------------------------------------
+
+rule typing_kleborate:
+    input:
+        contigs=expand(f"{RESULTS}/assembly/{{sample}}/contigs.fasta", sample=SAMPLES),
+        ref=REF_FASTA,
+    output:
+        f"{RESULTS}/typing/kleborate_report.txt",
+    conda:
+        "../../envs/amr_typing.yml"
+    shell:
+        # Syntaxe donnée pour Kleborate v2 (--all) ; v3 utilise un
+        # système de presets (-p kpsc) — vérifier `kleborate --help`
+        # avant exécution (voir envs/amr_typing.yml).
+        "kleborate --assemblies {input.contigs} {input.ref} --outfile {output} --all"
+
+
+# ---------------------------------------------------------------------
+# SNP calling et phylogénie (Snippy + FastTree) — 3 isolats + 1
+# référence = 4 feuilles, un arbre avec une topologie réelle à
+# interpréter, contrairement à la comparaison à un seul isolat du
+# pipeline de référence critiqué. Voir README.md, section DECISIONS.
+# ---------------------------------------------------------------------
+
+rule snippy:
+    input:
+        r1=rules.trim.output.r1,
+        r2=rules.trim.output.r2,
+        ref=REF_FASTA,
+        fai=rules.index_reference.output.fai,
+    output:
+        directory(f"{RESULTS}/phylo/snippy_{{sample}}"),
+    threads: config["threads"]
+    conda:
+        "../../envs/amr_typing.yml"
+    shell:
+        """
+        snippy --outdir {output} --ref {input.ref} \
+            --R1 {input.r1} --R2 {input.r2} --cpus {threads} --force
+        """
+
+
+rule snippy_core:
+    input:
+        dirs=expand(f"{RESULTS}/phylo/snippy_{{sample}}", sample=SAMPLES),
+        ref=REF_FASTA,
+    output:
+        aln=f"{RESULTS}/phylo/core.full.aln",
+    params:
+        prefix=f"{RESULTS}/phylo/core",
+        dirs=lambda wc, input: " ".join(input.dirs),
+    conda:
+        "../../envs/amr_typing.yml"
+    shell:
+        # --prefix accepte un chemin (pas seulement un nom de fichier) :
+        # snippy-core écrit alors directement results/phylo/core.* sans
+        # nécessiter de `cd` préalable ni de chemins relatifs fragiles.
+        "snippy-core --ref {input.ref} --prefix {params.prefix} {params.dirs}"
+
+
+rule build_tree:
+    input:
+        rules.snippy_core.output.aln,
+    output:
+        f"{RESULTS}/phylo/tree.nwk",
+    conda:
+        "../../envs/amr_typing.yml"
+    shell:
+        "fasttree -nt -gtr {input} > {output}"

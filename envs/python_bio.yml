@@ -11,8 +11,12 @@
 #   - scipy      : routines statistiques et numériques (section 3).
 #   - pysam      : interface Python à htslib (SAM/BAM/VCF/BCF, section 4).
 #   - matplotlib : visualisation, utilisé par
-#     projects/final_project_ltee_ecoli/scripts/summarize_variants.py.
-#   - pyyaml     : lecture de config.yaml, même script.
+#     projects/final_project_ltee_ecoli/scripts/summarize_variants.py et
+#     projects/mini_project_amr_kpneumoniae/scripts/arbitre_amr.py.
+#   - matplotlib-venn : diagramme de Venn à 2 ensembles, utilisé par
+#     projects/mini_project_amr_kpneumoniae/scripts/arbitre_amr.py pour
+#     visualiser le croisement ABRicate / AMRFinderPlus.
+#   - pyyaml     : lecture de config.yaml, même scripts.
 #
 # VERSION
 #   Non figée volontairement dans ce fichier d'introduction (voir
@@ -38,4 +42,5 @@ dependencies:
   - scipy
   - pysam
   - matplotlib
+  - matplotlib-venn
   - pyyaml

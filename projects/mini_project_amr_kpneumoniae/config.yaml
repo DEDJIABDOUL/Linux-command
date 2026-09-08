@@ -1,0 +1,70 @@
+# Configuration du mini-projet — AMR/typage/phylogénie sur 3 isolats
+# cliniques de Klebsiella pneumoniae résistants aux carbapénèmes.
+#
+# Modifier ce fichier suffit pour changer d'échantillons, de génome de
+# référence ou de seuils : le Snakefile ne contient aucune valeur codée
+# en dur (contrairement au run_pipeline.sh de référence critiqué dans ce
+# projet — voir README.md, section DECISIONS).
+
+# Échantillons réels (ENA/DDBJ), voir data/metadata/samples.tsv pour le
+# détail complet et 08_data_acquisition/, section 5.2, pour la méthode
+# de téléchargement via ENA (utilisée ici, en alternance avec la méthode
+# SRA Toolkit déjà illustrée par projects/final_project_ltee_ecoli/).
+samples:
+  kpn_01: DRR076969
+  kpn_02: DRR076945
+  kpn_03: DRR076958
+
+# Sommes de contrôle MD5 des fichiers bruts, fournies par ENA — vérifiées
+# après téléchargement (voir Snakefile, règle get_reads). Absentes du
+# run_pipeline.sh de référence critiqué : un téléchargement corrompu y
+# passerait inaperçu jusqu'à un échec bien plus loin dans le pipeline.
+checksums:
+  DRR076969:
+    r1: 8336af671dc1feed6761b6ddb33bd497
+    r2: ce8039179fdbf45acf632c82a38b5d6a
+  DRR076945:
+    r1: 2089e866232205d4a2541141a63373f0
+    r2: ae9497fa93dd50adf1a6d79d2c473a13
+  DRR076958:
+    r1: 87e89c59a6e64d3484d64e0b80f29d7c
+    r2: 64ff0e2533d9e6eba374b239511aba50
+
+# Génome de référence : Klebsiella pneumoniae PMK1 (souche productrice de
+# NDM-1, ST15, génome complet), utilisée par Tada et al. (2017) eux-mêmes
+# comme référence d'alignement pour l'appel de SNP — réutilisée ici pour
+# rester fidèle à la méthode originale de l'étude (voir README, DATASET).
+# Assemblage NCBI GCA_000764615.1 (RefSeq GCF_000764615.1).
+# https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_000764615.1/
+reference:
+  assembly_accession: GCA_000764615.1
+  strain_name: PMK1
+  fasta_url: "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/764/615/GCA_000764615.1_ASM76461v1/GCA_000764615.1_ASM76461v1_genomic.fna.gz"
+  fasta_md5: c5fafe339dda6beadbc573f649146bfe
+
+# Organisme AMRFinderPlus (criblage des mutations ponctuelles connues,
+# en plus des gènes acquis) — voir `amrfinder --list_organisms`.
+amrfinder_organism: Klebsiella_pneumoniae
+
+# Lignage BUSCO pour l'évaluation de complétude d'assemblage (module 13).
+# Choisi au niveau ordre (Enterobacterales) plutôt qu'espèce : BUSCO ne
+# fournit pas de lignage "Klebsiella" dédié.
+busco_lineage: enterobacterales_odb10
+
+# Seuils de filtrage des appels AMR croisés ABRicate/AMRFinderPlus (script
+# arbitre_amr.py) — mêmes valeurs que le projet de référence critiqué
+# (90 %), reprises ici sciemment car raisonnables pour ce cas d'usage,
+# pas parce qu'elles seraient universelles (à revalider pour un autre jeu
+# de données, voir README, section LIMITATIONS).
+amr_thresholds:
+  min_coverage: 90.0
+  min_identity: 90.0
+
+threads: 4
+
+paths:
+  raw: "data/raw"
+  reference: "data/reference"
+  bakta_db: "data/bakta_db"
+  results: "results"
+  logs: "logs"

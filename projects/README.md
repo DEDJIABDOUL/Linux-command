@@ -13,10 +13,26 @@ Voir [`final_project_ltee_ecoli/README.md`](final_project_ltee_ecoli/README.md)
 pour le récit complet (contexte biologique, jeu de données, pipeline
 Snakemake, décisions méthodologiques, limites, interprétation).
 
+## Mini-projet : `mini_project_amr_kpneumoniae/`
+
+Premier mini-projet livré : profilage AMR, typage moléculaire et
+phylogénie par SNP sur 3 isolats cliniques réels de *Klebsiella
+pneumoniae* résistants aux carbapénèmes (Tada et al. 2017). Conçu comme
+guide pas-à-pas pour un lecteur découvrant ce type de pipeline, et comme
+réécriture corrigée d'un pipeline externe audité au préalable (voir
+`mini_project_amr_kpneumoniae/README.md`, sections ORIGINE ET
+AVERTISSEMENT ANTI-PLAGIAT et DECISIONS, pour le détail de chaque défaut
+identifié et corrigé). Introduit `envs/amr_typing.yml`, qui comble un
+manque du dépôt (aucun module numéroté ne couvrait encore l'AMR/le
+typage/la phylogénie de routine).
+
+Voir [`mini_project_amr_kpneumoniae/README.md`](mini_project_amr_kpneumoniae/README.md)
+pour le récit complet.
+
 ## Mini-projets par domaine — toujours planifiés
 
 Un mini-projet par grand domaine couvert (QC, assemblage, RNA-seq,
-ChIP-seq, GWAS...) reste une phase ultérieure distincte, volontairement
-non traitée dans cette session : chaque mini-projet sera ajouté et
-validé individuellement, dans le même esprit incrémental que le reste
-du dépôt. Voir `docs/audit_report.md` pour la feuille de route.
+ChIP-seq, GWAS...) reste une phase ultérieure distincte : chaque
+mini-projet est ajouté et validé individuellement, dans le même esprit
+incrémental que le reste du dépôt. Voir `docs/audit_report.md` pour la
+feuille de route.

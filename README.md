@@ -63,8 +63,12 @@ Workflows Snakemake/Nextflow/nf-core (24) → Conteneurs & Git (25) → HPC (26)
 intégrateur est désormais livré dans
 [`projects/final_project_ltee_ecoli/`](projects/final_project_ltee_ecoli/README.md)
 (accumulation de variants dans une population *E. coli* de la Long-Term
-Evolution Experiment, Lenski lab). Les mini-projets par domaine restent
-à construire (voir `projects/README.md` et `docs/audit_report.md`).
+Evolution Experiment, Lenski lab). Un premier mini-projet par domaine est
+également livré :
+[`projects/mini_project_amr_kpneumoniae/`](projects/mini_project_amr_kpneumoniae/README.md)
+(AMR, typage et phylogénie sur des isolats cliniques de *Klebsiella
+pneumoniae*). Les mini-projets suivants restent à construire (voir
+`projects/README.md` et `docs/audit_report.md`).
 
 ## Architecture du dépôt
 
@@ -110,9 +114,11 @@ Evolution Experiment, Lenski lab). Les mini-projets par domaine restent
 | [`26_hpc`](26_hpc/README.md) | SLURM, modules logiciels, bonnes pratiques cluster |
 
 Les 26 modules de la feuille de route sont désormais tous disponibles,
-ainsi que le projet final intégrateur (`projects/final_project_ltee_ecoli/`).
-Les mini-projets par domaine restent planifiés dans `projects/`, voir
-`docs/audit_report.md`, section « Implementation roadmap ».
+ainsi que le projet final intégrateur (`projects/final_project_ltee_ecoli/`)
+et un premier mini-projet par domaine (`projects/mini_project_amr_kpneumoniae/`,
+AMR/typage/phylogénie chez *Klebsiella pneumoniae*). Les mini-projets
+suivants restent planifiés dans `projects/`, voir `docs/audit_report.md`,
+section « Implementation roadmap ».
 
 ## Jeux de données
 

@@ -161,6 +161,7 @@ l'usage — pas de fichier `.md` séparé par environnement.
 | `r_ecosystem.yml` | `22_r_statistics/` | Biostrings, GenomicRanges, ShortRead, ggplot2 | packages déjà couverts par `rnaseq.yml`/`methylation.yml`/`proteomics.yml` |
 | `python_bio.yml` | `23_python_bioinformatics/` | Biopython, pandas, NumPy, SciPy, pysam | — |
 | `workflows.yml` | `24_workflows/` | Snakemake, Nextflow, nf-core (l'outil CLI) | — |
+| `amr_typing.yml` | `projects/mini_project_amr_kpneumoniae/` (aucun module numéroté encore) | ABRicate, AMRFinderPlus, Kleborate, Snippy, FastTree | — |
 
 Les modules `25_reproducibility/` (Docker, Apptainer, Git) et `26_hpc/`
 (SLURM, Lmod) n'ont volontairement PAS de fichier `.yml` : ce sont des

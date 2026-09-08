@@ -1,0 +1,4 @@
+sample_id	run_accession	biosample_accession	organism	instrument_platform	library_layout	base_count	source_study	submitted_by
+kpn_01	DRR076969	SAMD00066874	Klebsiella pneumoniae	Illumina MiSeq	PAIRED	179423658	PRJDB5317 / DRA005275	Tada et al. 2017, National Center for Global Health and Medicine (NCGM)
+kpn_02	DRR076945	SAMD00066850	Klebsiella pneumoniae	Illumina MiSeq	PAIRED	181339125	PRJDB5317 / DRA005275	Tada et al. 2017, National Center for Global Health and Medicine (NCGM)
+kpn_03	DRR076958	SAMD00066863	Klebsiella pneumoniae	Illumina MiSeq	PAIRED	181601835	PRJDB5317 / DRA005275	Tada et al. 2017, National Center for Global Health and Medicine (NCGM)
