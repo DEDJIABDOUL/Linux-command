@@ -21,8 +21,15 @@ SAMPLES = list(config["samples"].keys())
 RAW = config["paths"]["raw"]
 REFDIR = config["paths"]["reference"]
 RESULTS = config["paths"]["results"]
+LOGS = config["paths"]["logs"]
 REF_FASTA = f"{REFDIR}/{config['reference']['strain_name']}.fasta"
 BAKTA_DB = config["paths"]["bakta_db"]
+
+# Chaque règle écrit son propre journal dans logs/<règle>/... — Snakemake
+# crée automatiquement le dossier parent du fichier `log:` déclaré, comme
+# il le fait pour `output:` (aucun `mkdir -p logs/...` manuel nécessaire).
+# Voir README.md, section « MESSAGE AUX LECTEURS », pour l'usage attendu
+# de ces journaux en cas d'échec d'une étape.
 
 
 rule all:
@@ -49,8 +56,11 @@ rule get_reference:
     params:
         url=config["reference"]["fasta_url"],
         md5=config["reference"]["fasta_md5"],
+    log:
+        f"{LOGS}/get_reference/reference.log",
     shell:
         """
+        exec > {log} 2>&1
         mkdir -p {REFDIR}
         wget -c -O {output.fasta}.gz {params.url}
         echo "{params.md5}  {output.fasta}.gz" | md5sum -c -
@@ -63,10 +73,12 @@ rule index_reference:
         REF_FASTA,
     output:
         fai=f"{REF_FASTA}.fai",
+    log:
+        f"{LOGS}/index_reference/reference.log",
     conda:
         "../../envs/alignment.yml"
     shell:
-        "samtools faidx {input}"
+        "samtools faidx {input} > {log} 2>&1"
 
 
 def _run_accession(wildcards):
@@ -82,8 +94,11 @@ rule get_reads:
         md5_r1=lambda wc: config["checksums"][config["samples"][wc.sample]]["r1"],
         md5_r2=lambda wc: config["checksums"][config["samples"][wc.sample]]["r2"],
         prefix=lambda wc: config["samples"][wc.sample][:6],
+    log:
+        f"{LOGS}/get_reads/{{sample}}.log",
     shell:
         """
+        exec > {log} 2>&1
         mkdir -p {RAW}
         wget -c -O {output.r1} \
             ftp://ftp.sra.ebi.ac.uk/vol1/fastq/{params.prefix}/{params.accession}/{params.accession}_1.fastq.gz
@@ -104,10 +119,12 @@ rule fastqc_raw:
         r2=rules.get_reads.output.r2,
     output:
         directory(f"{RESULTS}/qc/fastqc_raw/{{sample}}"),
+    log:
+        f"{LOGS}/fastqc_raw/{{sample}}.log",
     conda:
         "../../envs/qc.yml"
     shell:
-        "mkdir -p {output} && fastqc {input.r1} {input.r2} -o {output}"
+        "mkdir -p {output} && fastqc {input.r1} {input.r2} -o {output} > {log} 2>&1"
 
 
 rule trim:
@@ -120,10 +137,13 @@ rule trim:
         html=f"{RESULTS}/trimmed/{{sample}}.fastp.html",
         json=f"{RESULTS}/trimmed/{{sample}}.fastp.json",
     threads: config["threads"]
+    log:
+        f"{LOGS}/trim/{{sample}}.log",
     conda:
         "../../envs/trimming.yml"
     shell:
         """
+        exec > {log} 2>&1
         mkdir -p {RESULTS}/trimmed
         fastp -i {input.r1} -I {input.r2} -o {output.r1} -O {output.r2} \
             --detect_adapter_for_pe --html {output.html} --json {output.json} \
@@ -137,10 +157,12 @@ rule multiqc:
         expand(f"{RESULTS}/trimmed/{{sample}}.fastp.json", sample=SAMPLES),
     output:
         f"{RESULTS}/qc/multiqc/multiqc_report.html",
+    log:
+        f"{LOGS}/multiqc/multiqc.log",
     conda:
         "../../envs/qc.yml"
     shell:
-        "multiqc {RESULTS}/qc/fastqc_raw {RESULTS}/trimmed -o {RESULTS}/qc/multiqc/ -f"
+        "multiqc {RESULTS}/qc/fastqc_raw {RESULTS}/trimmed -o {RESULTS}/qc/multiqc/ -f > {log} 2>&1"
 
 
 # ---------------------------------------------------------------------
@@ -160,10 +182,13 @@ rule assemble:
     output:
         contigs=f"{RESULTS}/assembly/{{sample}}/contigs.fasta",
     threads: config["threads"]
+    log:
+        f"{LOGS}/assemble/{{sample}}.log",
     conda:
         "../../envs/assembly.yml"
     shell:
         """
+        exec > {log} 2>&1
         spades.py --isolate -1 {input.r1} -2 {input.r2} \
             -o {RESULTS}/assembly/{wildcards.sample} -t {threads}
         cp {RESULTS}/assembly/{wildcards.sample}/contigs.fasta {output.contigs}
@@ -177,10 +202,13 @@ rule assembly_qc_quast:
     output:
         f"{RESULTS}/assembly_qc/{{sample}}/quast_report.txt",
     threads: config["threads"]
+    log:
+        f"{LOGS}/assembly_qc_quast/{{sample}}.log",
     conda:
         "../../envs/assembly_quality.yml"
     shell:
         """
+        exec > {log} 2>&1
         quast.py {input.contigs} -r {input.ref} \
             -o {RESULTS}/assembly_qc/{wildcards.sample} --threads {threads}
         cp {RESULTS}/assembly_qc/{wildcards.sample}/report.txt {output}
@@ -198,10 +226,13 @@ rule assembly_qc_busco:
     params:
         lineage=config["busco_lineage"],
     threads: config["threads"]
+    log:
+        f"{LOGS}/assembly_qc_busco/{{sample}}.log",
     conda:
         "../../envs/assembly_quality.yml"
     shell:
         """
+        exec > {log} 2>&1
         busco -i {input.contigs} -o busco -l {params.lineage} \
             -m genome --out_path {RESULTS}/assembly_qc/{wildcards.sample} \
             --cpu {threads} -f
@@ -220,10 +251,12 @@ rule get_bakta_db:
     # documentées du pipeline de référence critiqué (README, DECISIONS).
     output:
         directory(BAKTA_DB),
+    log:
+        f"{LOGS}/get_bakta_db/bakta_db.log",
     conda:
         "../../envs/annotation.yml"
     shell:
-        "bakta_db download --output {BAKTA_DB} --type light"
+        "bakta_db download --output {BAKTA_DB} --type light > {log} 2>&1"
 
 
 rule annotate:
@@ -233,10 +266,13 @@ rule annotate:
     output:
         directory(f"{RESULTS}/annotation/{{sample}}"),
     threads: config["threads"]
+    log:
+        f"{LOGS}/annotate/{{sample}}.log",
     conda:
         "../../envs/annotation.yml"
     shell:
         """
+        exec > {log} 2>&1
         bakta --db {input.db} --output {output} --prefix {wildcards.sample} \
             --threads {threads} --force {input.contigs}
         """
@@ -252,10 +288,13 @@ rule amr_abricate:
         contigs=rules.assemble.output.contigs,
     output:
         f"{RESULTS}/amr/{{sample}}.card.tsv",
+    log:
+        f"{LOGS}/amr_abricate/{{sample}}.log",
     conda:
         "../../envs/amr_typing.yml"
     shell:
-        "abricate --db card {input.contigs} > {output}"
+        # stdout est la sortie réelle (TSV) → seul stderr part au journal.
+        "abricate --db card {input.contigs} > {output} 2> {log}"
 
 
 rule amr_amrfinder:
@@ -269,12 +308,14 @@ rule amr_amrfinder:
     params:
         organism=config["amrfinder_organism"],
     threads: config["threads"]
+    log:
+        f"{LOGS}/amr_amrfinder/{{sample}}.log",
     conda:
         "../../envs/amr_typing.yml"
     shell:
         """
         amrfinder -n {input.contigs} --organism {params.organism} \
-            -o {output} --threads {threads}
+            -o {output} --threads {threads} > {log} 2>&1
         """
 
 
@@ -288,6 +329,8 @@ rule amr_consensus:
     params:
         min_cov=config["amr_thresholds"]["min_coverage"],
         min_id=config["amr_thresholds"]["min_identity"],
+    log:
+        f"{LOGS}/amr_consensus/{{sample}}.log",
     conda:
         "../../envs/python_bio.yml"
     shell:
@@ -296,7 +339,7 @@ rule amr_consensus:
             --abricate-tsv {input.abricate} --amrfinder-tsv {input.amrfinder} \
             --sample-name {wildcards.sample} \
             --min-coverage {params.min_cov} --min-identity {params.min_id} \
-            --output-table {output.table} --output-plot {output.plot}
+            --output-table {output.table} --output-plot {output.plot} > {log} 2>&1
         """
 
 
@@ -313,13 +356,15 @@ rule typing_kleborate:
         ref=REF_FASTA,
     output:
         f"{RESULTS}/typing/kleborate_report.txt",
+    log:
+        f"{LOGS}/typing_kleborate/kleborate.log",
     conda:
         "../../envs/amr_typing.yml"
     shell:
         # Syntaxe donnée pour Kleborate v2 (--all) ; v3 utilise un
         # système de presets (-p kpsc) — vérifier `kleborate --help`
         # avant exécution (voir envs/amr_typing.yml).
-        "kleborate --assemblies {input.contigs} {input.ref} --outfile {output} --all"
+        "kleborate --assemblies {input.contigs} {input.ref} --outfile {output} --all > {log} 2>&1"
 
 
 # ---------------------------------------------------------------------
@@ -338,10 +383,13 @@ rule snippy:
     output:
         directory(f"{RESULTS}/phylo/snippy_{{sample}}"),
     threads: config["threads"]
+    log:
+        f"{LOGS}/snippy/{{sample}}.log",
     conda:
         "../../envs/amr_typing.yml"
     shell:
         """
+        exec > {log} 2>&1
         snippy --outdir {output} --ref {input.ref} \
             --R1 {input.r1} --R2 {input.r2} --cpus {threads} --force
         """
@@ -356,13 +404,15 @@ rule snippy_core:
     params:
         prefix=f"{RESULTS}/phylo/core",
         dirs=lambda wc, input: " ".join(input.dirs),
+    log:
+        f"{LOGS}/snippy_core/snippy_core.log",
     conda:
         "../../envs/amr_typing.yml"
     shell:
         # --prefix accepte un chemin (pas seulement un nom de fichier) :
         # snippy-core écrit alors directement results/phylo/core.* sans
         # nécessiter de `cd` préalable ni de chemins relatifs fragiles.
-        "snippy-core --ref {input.ref} --prefix {params.prefix} {params.dirs}"
+        "snippy-core --ref {input.ref} --prefix {params.prefix} {params.dirs} > {log} 2>&1"
 
 
 rule build_tree:
@@ -370,7 +420,10 @@ rule build_tree:
         rules.snippy_core.output.aln,
     output:
         f"{RESULTS}/phylo/tree.nwk",
+    log:
+        f"{LOGS}/build_tree/build_tree.log",
     conda:
         "../../envs/amr_typing.yml"
     shell:
-        "fasttree -nt -gtr {input} > {output}"
+        # stdout est l'arbre Newick lui-même → seul stderr part au journal.
+        "fasttree -nt -gtr {input} > {output} 2> {log}"

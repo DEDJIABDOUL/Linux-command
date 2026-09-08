@@ -4,36 +4,9 @@ OBJECTIVE
 ------------------------------------------------------------
 Guider pas à pas la construction d'un pipeline bactérien complet — QC,
 assemblage, annotation, profilage AMR, typage moléculaire, SNP calling et
-phylogénie — sur un jeu de données réel et vérifiable, en corrigeant
-explicitement les défauts d'un pipeline externe qui a servi de point de
-départ à ce mini-projet (voir ORIGINE, ci-dessous). Ce n'est ni un
-copier-coller de ce pipeline externe, ni le même isolat : organisme,
-échantillons, outils et architecture ont été revus.
-
-ORIGINE ET AVERTISSEMENT ANTI-PLAGIAT
-------------------------------------------------------------
-```text
-Ce mini-projet s'inspire d'un pipeline bash public pour *Staphylococcus
-aureus* (dépôt GitHub tiers, non affilié à ce dépôt), qui a été audité en
-détail avant d'écrire une seule ligne ici. L'audit a identifié plusieurs
-défauts bloquants ou silencieux (script Python appelé depuis le mauvais
-dossier de travail, génome de référence jamais téléchargé ni versionné,
-`conda activate` non fonctionnel en script non interactif, dépendances
-non déclarées dans environment.yml, absence de vérification d'intégrité
-des téléchargements, échec masqué par un `except Exception` générique).
-Pour éviter tout plagiat et démontrer une réelle compréhension plutôt
-qu'une adaptation mécanique :
-  - organisme ET isolats différents (Klebsiella pneumoniae, 3 isolats
-    cliniques réels d'une étude publiée — voir DATASET) ;
-  - architecture différente (Snakemake déclaratif, module 24, plutôt
-    qu'un script bash séquentiel) ;
-  - outils différents quand le premier choix ne convenait pas à
-    l'organisme (voir DECISIONS — spaTyper, par exemple, est spécifique à
-    S. aureus et n'a tout simplement aucun sens pour K. pneumoniae) ;
-  - chaque défaut identifié dans l'audit est corrigé explicitement et
-    documenté ci-dessous (section DECISIONS), pas seulement évité par
-    hasard.
-```
+phylogénie — sur un jeu de données réel et vérifiable, avec une
+architecture Snakemake déclarative (module 24) et des choix d'outils
+justifiés pour l'organisme étudié (voir DECISIONS).
 
 PREREQUISITES
 ------------------------------------------------------------
@@ -172,8 +145,8 @@ echo "ce8039179fdbf45acf632c82a38b5d6a  data/raw/kpn_01_2.fastq.gz" | md5sum -c 
 COMMON ERRORS:
   - "md5sum: WARNING: 1 computed checksum did NOT match" → téléchargement
     interrompu ou incomplet ; relancer `wget -c` (reprise) puis
-    revérifier, plutôt que d'ignorer l'avertissement (voir README de
-    l'audit du pipeline de référence, section « Failles critiques »).
+    revérifier — ne jamais enchaîner l'étape suivante sur un fichier dont
+    la somme de contrôle n'a pas été confirmée.
 EXERCISE: avant de continuer, exécuter `file data/reference/PMK1.fasta`
          (01_linux_basics/, section 3) et confirmer "ASCII text" — un
          fichier encore compressé ou tronqué serait détecté ici, avant
@@ -315,83 +288,71 @@ EXERCISE: avant l'exécution complète, `snakemake -n --configfile config.yaml`
 
 ---
 
-# 4. DECISIONS (choix méthodologiques justifiés, en écart délibéré avec le pipeline de référence)
+# 4. DECISIONS (choix méthodologiques justifiés)
 
 ```text
-K. PNEUMONIAE PLUTÔT QUE S. AUREUS, ET UN AUTRE JEU D'ISOLATS : le
-         pipeline de référence traitait un seul isolat de S. aureus
-         (ERR15680387, sans lien avec l'AMR structurée en clones
-         internationaux). Ce mini-projet choisit une espèce et une
-         collection différentes (CRKP, Vietnam, Tada et al. 2017) avec
-         une question biologique différente : la diversité clonale
-         (ST15/ST16/autres) et la diversité des mécanismes de résistance
-         aux carbapénèmes, observables uniquement avec PLUSIEURS isolats
-         — voir point suivant.
+3 ISOLATS + 1 RÉFÉRENCE : un seul isolat aligné contre sa référence ne
+         donne qu'un arbre à 2 feuilles, sans topologie interprétable.
+         Avec 3 isolats + PMK1, l'arbre obtenu ici (section 2.7) a une
+         vraie topologie à interpréter — condition nécessaire pour
+         observer la diversité clonale (ST15/ST16/autres) qui est
+         justement l'objet biologique de ce mini-projet.
 
-3 ISOLATS + 1 RÉFÉRENCE PLUTÔT QU'UN SEUL ISOLAT : le pipeline de
-         référence annonçait construire des « arbres phylogénétiques »
-         (au pluriel) tout en n'alignant jamais qu'un seul isolat contre
-         sa référence — techniquement un arbre à 2 feuilles, sans
-         topologie interprétable. Avec 3 isolats + PMK1, l'arbre obtenu
-         ici (section 2.7) a une vraie topologie à interpréter.
+SPADES DIRECT PLUTÔT QUE SHOVILL : Shovill est un simple orchestrateur
+         trim+assemble+correct autour de SPAdes/Skesa/Megahit. Le
+         trimming est déjà fait par fastp (section 2.2) ; passer par
+         SPAdes directement (déjà documenté par envs/assembly.yml,
+         module 11) évite de dupliquer un outil pour une valeur ajoutée
+         ici redondante.
 
-SPADES DIRECT PLUTÔT QUE SHOVILL : Shovill (utilisé par le pipeline de
-         référence) est un simple orchestrateur trim+assemble+correct
-         autour de SPAdes/Skesa/Megahit. Le trimming est déjà fait par
-         fastp (section 2.2) ; passer par SPAdes directement (déjà
-         documenté par envs/assembly.yml, module 11) évite de dupliquer
-         un outil pour une valeur ajoutée ici redondante.
-
-BAKTA PLUTÔT QUE DFAST+KofamScan : DFAST+KofamScan (pipeline de
-         référence) nécessitent des fichiers `profiles/` et `ko_list`
-         KEGG à télécharger manuellement, jamais documentés dans le
-         README audité — un lecteur qui suit ce README échouerait à
-         cette étape sans comprendre pourquoi. Bakta (déjà recommandé par
-         14_genome_annotation/README.md, §1.1, comme remplaçant actif de
-         Prokka) a une procédure de base de données documentée et
-         explicite (`bakta_db download`, section 2.4 ci-dessus).
+BAKTA PLUTÔT QUE DFAST+KofamScan : DFAST+KofamScan nécessitent des
+         fichiers `profiles/` et `ko_list` KEGG à télécharger
+         manuellement, une dépendance facile à oublier de documenter.
+         Bakta (déjà recommandé par 14_genome_annotation/README.md,
+         §1.1, comme remplaçant actif de Prokka) a une procédure de
+         base de données documentée et explicite (`bakta_db download`,
+         section 2.4 ci-dessus).
 
 BUSCO PLUTÔT QUE CheckM : même raisonnement — CheckM exige une base de
-         données externe (`checkm data setRoot`) non documentée dans le
-         pipeline audité. BUSCO (déjà l'outil de envs/assembly_quality.yml,
-         module 13) télécharge son jeu de données de lignage lui-même, de
-         façon transparente, à la première exécution.
+         données externe (`checkm data setRoot`) à installer à part.
+         BUSCO (déjà l'outil de envs/assembly_quality.yml, module 13)
+         télécharge son jeu de données de lignage lui-même, de façon
+         transparente, à la première exécution.
 
-KLEBORATE PLUTÔT QUE mlst GÉNÉRIQUE + spaTyper : ceci est le point le
-         plus important de cet écart méthodologique. Le pipeline de
-         référence utilisait `spaTyper`, un outil de typage de la
-         protéine de surface spa — un gène QUI N'EXISTE PAS CHEZ
-         Klebsiella pneumoniae (spa est spécifique à S. aureus). Un
-         simple remplacement mécanique du nom d'espèce dans le script
-         original aurait donc produit une commande qui échoue ou n'a
-         aucun sens biologique. Kleborate est l'outil de référence conçu
+KLEBORATE PLUTÔT QUE mlst GÉNÉRIQUE + spaTyper : un typage MLST/AMR/
+         virulence générique ne suffit pas ici. `spaTyper`, par exemple
+         — un outil courant pour le typage de la protéine de surface
+         spa — n'a tout simplement aucun sens pour Klebsiella pneumoniae
+         : le gène spa n'existe pas chez cette espèce, il est spécifique
+         à S. aureus. Kleborate est l'outil de référence conçu
          spécifiquement pour le complexe d'espèces K. pneumoniae (MLST +
-         résistance + virulence + capsule en un seul outil) — la bonne
-         adaptation n'est pas de traduire un pipeline commande par
-         commande, mais de choisir l'outil pertinent pour le nouvel
-         organisme.
+         résistance + virulence + capsule en un seul outil) — le bon
+         réflexe est de choisir l'outil pertinent pour l'organisme
+         étudié, pas d'appliquer un typage générique par défaut.
 
 TÉMOIN POSITIF (PMK1) DANS LE TYPAGE : PMK1 est un ST15 connu et publié
          (voir DATASET). L'inclure dans l'entrée de `typing_kleborate`
          fournit un contrôle de cohérence gratuit : si Kleborate ne
          retrouve pas ST15 pour PMK1, l'installation/la base est en
-         cause avant même de regarder kpn_01/02/03 (absent du pipeline
-         de référence, qui n'avait aucun contrôle positif).
+         cause avant même de regarder kpn_01/02/03.
 
-CHECKSUMS MD5 EXPLICITES : absents du pipeline de référence (le
-         `wget -c` seul ne garantit rien sur l'intégrité du contenu,
-         seulement sur la reprise d'un téléchargement interrompu). Ici,
-         `config.yaml` fixe les sommes de contrôle ENA/NCBI officielles,
-         vérifiées immédiatement après chaque téléchargement (section
-         2.1, règles get_reference/get_reads du Snakefile).
+CHECKSUMS MD5 EXPLICITES : un `wget -c` seul ne garantit rien sur
+         l'intégrité du contenu téléchargé, seulement sur la reprise
+         d'un téléchargement interrompu — un fichier tronqué ou corrompu
+         passerait inaperçu jusqu'à un échec bien plus loin dans le
+         pipeline. `config.yaml` fixe donc les sommes de contrôle
+         ENA/NCBI officielles, vérifiées immédiatement après chaque
+         téléchargement (section 2.1, règles get_reference/get_reads du
+         Snakefile).
 
-ARBITRE_AMR.PY CORRIGÉ : le script original lisait des fichiers relatifs
-         sans préfixe de dossier, appelé depuis un répertoire différent
-         de celui où les fichiers existaient réellement — échec
-         systématique masqué par un `except Exception` générique qui
-         n'interrompait jamais le pipeline appelant. La version ici
-         (scripts/arbitre_amr.py) prend des chemins explicites en
-         arguments et termine avec `sys.exit(1)` sur toute erreur.
+ARBITRE_AMR.PY : chemins d'entrée/sortie explicites en arguments
+         (`--abricate-tsv`, `--amrfinder-tsv`, `--output-table`...)
+         plutôt que des noms de fichiers relatifs supposant un dossier
+         de travail précis, et `sys.exit(1)` sur toute erreur plutôt
+         qu'un `except Exception` générique qui se contenterait
+         d'imprimer un message — pour qu'un orchestrateur (Snakemake,
+         `set -e`) puisse réellement détecter un échec de cette étape
+         au lieu de le voir capturé et ignoré silencieusement.
 ```
 
 ---
@@ -435,6 +396,36 @@ Kleborate : interface en ligne de commande différente entre v2 et v3
 
 ---
 
+MESSAGE AUX LECTEURS — EXÉCUTEZ CE PIPELINE VOUS-MÊME
+------------------------------------------------------------
+```text
+Ce README explique et vérifie chaque commande, accession et référence
+bibliographique — mais il ne remplace jamais l'exécution réelle.
+Volontairement, aucun chiffre de résultat n'est pré-rempli ici (voir la
+grille ci-dessous) : le rapport QUAST/BUSCO, le diagramme de Venn AMR, le
+rapport Kleborate et la topologie de l'arbre phylogénétique de VOS 3
+isolats sont à produire par VOUS, avec `snakemake --use-conda -j 4`
+(section 3) ou pas à pas à la main (section 2).
+
+C'est la seule façon d'apprendre réellement ce que fait chaque étape :
+lire un rapport qu'on vient de générer soi-même, comparer un ST Kleborate
+à la distribution publiée, ouvrir un arbre Newick qu'on vient de
+calculer, apprend infiniment plus qu'un résultat déjà interprété par
+quelqu'un d'autre. Prenez le temps d'exécuter le pipeline en entier —
+comptez plusieurs heures pour l'assemblage, l'annotation Bakta et le
+téléchargement de la base BUSCO — puis comparez vos valeurs à la grille
+de vérification ci-dessous AVANT de chercher une explication toute
+faite.
+
+En cas d'échec d'une étape, le premier réflexe n'est PAS de relancer à
+l'aveugle : chaque règle Snakemake écrit désormais son propre journal
+dans `logs/<règle>/<échantillon>.log` (ex. `logs/assemble/kpn_01.log`,
+`logs/annotate/kpn_02.log`...). Lire ce fichier dit presque toujours
+directement ce qui a échoué et pourquoi.
+```
+
+---
+
 # RÉSULTATS ATTENDUS / GRILLE DE VÉRIFICATION (à remplir par le lecteur)
 
 ```text
@@ -471,8 +462,7 @@ SOLUTION: relancer le même `wget -c` (reprise de téléchargement) puis
           revérifier le md5 ; en dernier recours, essayer le miroir NCBI
           SRA (module 08, §5.1) pour les reads.
 PREVENTION: ne jamais enchaîner une étape suivante avant que `md5sum -c`
-            ait confirmé "OK" — c'est précisément ce que ce mini-projet
-            corrige par rapport au pipeline de référence audité.
+            ait confirmé "OK".
 ```
 ```text
 SYMPTOM: `bakta_db download` ou `busco` semble bloqué très longtemps

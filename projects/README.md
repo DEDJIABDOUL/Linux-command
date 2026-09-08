@@ -18,11 +18,10 @@ Snakemake, décisions méthodologiques, limites, interprétation).
 Premier mini-projet livré : profilage AMR, typage moléculaire et
 phylogénie par SNP sur 3 isolats cliniques réels de *Klebsiella
 pneumoniae* résistants aux carbapénèmes (Tada et al. 2017). Conçu comme
-guide pas-à-pas pour un lecteur découvrant ce type de pipeline, et comme
-réécriture corrigée d'un pipeline externe audité au préalable (voir
-`mini_project_amr_kpneumoniae/README.md`, sections ORIGINE ET
-AVERTISSEMENT ANTI-PLAGIAT et DECISIONS, pour le détail de chaque défaut
-identifié et corrigé). Introduit `envs/amr_typing.yml`, qui comble un
+guide pas-à-pas pour un lecteur découvrant ce type de pipeline, avec une
+architecture Snakemake déclarative et des choix d'outils justifiés pour
+l'organisme étudié (voir `mini_project_amr_kpneumoniae/README.md`,
+section DECISIONS). Introduit `envs/amr_typing.yml`, qui comble un
 manque du dépôt (aucun module numéroté ne couvrait encore l'AMR/le
 typage/la phylogénie de routine).
 

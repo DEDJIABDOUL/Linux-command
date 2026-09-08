@@ -50,46 +50,103 @@ débutant à l'intermédiaire, puis à l'avancé et au professionnel (voir
 | Jeux de données d'exercice (FASTA, FASTQ, TSV synthétiques) | `linux/` (voir `README.md` à la racine) |
 | Matériau historique en cours de restructuration | `legacy/` |
 | Environnements Conda documentés par domaine | `envs/` |
-| Modules de cours | `01_linux_basics/` → ... (voir tableau ci-dessous) |
+| Modules de cours | `01_linux_basics/` → `26_hpc/` (voir schéma ci-dessous) |
+| Projet final intégrateur et mini-projets par domaine | `projects/` (voir schéma ci-dessous) |
 
 ## Feuille de route des modules
 
-Les 26 modules ci-dessous sont tous marqués **[disponible]** : la feuille
-de route complète est rédigée. Voir `docs/audit_report.md` pour la
-méthodologie suivie et pour la suite planifiée (`projects/`).
+Les 26 modules ci-dessous sont tous rédigés et disponibles. Cliquer sur
+un nœud du schéma ouvre directement le README du module correspondant
+(fonctionne dans le rendu GitHub de ce fichier ; voir la liste de secours
+juste après si votre visualiseur Markdown ne rend pas les diagrammes
+Mermaid). Voir `docs/audit_report.md` pour la méthodologie suivie.
 
-| Module | Contenu | Statut |
-|---|---|---|
-| `01_linux_basics` | Terminal, navigation, fichiers, permissions, processus | **[disponible]** |
-| `02_linux_for_bioinformatics` | Premiers pas sur FASTA/FASTQ avec les commandes de base | **[disponible]** |
-| `03_text_processing` | `grep`/`sed`/`awk`/`cut`/`sort`/`uniq`/`tr` appliqués aux données biologiques | **[disponible]** |
-| `04_bash_scripting` | Variables, boucles, fonctions, scripts robustes | **[disponible]** |
-| `05_biological_formats` | FASTA/FASTQ en profondeur, introduction SAM/BAM/VCF/BED/GFF/GTF | **[disponible]** |
-| `06_environment_management` | Conda/Mamba/Bioconda, reproductibilité des environnements | **[disponible]** |
-| `07_project_organization` | Arborescence professionnelle d'un projet bioinformatique | **[disponible]** |
-| `08_data_acquisition` | Téléchargement de données publiques (NCBI/SRA/ENA), intégrité, cas vérifié SRR18392380 | **[disponible]** |
-| `09_quality_control` | QC Illumina (FastQC/MultiQC) et Nanopore/PacBio (NanoPlot/LongQC), interprétation des métriques | **[disponible]** |
-| `10_adapter_trimming_filtering` | Trimming/filtrage Illumina (Cutadapt/fastp) et Nanopore (chopper), statuts d'outils vérifiés | **[disponible]** |
-| `11_de_novo_assembly` | Assemblage long reads (Flye) et short reads (SPAdes/MEGAHIT) ; statut de Canu vérifié (terminé) | **[disponible]** |
-| `12_sequence_alignment` | minimap2, BWA-MEM2, Bowtie2, STAR, HISAT2 ; différences ADN/ARN/long-read | **[disponible]** |
-| `13_assembly_quality` | Polishing (Racon), QUAST, BUSCO | **[disponible]** |
-| `14_genome_annotation` | Annotation procaryote (Bakta) et eucaryote (BRAKER), annotation fonctionnelle (BLAST/DIAMOND/InterProScan/eggNOG-mapper) | **[disponible]** |
-| `15_rnaseq` | Pipeline RNA-seq complet : alignement/pseudoalignement, quantification, DESeq2/edgeR/limma, enrichissement fonctionnel | **[disponible]** |
-| `16_chipseq` | Peak calling (MACS3), QC (FRiP, deepTools), reproductibilité (IDR), motifs (HOMER) | **[disponible]** |
-| `17_dna_methylation` | Bisulfite sequencing (Bismark), analyse différentielle (methylKit/DSS) | **[disponible]** |
-| `18_gwas` | Génotypage, QC, structure de population (PCA/ADMIXTURE), association (PLINK2) | **[disponible]** |
-| `19_proteomics` | Identification/quantification MS (MaxQuant/FragPipe/DIA-NN), MSstats | **[disponible]** |
-| `20_metagenomics` | Profilage taxonomique (Kraken2/Bracken), binning (MetaBAT2), qualité de MAG (CheckM2), taxonomie (GTDB-Tk) | **[disponible]** |
-| `21_variant_analysis` | Variant calling (GATK/bcftools), filtrage, annotation (VEP/SnpEff) | **[disponible]** |
-| `22_r_statistics` | Écosystème R/Bioconductor (Biostrings, GenomicRanges, ShortRead, ggplot2) | **[disponible]** |
-| `23_python_bioinformatics` | Biopython, pandas, NumPy/SciPy, pysam | **[disponible]** |
-| `24_workflows` | Snakemake, Nextflow, nf-core (jamais en boîte noire) | **[disponible]** |
-| `25_reproducibility` | Conteneurs (Docker/Apptainer), Git/GitHub | **[disponible]** |
-| `26_hpc` | SLURM, modules logiciels (Lmod), bonnes pratiques cluster | **[disponible]** |
+```mermaid
+flowchart TD
+    subgraph G1["Fondations Linux (01-06)"]
+        direction LR
+        m01["01 Linux basics"] --> m02["02 Linux pour la bioinfo"] --> m03["03 Text processing"] --> m04["04 Bash scripting"] --> m05["05 Formats biologiques"] --> m06["06 Environnements Conda"]
+    end
+    subgraph G2["Mise en projet (07-08)"]
+        direction LR
+        m07["07 Organisation de projet"] --> m08["08 Acquisition de données"]
+    end
+    subgraph G3["Contrôle qualité (09-10)"]
+        direction LR
+        m09["09 QC"] --> m10["10 Trimming/filtrage"]
+    end
+    subgraph G4["Assemblage, alignement, annotation (11-14)"]
+        direction LR
+        m11["11 Assemblage de novo"] --> m12["12 Alignement"] --> m13["13 QC d'assemblage"] --> m14["14 Annotation"]
+    end
+    subgraph G5["Domaines d'application (15-19)"]
+        direction LR
+        m15["15 RNA-seq"] --> m16["16 ChIP-seq"] --> m17["17 Méthylation ADN"] --> m18["18 GWAS"] --> m19["19 Protéomique"]
+    end
+    subgraph G6["Analyse de données (20-23)"]
+        direction LR
+        m20["20 Métagénomique"] --> m21["21 Variant calling"] --> m22["22 R/Bioconductor"] --> m23["23 Python"]
+    end
+    subgraph G7["Ingénierie & production (24-26)"]
+        direction LR
+        m24["24 Workflows"] --> m25["25 Conteneurs & Git"] --> m26["26 HPC"]
+    end
+    subgraph G8["Application (projects/)"]
+        direction LR
+        pfinal["Projet final : LTEE E. coli"]
+        pmini["Mini-projet : AMR K. pneumoniae"]
+    end
 
-**Les 26 modules de la feuille de route sont désormais tous rédigés.** La
-suite naturelle, mini-projets et projet final intégrateur, est à
-construire dans `projects/` (non encore rédigé, voir `docs/audit_report.md`).
+    G1 --> G2 --> G3 --> G4 --> G5 --> G6 --> G7 --> G8
+
+    click m01 "../01_linux_basics/README.md" "01 — Linux basics"
+    click m02 "../02_linux_for_bioinformatics/README.md" "02 — Linux pour la bioinformatique"
+    click m03 "../03_text_processing/README.md" "03 — Text processing"
+    click m04 "../04_bash_scripting/README.md" "04 — Bash scripting"
+    click m05 "../05_biological_formats/README.md" "05 — Formats biologiques"
+    click m06 "../06_environment_management/README.md" "06 — Environnements Conda"
+    click m07 "../07_project_organization/README.md" "07 — Organisation de projet"
+    click m08 "../08_data_acquisition/README.md" "08 — Acquisition de données"
+    click m09 "../09_quality_control/README.md" "09 — Contrôle qualité"
+    click m10 "../10_adapter_trimming_filtering/README.md" "10 — Trimming/filtrage"
+    click m11 "../11_de_novo_assembly/README.md" "11 — Assemblage de novo"
+    click m12 "../12_sequence_alignment/README.md" "12 — Alignement"
+    click m13 "../13_assembly_quality/README.md" "13 — QC d'assemblage"
+    click m14 "../14_genome_annotation/README.md" "14 — Annotation de génome"
+    click m15 "../15_rnaseq/README.md" "15 — RNA-seq"
+    click m16 "../16_chipseq/README.md" "16 — ChIP-seq"
+    click m17 "../17_dna_methylation/README.md" "17 — Méthylation ADN"
+    click m18 "../18_gwas/README.md" "18 — GWAS"
+    click m19 "../19_proteomics/README.md" "19 — Protéomique"
+    click m20 "../20_metagenomics/README.md" "20 — Métagénomique"
+    click m21 "../21_variant_analysis/README.md" "21 — Variant calling"
+    click m22 "../22_r_statistics/README.md" "22 — R/Bioconductor"
+    click m23 "../23_python_bioinformatics/README.md" "23 — Python"
+    click m24 "../24_workflows/README.md" "24 — Workflows"
+    click m25 "../25_reproducibility/README.md" "25 — Conteneurs & Git"
+    click m26 "../26_hpc/README.md" "26 — HPC"
+    click pfinal "../projects/final_project_ltee_ecoli/README.md" "Projet final — LTEE E. coli"
+    click pmini "../projects/mini_project_amr_kpneumoniae/README.md" "Mini-projet — AMR K. pneumoniae"
+```
+
+**Liste de secours** (si le rendu Mermaid n'est pas disponible dans votre
+visualiseur) :
+
+- Fondations Linux : [01](../01_linux_basics/README.md) → [02](../02_linux_for_bioinformatics/README.md) → [03](../03_text_processing/README.md) → [04](../04_bash_scripting/README.md) → [05](../05_biological_formats/README.md) → [06](../06_environment_management/README.md)
+- Mise en projet : [07](../07_project_organization/README.md) → [08](../08_data_acquisition/README.md)
+- Contrôle qualité : [09](../09_quality_control/README.md) → [10](../10_adapter_trimming_filtering/README.md)
+- Assemblage/alignement/annotation : [11](../11_de_novo_assembly/README.md) → [12](../12_sequence_alignment/README.md) → [13](../13_assembly_quality/README.md) → [14](../14_genome_annotation/README.md)
+- Domaines d'application : [15](../15_rnaseq/README.md) → [16](../16_chipseq/README.md) → [17](../17_dna_methylation/README.md) → [18](../18_gwas/README.md) → [19](../19_proteomics/README.md)
+- Analyse de données : [20](../20_metagenomics/README.md) → [21](../21_variant_analysis/README.md) → [22](../22_r_statistics/README.md) → [23](../23_python_bioinformatics/README.md)
+- Ingénierie & production : [24](../24_workflows/README.md) → [25](../25_reproducibility/README.md) → [26](../26_hpc/README.md)
+- Application réelle : [projet final (LTEE E. coli)](../projects/final_project_ltee_ecoli/README.md) · [mini-projet (AMR K. pneumoniae)](../projects/mini_project_amr_kpneumoniae/README.md)
+
+**Les 26 modules de la feuille de route sont tous rédigés, et l'étape
+« application » n'est plus vide** : le projet final intégrateur
+(`projects/final_project_ltee_ecoli/`) et un premier mini-projet par
+domaine (`projects/mini_project_amr_kpneumoniae/`, AMR/typage/phylogénie
+chez *Klebsiella pneumoniae*) sont livrés. Les mini-projets suivants
+restent planifiés (voir `docs/audit_report.md` et `projects/README.md`).
 
 ## Jeu de données d'entraînement
 
