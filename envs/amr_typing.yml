@@ -25,10 +25,13 @@
 #     d'espèces Klebsiella pneumoniae — préférer cet outil à un typage
 #     MLST générique dès que l'organisme est Klebsiella (voir
 #     projects/mini_project_amr_kpneumoniae/README.md, section DECISIONS).
-#     ATTENTION : l'interface en ligne de commande a changé entre
-#     Kleborate v2 (--all) et v3 (système de presets -p/--preset) —
-#     vérifier `kleborate --version` et `kleborate --help` avant usage.
-#     doc : https://github.com/klebgenomics/Kleborate
+#     ÉPINGLÉ à >=3 (voir VERSION ci-dessous) : l'interface en ligne de
+#     commande a changé de façon incompatible entre Kleborate v2
+#     (`--all`, `--outfile fichier.txt`) et v3 (système de presets
+#     `-p kpsc`, `-o dossier_sortie`) — vérifié le 2026-09-08 sur la
+#     documentation officielle (dernière version bioconda : 3.2.4).
+#     doc : https://github.com/klebgenomics/Kleborate ·
+#     https://kleborate.readthedocs.io/en/latest/
 #   - snippy / snippy-core : appel de variants rapide par isolat contre
 #     une référence, puis alignement SNP « core » multi-échantillons —
 #     utilisé ici pour construire un arbre phylogénétique simple.
@@ -38,8 +41,17 @@
 #     doc : http://www.microbesonline.org/fasttree/
 #
 # VERSION
-#   Non figée volontairement dans ce fichier d'introduction (voir
-#   envs/core_tools.yml pour la justification).
+#   Non figée volontairement pour abricate/ncbi-amrfinderplus/snippy/
+#   fasttree (voir envs/core_tools.yml pour la justification générale).
+#   EXCEPTION : `kleborate>=3` est épingé à sa borne majeure — même
+#   raisonnement que `canu=2.3` dans envs/assembly.yml (section VERSION),
+#   mais pour une cause différente : Canu est figé parce que le projet
+#   est terminé (aucune version future) ; Kleborate est activement
+#   développé, mais un changement d'interface en ligne de commande
+#   incompatible existe entre v2 et v3 (voir TOOLS ci-dessus) — épingler
+#   la borne majeure évite qu'une réinstallation future ne fasse
+#   silencieusement régresser vers une v2 qui casserait la commande
+#   documentée en USAGE.
 #
 # INSTALLATION
 #   conda env create -f envs/amr_typing.yml
@@ -51,7 +63,7 @@
 #   amrfinder -u                                    # une seule fois
 #   abricate --db card contigs.fasta > resultats_card.tsv
 #   amrfinder -n contigs.fasta --organism Klebsiella_pneumoniae -o resultats_amrfinder.tsv
-#   kleborate --help                                # vérifier la syntaxe de la version installée
+#   kleborate -a contigs.fasta -o resultats_kleborate -p kpsc   # syntaxe v3
 #   snippy --outdir sortie --ref reference.fasta --R1 R1.fastq.gz --R2 R2.fastq.gz
 
 name: amr_typing
@@ -61,6 +73,6 @@ channels:
 dependencies:
   - abricate
   - ncbi-amrfinderplus
-  - kleborate
+  - kleborate>=3
   - snippy
   - fasttree

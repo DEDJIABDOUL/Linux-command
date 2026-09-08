@@ -40,7 +40,7 @@ rule all:
         expand(f"{RESULTS}/assembly_qc/{{sample}}/busco", sample=SAMPLES),
         expand(f"{RESULTS}/annotation/{{sample}}", sample=SAMPLES),
         expand(f"{RESULTS}/amr/{{sample}}.consensus.tsv", sample=SAMPLES),
-        f"{RESULTS}/typing/kleborate_report.txt",
+        directory(f"{RESULTS}/typing/kleborate"),
         f"{RESULTS}/phylo/tree.nwk",
 
 
@@ -351,20 +351,24 @@ rule amr_consensus:
 # ---------------------------------------------------------------------
 
 rule typing_kleborate:
+    # Syntaxe Kleborate v3 (envs/amr_typing.yml épingle kleborate>=3) :
+    # -p kpsc sélectionne le preset « Klebsiella pneumoniae species
+    # complex » (MLST + AMR + virulence + capsule) ; -o est un DOSSIER
+    # de sortie en v3, plus un fichier unique comme en v2.
     input:
         contigs=expand(f"{RESULTS}/assembly/{{sample}}/contigs.fasta", sample=SAMPLES),
         ref=REF_FASTA,
     output:
-        f"{RESULTS}/typing/kleborate_report.txt",
+        directory(f"{RESULTS}/typing/kleborate"),
     log:
         f"{LOGS}/typing_kleborate/kleborate.log",
     conda:
         "../../envs/amr_typing.yml"
     shell:
-        # Syntaxe donnée pour Kleborate v2 (--all) ; v3 utilise un
-        # système de presets (-p kpsc) — vérifier `kleborate --help`
-        # avant exécution (voir envs/amr_typing.yml).
-        "kleborate --assemblies {input.contigs} {input.ref} --outfile {output} --all > {log} 2>&1"
+        """
+        exec > {log} 2>&1
+        kleborate -a {input.contigs} {input.ref} -o {output} -p kpsc
+        """
 
 
 # ---------------------------------------------------------------------

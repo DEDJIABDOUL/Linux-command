@@ -1,5 +1,7 @@
 # Linux-command — De Linux à la bioinformatique professionnelle
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Un parcours pratique et progressif qui transforme un débutant complet en
 Linux en un analyste capable de conduire une analyse bioinformatique
 réelle, reproductible, sur de vraies données publiques.
@@ -156,4 +158,7 @@ en une seule passe massive. La méthodologie détaillée se trouve dans
 
 ## Licence
 
-Voir le dépôt GitHub pour les conditions de licence applicables.
+Ce dépôt est publié sous licence [MIT](LICENSE) — réutilisation, modification et
+redistribution libres, y compris à des fins commerciales, à condition de
+conserver la mention de copyright et la licence elle-même. Voir le fichier
+[`LICENSE`](LICENSE) pour le texte complet.

@@ -227,16 +227,16 @@ EXERCISE: ouvrir results/amr/kpn_01.consensus.tsv et repérer si un gène
 ## 2.6 Typage moléculaire (Kleborate)
 
 ```bash
-kleborate --help   # vérifier la syntaxe de la version installée (v2 vs v3, voir DECISIONS)
-kleborate --assemblies results/assembly/kpn_01/contigs.fasta data/reference/PMK1.fasta \
-    --outfile results/typing/kleborate_report.txt --all
+kleborate -a results/assembly/kpn_01/contigs.fasta data/reference/PMK1.fasta \
+    -o results/typing/kleborate -p kpsc
 ```
 
 ```text
-EXERCISE: dans kleborate_report.txt, vérifier la ligne correspondant à
-         PMK1.fasta : elle DOIT indiquer ST15 (voir DATASET). Si ce
-         témoin positif ne sort pas correctement, le problème est dans
-         l'installation ou la base Kleborate — pas dans vos échantillons
+EXERCISE: dans le fichier de résultats produit sous results/typing/kleborate/,
+         vérifier la ligne correspondant à PMK1.fasta : elle DOIT
+         indiquer ST15 (voir DATASET). Si ce témoin positif ne sort pas
+         correctement, le problème est dans l'installation ou la base
+         Kleborate — pas dans vos échantillons
          — à corriger avant d'interpréter kpn_01/02/03.
 ```
 
@@ -330,6 +330,16 @@ KLEBORATE PLUTÔT QUE mlst GÉNÉRIQUE + spaTyper : un typage MLST/AMR/
          réflexe est de choisir l'outil pertinent pour l'organisme
          étudié, pas d'appliquer un typage générique par défaut.
 
+KLEBORATE ÉPINGLÉ À >=3 : Kleborate a changé d'interface en ligne de
+         commande de façon incompatible entre v2 (`--all`,
+         `--outfile fichier.txt`) et v3 (presets `-p kpsc`,
+         `-o dossier_sortie`) — vérifié le 2026-09-08 sur la
+         documentation officielle (dernière version bioconda : 3.2.4).
+         `envs/amr_typing.yml` épingle donc `kleborate>=3` et la
+         commande de la section 2.6 utilise la syntaxe v3 sans
+         ambiguïté, plutôt que de renvoyer le lecteur à un `--help` pour
+         deviner laquelle des deux syntaxes incompatibles s'applique.
+
 TÉMOIN POSITIF (PMK1) DANS LE TYPAGE : PMK1 est un ST15 connu et publié
          (voir DATASET). L'inclure dans l'entrée de `typing_kleborate`
          fournit un contrôle de cohérence gratuit : si Kleborate ne
@@ -387,11 +397,6 @@ Aucune démultiplication de qualité par profondeur avant SNP calling
          profondeur diffère notablement entre kpn_01/02/03, en tenir
          compte avant toute conclusion sur les distances phylogénétiques
          observées.
-
-Kleborate : interface en ligne de commande différente entre v2 et v3
-         (voir envs/amr_typing.yml) — la commande de la section 2.6 vise
-         la syntaxe v2 (`--all`) ; vérifier `kleborate --help` avant de
-         lancer si une version plus récente est installée.
 ```
 
 ---
@@ -476,15 +481,20 @@ PREVENTION: lancer ces deux téléchargements avant de s'absenter, plutôt
             qu'en tout dernier au milieu d'une session chronométrée.
 ```
 ```text
-SYMPTOM: `kleborate` échoue avec une erreur d'option inconnue (ex. --all)
-CAUSE: version 3 installée, dont l'interface a changé vers un système de
-       presets (-p/--preset) — voir envs/amr_typing.yml.
-DIAGNOSIS: `kleborate --version` puis `kleborate --help`.
-SOLUTION: adapter la commande de la section 2.6 selon la syntaxe
-          affichée par --help (ex. `-p kpsc` en v3 pour le complexe
-          d'espèces K. pneumoniae).
+SYMPTOM: `kleborate` échoue avec une erreur d'option inconnue (ex. -p kpsc
+         non reconnu)
+CAUSE: `envs/amr_typing.yml` épingle `kleborate>=3`, donc ce symptôme
+       signale presque toujours un environnement obsolète ou recréé sans
+       passer par ce fichier (ex. `kleborate` installé séparément en v2).
+DIAGNOSIS: `kleborate --version` — doit afficher 3.x ; sinon
+           l'environnement actif n'est pas `amr_typing` tel que défini
+           ici.
+SOLUTION: `conda env create -f ../../envs/amr_typing.yml` (ou
+          `conda update kleborate` dans l'environnement existant) puis
+          revérifier `kleborate --version`.
 PREVENTION: toujours lancer `--help` sur un outil récemment mis à jour
-            avant de copier une commande d'un README, y compris celui-ci.
+            avant de copier une commande d'un README, y compris celui-ci
+            — un futur Kleborate v4 pourrait à nouveau changer d'interface.
 ```
 
 GO FURTHER

@@ -55,13 +55,23 @@ débutant à l'intermédiaire, puis à l'avancé et au professionnel (voir
 
 ## Feuille de route des modules
 
-Les 26 modules ci-dessous sont tous rédigés et disponibles. Cliquer sur
-un nœud du schéma ouvre directement le README du module correspondant
-(fonctionne dans le rendu GitHub de ce fichier ; voir la liste de secours
-juste après si votre visualiseur Markdown ne rend pas les diagrammes
-Mermaid). Voir `docs/audit_report.md` pour la méthodologie suivie.
+Les 26 modules ci-dessous sont tous rédigés et disponibles. Le schéma
+utilise des couleurs fixées explicitement (fond clair, texte foncé),
+indépendantes du thème clair/sombre du visualiseur, pour rester lisible
+partout. Cliquer sur un nœud ouvre directement le README du module
+correspondant. Voir `docs/audit_report.md` pour la méthodologie suivie.
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#ffffff",
+    "primaryTextColor": "#111111",
+    "primaryBorderColor": "#4f46e5",
+    "lineColor": "#4f46e5",
+    "clusterBkg": "#f3f4f6",
+    "clusterBorder": "#9ca3af",
+    "fontSize": "15px"
+}}}%%
 flowchart TD
     subgraph G1["Fondations Linux (01-06)"]
         direction LR
@@ -99,6 +109,9 @@ flowchart TD
 
     G1 --> G2 --> G3 --> G4 --> G5 --> G6 --> G7 --> G8
 
+    classDef mod fill:#ffffff,stroke:#4f46e5,color:#111111;
+    class m01,m02,m03,m04,m05,m06,m07,m08,m09,m10,m11,m12,m13,m14,m15,m16,m17,m18,m19,m20,m21,m22,m23,m24,m25,m26,pfinal,pmini mod;
+
     click m01 "../01_linux_basics/README.md" "01 — Linux basics"
     click m02 "../02_linux_for_bioinformatics/README.md" "02 — Linux pour la bioinformatique"
     click m03 "../03_text_processing/README.md" "03 — Text processing"
@@ -129,17 +142,17 @@ flowchart TD
     click pmini "../projects/mini_project_amr_kpneumoniae/README.md" "Mini-projet — AMR K. pneumoniae"
 ```
 
-**Liste de secours** (si le rendu Mermaid n'est pas disponible dans votre
-visualiseur) :
+**Liste équivalente** (accès direct sans diagramme, ou si votre
+visualiseur ne rend pas Mermaid) :
 
-- Fondations Linux : [01](../01_linux_basics/README.md) → [02](../02_linux_for_bioinformatics/README.md) → [03](../03_text_processing/README.md) → [04](../04_bash_scripting/README.md) → [05](../05_biological_formats/README.md) → [06](../06_environment_management/README.md)
-- Mise en projet : [07](../07_project_organization/README.md) → [08](../08_data_acquisition/README.md)
-- Contrôle qualité : [09](../09_quality_control/README.md) → [10](../10_adapter_trimming_filtering/README.md)
-- Assemblage/alignement/annotation : [11](../11_de_novo_assembly/README.md) → [12](../12_sequence_alignment/README.md) → [13](../13_assembly_quality/README.md) → [14](../14_genome_annotation/README.md)
-- Domaines d'application : [15](../15_rnaseq/README.md) → [16](../16_chipseq/README.md) → [17](../17_dna_methylation/README.md) → [18](../18_gwas/README.md) → [19](../19_proteomics/README.md)
-- Analyse de données : [20](../20_metagenomics/README.md) → [21](../21_variant_analysis/README.md) → [22](../22_r_statistics/README.md) → [23](../23_python_bioinformatics/README.md)
-- Ingénierie & production : [24](../24_workflows/README.md) → [25](../25_reproducibility/README.md) → [26](../26_hpc/README.md)
-- Application réelle : [projet final (LTEE E. coli)](../projects/final_project_ltee_ecoli/README.md) · [mini-projet (AMR K. pneumoniae)](../projects/mini_project_amr_kpneumoniae/README.md)
+- **Fondations Linux (01-06)** : [01](../01_linux_basics/README.md) · [02](../02_linux_for_bioinformatics/README.md) · [03](../03_text_processing/README.md) · [04](../04_bash_scripting/README.md) · [05](../05_biological_formats/README.md) · [06](../06_environment_management/README.md)
+- **Mise en projet (07-08)** : [07](../07_project_organization/README.md) · [08](../08_data_acquisition/README.md)
+- **Contrôle qualité (09-10)** : [09](../09_quality_control/README.md) · [10](../10_adapter_trimming_filtering/README.md)
+- **Assemblage, alignement, annotation (11-14)** : [11](../11_de_novo_assembly/README.md) · [12](../12_sequence_alignment/README.md) · [13](../13_assembly_quality/README.md) · [14](../14_genome_annotation/README.md)
+- **Domaines d'application (15-19)** : [15](../15_rnaseq/README.md) · [16](../16_chipseq/README.md) · [17](../17_dna_methylation/README.md) · [18](../18_gwas/README.md) · [19](../19_proteomics/README.md)
+- **Analyse de données (20-23)** : [20](../20_metagenomics/README.md) · [21](../21_variant_analysis/README.md) · [22](../22_r_statistics/README.md) · [23](../23_python_bioinformatics/README.md)
+- **Ingénierie & production (24-26)** : [24](../24_workflows/README.md) · [25](../25_reproducibility/README.md) · [26](../26_hpc/README.md)
+- **Application réelle** : [projet final — LTEE E. coli](../projects/final_project_ltee_ecoli/README.md) · [mini-projet — AMR K. pneumoniae](../projects/mini_project_amr_kpneumoniae/README.md)
 
 **Les 26 modules de la feuille de route sont tous rédigés, et l'étape
 « application » n'est plus vide** : le projet final intégrateur
