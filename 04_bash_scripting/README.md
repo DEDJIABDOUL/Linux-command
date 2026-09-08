@@ -303,7 +303,7 @@ CONCEPT: avant de considérer un script terminé, vérifier sa syntaxe puis
 ```
 
 ```bash
-bash -n scripts/pipeline.sh     # vérifie la syntaxe SANS exécuter le script
+bash -n scripts/pipeline_template.sh   # vérifie la syntaxe SANS exécuter le script
 ```
 
 Cas à tester systématiquement pour un script qui traite des fichiers

@@ -161,6 +161,7 @@ EXERCISE: sauvegarder le résultat dans un nouveau fichier plutôt que de
          l'afficher seulement à l'écran :
 ```
 ```bash
+mkdir -p results
 sed 's/ATGCGT/[ATGCGT]/g' genome.fasta > results/genome_annotated.fasta
 ```
 

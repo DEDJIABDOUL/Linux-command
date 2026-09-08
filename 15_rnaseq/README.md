@@ -342,7 +342,8 @@ SCIENTIFIC REFERENCES
   powerful differential analysis of sequencing data with expanded
   functionality and improved support for small counts and larger
   datasets." Nucleic Acids Research, 53(2):gkaf018.
-  DOI: 10.1093/nar/gkaf018 (état actuel du package, octobre 2023)
+  DOI: 10.1093/nar/gkaf018 (publication de référence pour edgeR v4,
+  la version actuelle du package)
 - Ritchie ME et al. (2015). "limma powers differential expression
   analyses for RNA-sequencing and microarray studies." Nucleic Acids
   Research, 43(7):e47. DOI: 10.1093/nar/gkv007

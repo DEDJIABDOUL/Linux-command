@@ -146,6 +146,11 @@ PURPOSE: prédire l'effet de chaque variant sur les transcrits/protéines
          rapporter les fréquences alléliques connues (gnomAD, 1000
          Genomes) pour aider à la priorisation.
 SYNTAX: vep -i variants_filtres.vcf.gz -o resultats_vep.txt --cache
+COMMON ERRORS: `--cache` suppose un cache de données spécifique à
+         l'espèce déjà téléchargé au préalable (`vep_install` ou
+         `--auto_download`) — lancer `vep --cache` sans ce cache présent
+         échoue avec un message d'erreur explicite plutôt qu'un
+         téléchargement automatique silencieux.
 DOCUMENTATION: https://www.ensembl.org/info/docs/tools/vep/index.html
          (documentation officielle Ensembl) · dépôt :
          https://github.com/Ensembl/ensembl-vep

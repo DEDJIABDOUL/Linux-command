@@ -102,7 +102,12 @@ from scipy import stats
 
 qualites = np.array([30, 32, 28, 35, 31])
 print(qualites.mean(), qualites.std())
+
+# comparer la qualité moyenne de deux groupes d'échantillons (ex. traité vs témoin)
+groupe_a = np.array([30, 32, 28, 35, 31])
+groupe_b = np.array([25, 27, 24, 29, 26])
 stat, p_value = stats.ttest_ind(groupe_a, groupe_b)
+print(f"t={stat:.2f}, p={p_value:.4f}")
 ```
 ```text
 DOCUMENTATION: https://numpy.org/doc/ (NumPy) · https://docs.scipy.org/doc/scipy/ (SciPy)

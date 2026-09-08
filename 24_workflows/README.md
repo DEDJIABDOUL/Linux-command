@@ -91,6 +91,8 @@ rule count:
         "results/{sample}.sorted.bam"
     output:
         "results/{sample}.counts.txt"
+    conda:
+        "envs/rnaseq.yml"
     shell:
         "featureCounts -a annotation.gtf -o {output} {input}"
 ```
@@ -106,11 +108,21 @@ INTERPRETATION DES ÉLÉMENTS CLÉS:
   threads      nombre de threads alloués à l'étape, exploité par
               Snakemake pour la planification sur les ressources
               disponibles.
+  conda        chemin vers un fichier environment.yml (ici, un
+              envs/*.yml déjà documenté par ce dépôt, module 06) :
+              avec `--use-conda`, Snakemake crée/active automatiquement
+              un environnement dédié à CETTE règle avant de l'exécuter —
+              chaque règle peut ainsi dépendre d'un outil différent sans
+              qu'un seul environnement global ne doive tout contenir.
+              Utilisé abondamment dans les deux projets réels du dépôt
+              (`projects/final_project_ltee_ecoli/Snakefile`,
+              `projects/mini_project_amr_kpneumoniae/Snakefile`).
 EXÉCUTION:
 ```
 ```bash
 snakemake --cores 8 results/echantillon1.counts.txt
-snakemake --cores 8 --dry-run   # aperçu du plan d'exécution sans rien lancer
+snakemake --cores 8 --dry-run              # aperçu du plan d'exécution sans rien lancer
+snakemake --cores 8 --use-conda            # crée/active un env par règle portant `conda:`
 ```
 ```text
 DOCUMENTATION: https://snakemake.readthedocs.io/ (documentation

@@ -145,6 +145,7 @@ l'usage — pas de fichier `.md` séparé par environnement.
 | Fichier | Module couvert | Outils | Exclusions notables |
 |---|---|---|---|
 | `core_tools.yml` | `02_` à `05_` | SeqKit | — |
+| `data_acquisition.yml` | `08_data_acquisition/` | SRA Toolkit (prefetch, fasterq-dump) | comblé à l'occasion du projet final (`projects/final_project_ltee_ecoli/`) |
 | `qc.yml` | `09_quality_control/` | FastQC, MultiQC, NanoPlot | LongQC (compilation manuelle) |
 | `trimming.yml` | `10_adapter_trimming_filtering/` | Cutadapt, fastp, chopper | Porechop/NanoFilt (legacy, non maintenus) |
 | `assembly.yml` | `11_de_novo_assembly/` | Canu (figé 2.3), Flye, SPAdes, MEGAHIT | — |
@@ -159,7 +160,7 @@ l'usage — pas de fichier `.md` séparé par environnement.
 | `metagenomics.yml` | `20_metagenomics/` | Kraken2, Bracken, MetaBAT2, CheckM2, GTDB-Tk | CheckM1 (legacy, optionnel) |
 | `variant_calling.yml` | `21_variant_analysis/` | bcftools, GATK4, Ensembl VEP, SnpEff | — |
 | `r_ecosystem.yml` | `22_r_statistics/` | Biostrings, GenomicRanges, ShortRead, ggplot2 | packages déjà couverts par `rnaseq.yml`/`methylation.yml`/`proteomics.yml` |
-| `python_bio.yml` | `23_python_bioinformatics/` | Biopython, pandas, NumPy, SciPy, pysam | — |
+| `python_bio.yml` | `23_python_bioinformatics/` | Biopython, pandas, NumPy, SciPy, pysam, matplotlib, matplotlib-venn, PyYAML | matplotlib/matplotlib-venn/PyYAML ajoutés pour `projects/` (scripts Python des deux projets) |
 | `workflows.yml` | `24_workflows/` | Snakemake, Nextflow, nf-core (l'outil CLI) | — |
 | `amr_typing.yml` | `projects/mini_project_amr_kpneumoniae/` (aucun module numéroté encore) | ABRicate, AMRFinderPlus, Kleborate, Snippy, FastTree | — |
 

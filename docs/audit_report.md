@@ -481,8 +481,72 @@ limites (profondeurs inégales, non contrôlées) dans
 RESULTS). Fichiers de résultats (`results/`) volontairement non
 versionnés (`.gitignore`), conservés localement uniquement.
 
-**Reste à faire** : les mini-projets par domaine (toujours en attente,
-voir `projects/README.md`) et les trois tableaux de référence
-complémentaires (`docs/formats_reference.md`,
+**Reste à faire (à la date du 2026-08-30)** : les mini-projets par domaine
+(toujours en attente, voir `projects/README.md`) et les trois tableaux de
+référence complémentaires (`docs/formats_reference.md`,
 `docs/linux_commands_reference.md`, `docs/pipelines_reference.md`),
-non traités dans cette session — hors périmètre de la demande.
+non traités dans cette session — hors périmètre de la demande. Voir
+section 18 ci-dessous pour la mise à jour de ce point.
+
+---
+
+## 18. PREMIER MINI-PROJET PAR DOMAINE LIVRÉ (mise à jour 2026-09-08)
+
+Le premier des mini-projets par domaine listés en « Reste à faire »
+(section 17) est désormais livré :
+`projects/mini_project_amr_kpneumoniae/` — profilage AMR, typage
+moléculaire et phylogénie par SNP sur 3 isolats cliniques réels de
+*Klebsiella pneumoniae* résistants aux carbapénèmes.
+
+**Origine** : ce mini-projet fait suite à l'audit, sur demande de
+l'utilisateur, d'un pipeline bash public tiers pour *Staphylococcus
+aureus* (dépôt GitHub externe, non affilié à ce dépôt). Plusieurs défauts
+concrets y ont été identifiés (script Python appelé depuis le mauvais
+dossier de travail, génome de référence jamais téléchargé ni versionné,
+`conda activate` non fonctionnel en script non interactif, dépendances
+non déclarées, absence de vérification d'intégrité des téléchargements,
+échec masqué par un `except Exception` générique). Le mini-projet livré
+ici reprend l'idée générale (pipeline AMR bactérien complet) avec un
+organisme et des isolats différents, une architecture Snakemake
+déclarative (module 24) plutôt qu'un script bash séquentiel, et corrige
+explicitement chacun de ces défauts (détail dans
+`projects/mini_project_amr_kpneumoniae/README.md`, section DECISIONS).
+
+**Données, vérifiées par requête directe aux API publiques ENA/NCBI/PubMed
+avant utilisation** (jamais d'accession inventée) : 3 isolats réels de la
+collection DRA005275/PRJDB5317 (Tada et al. 2017, *BMC Infectious
+Diseases*, DOI 10.1186/s12879-017-2570-y), génome de référence PMK1
+(`GCA_000764615.1`, la référence utilisée par les auteurs eux-mêmes pour
+leur propre appel de SNP), sommes de contrôle MD5 ENA/NCBI officielles.
+
+**Fichiers créés** : `projects/mini_project_amr_kpneumoniae/{README.md,
+config.yaml, Snakefile, data/metadata/samples.tsv, scripts/arbitre_amr.py}`,
+`envs/amr_typing.yml` (nouveau — comble un manque réel : aucun module
+numéroté ne couvrait l'AMR/le typage/la phylogénie de routine, même
+principe que `envs/data_acquisition.yml` en section 17). `envs/python_bio.yml`
+étendu avec `matplotlib-venn`. `docs/tools_reference.md`,
+`06_environment_management/README.md` et `projects/README.md` mis à jour
+en conséquence.
+
+**Statut d'exécution** : contrairement au projet final (section 17), ce
+mini-projet n'a pas été exécuté de bout en bout au moment de sa
+rédaction (assemblage/annotation de 3 génomes bactériens hors du
+périmètre de calcul disponible dans la session de rédaction). Toutes les
+commandes, accessions et références ont été vérifiées individuellement ;
+aucun résultat numérique n'est inventé — le README documente une grille
+de vérification à remplir par le lecteur après exécution réelle sur sa
+propre machine, plutôt qu'une section ACTUAL RESULTS.
+
+**Corrections apportées lors d'une relecture ultérieure (même session,
+2026-09-08)** : Kleborate épinglé à `>=3` dans `envs/amr_typing.yml`
+après vérification que la dernière version bioconda (3.2.4) utilise déjà
+une syntaxe CLI incompatible avec la v2 documentée initialement (`-p kpsc`
+et sortie en dossier, plutôt que `--all`/`--outfile`, vérifié sur la
+documentation officielle Kleborate) — Snakefile et README corrigés en
+conséquence.
+
+**Licence ajoutée** (même session) : le dépôt ne portait jusqu'ici aucun
+fichier `LICENSE`, ce qui laissait la réutilisation dans un flou
+juridique malgré la visibilité publique GitHub. Licence MIT ajoutée à la
+racine (`LICENSE`), choisie par l'utilisateur parmi les options
+proposées (MIT global vs double licence CC-BY-4.0/MIT type Carpentries).

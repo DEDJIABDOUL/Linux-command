@@ -454,7 +454,7 @@ COMMON ERRORS:
   - "Operation not permitted" → absence des privilèges nécessaires ;
     ajouter sudo.
   - "invalid user" / "invalid group" → le nom donné n'existe pas sur le
-    système (voir section 8, comptes et privilèges).
+    système (voir section 15, comptes et privilèges).
 DOCUMENTATION: https://www.gnu.org/software/coreutils/manual/coreutils.html
          (GNU Coreutils Manual, « chown: Change file owner and group »)
 EXERCISE: `ls -l fichier.txt` pour observer le propriétaire actuel, puis
@@ -681,7 +681,7 @@ COMMON ERRORS:
     modifie le fichier cible.
 DOCUMENTATION: https://www.gnu.org/software/coreutils/manual/coreutils.html
          (GNU Coreutils Manual, « ln: Make links between files »)
-EXERCISE: `ln -s genome.fasta lien_genome.fasta` puis
+EXERCISE: depuis `linux/`, `ln -s genome.fasta lien_genome.fasta` puis
          `ls -l lien_genome.fasta` pour observer la flèche vers la cible.
 ```
 

@@ -231,7 +231,9 @@ SCIENTIFIC REFERENCES
 
 Ce module clôt le parcours structuré Linux → bioinformatique
 professionnelle. Voir `docs/audit_report.md` pour la trajectoire complète
-du dépôt et `00_orientation/README.md` pour la vue d'ensemble. Les
-mini-projets et le projet final intégrateur (combinant plusieurs modules
-sur un vrai jeu de données public, de bout en bout) constituent la suite
-naturelle, à construire dans `projects/`.
+du dépôt et `00_orientation/README.md` pour la vue d'ensemble. Le projet
+final intégrateur (`projects/final_project_ltee_ecoli/`) et un premier
+mini-projet par domaine (`projects/mini_project_amr_kpneumoniae/`),
+combinant plusieurs modules sur de vraies données publiques de bout en
+bout, sont désormais livrés — les mini-projets suivants restent
+planifiés dans `projects/`.

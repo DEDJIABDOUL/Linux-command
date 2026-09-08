@@ -17,6 +17,9 @@ aucune n'est inventée.
 | GNU Awk (gawk) | Text processing | Traitement de texte structuré en colonnes | https://www.gnu.org/software/gawk/manual/gawk.html | https://github.com/gnu-mirror-unofficial/gawk (miroir) | Actif |
 | less | Linux fondamental | Lecture progressive de fichiers volumineux | https://www.greenwoodsoftware.com/less/ | https://github.com/gwsw/less | Actif |
 | htop | Linux fondamental | Visualisation interactive des processus | https://htop.dev/ | https://github.com/htop-dev/htop | Actif |
+| GNU nano | Linux fondamental | Éditeur de texte simple en ligne de commande | https://www.nano-editor.org/dist/latest/nano.html | https://git.savannah.gnu.org/cgit/nano.git | Actif |
+| Vim | Linux fondamental | Éditeur de texte modal avancé | https://www.vim.org/docs.php | https://github.com/vim/vim | Actif |
+| Administration système (apt, sudo, su, adduser, passwd, ufw, iptables, systemctl, ping, ip, ss, netstat, resolvectl...) | Linux fondamental | Comptes, privilèges, réseau, pare-feu, services (01_linux_basics/, sections 13-17) | https://manpages.ubuntu.com/ · https://man7.org/linux/man-pages/ | — | Actif (outils système standards des distributions Debian/Ubuntu et de systemd) |
 | procps-ng (ps, top, free) | Linux fondamental | Processus et ressources système | — | https://gitlab.com/procps-ng/procps | Actif |
 | ShellCheck | Bash scripting | Analyse statique de scripts shell | https://www.shellcheck.net/ | https://github.com/koalaman/shellcheck | Actif |
 | Conda | Environnements | Gestionnaire de paquets/environnements | https://docs.conda.io/projects/conda/en/stable/ | https://github.com/conda/conda | Actif |
@@ -100,6 +103,11 @@ aucune n'est inventée.
 | GATK | Variant calling | Appel de variants germline/somatique | https://gatk.broadinstitute.org/hc/en-us/categories/360002302312-Getting-Started | https://github.com/broadinstitute/gatk | Actif |
 | Ensembl VEP | Annotation de variants | Prédiction d'effet fonctionnel de variants | https://www.ensembl.org/info/docs/tools/vep/index.html | https://github.com/Ensembl/ensembl-vep | Actif |
 | SnpEff | Annotation de variants | Prédiction d'effet fonctionnel de variants | https://pcingola.github.io/SnpEff/ | https://github.com/pcingola/SnpEff | Actif |
+| ABRicate | AMR/typage (mini-projet) | Détection de gènes de résistance/virulence par similarité (CARD, VFDB, PlasmidFinder...) | https://github.com/tseemann/abricate | https://github.com/tseemann/abricate | Actif |
+| AMRFinderPlus | AMR/typage (mini-projet) | Détection AMR faisant autorité (NCBI), gènes acquis + mutations ponctuelles | https://github.com/ncbi/amr/wiki | https://github.com/ncbi/amr | Actif |
+| Kleborate | AMR/typage (mini-projet) | MLST + AMR + virulence + capsule, spécifique au complexe Klebsiella pneumoniae | https://kleborate.readthedocs.io/en/latest/ | https://github.com/klebgenomics/Kleborate | Actif — vérifié 2026-09-08, interface CLI incompatible entre v2 et v3 (`envs/amr_typing.yml` épingle `>=3`) |
+| Snippy | AMR/typage (mini-projet) | Appel de variants rapide par isolat + alignement SNP « core » multi-échantillons | https://github.com/tseemann/snippy | https://github.com/tseemann/snippy | Actif |
+| FastTree | AMR/typage (mini-projet) | Arbre phylogénétique par maximum de vraisemblance approché | http://www.microbesonline.org/fasttree/ | — | Actif |
 | Bioconductor | R / écosystème | Distribution de packages R pour la génomique | https://www.bioconductor.org/help/ | — | Actif |
 | Biostrings (R) | Formats FASTA/FASTQ (R) | Manipulation de séquences biologiques | https://bioconductor.org/packages/Biostrings | https://github.com/Bioconductor/Biostrings | Actif |
 | GenomicRanges (R) | Formats BED/GFF (R) | Intervalles génomiques | https://bioconductor.org/packages/release/bioc/html/GenomicRanges.html | https://github.com/Bioconductor/GenomicRanges | Actif |
