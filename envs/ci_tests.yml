@@ -1,0 +1,26 @@
+# Environnement : ci_tests
+#
+# PURPOSE
+#   Outils nécessaires à la suite de tests du dépôt (tests/run_all.sh),
+#   utilisée par l'intégration continue GitHub Actions
+#   (.github/workflows/tests.yml). Les étudiants n'en ont PAS besoin.
+#
+# TOOLS
+#   seqkit, samtools, bcftools, bedtools : valident les fichiers de linux/formats/
+#   shellcheck : analyse statique des scripts Bash du dépôt
+#
+# INSTALLATION (facultative, pour lancer les tests en local)
+#   mamba env create -f envs/ci_tests.yml
+#   conda activate ci_tests
+#   bash tests/run_all.sh
+
+name: ci_tests
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - seqkit
+  - samtools
+  - bcftools
+  - bedtools
+  - shellcheck

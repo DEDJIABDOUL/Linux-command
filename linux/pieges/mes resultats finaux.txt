@@ -1,0 +1,3 @@
+Ce fichier a un nom contenant des espaces.
+Essayez : cat mes resultats finaux.txt   (échoue)
+Puis    : cat "mes resultats finaux.txt" (fonctionne)

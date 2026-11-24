@@ -27,6 +27,9 @@
 # Exceptions : jeux de données d'exercice sciemment conservés dans le dépôt
 !linux/*.fastq
 !linux/*.fastq.gz
+!linux/**/*.fastq
+!linux/**/*.fastq.gz
+!linux/**/*.sam
 
 # Environnements et caches
 .snakemake/
@@ -47,5 +50,3 @@ results/
 Thumbs.db
 *.swp
 
-# Dossier docs/ à la racine
-/docs/

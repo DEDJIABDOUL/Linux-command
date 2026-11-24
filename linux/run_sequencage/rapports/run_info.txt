@@ -1,0 +1,5 @@
+Instrument : MiSeq (simulation pédagogique)
+Run        : 2026-10-14_M07112_0058
+Chimie     : 2 x 100 pb, paired-end
+Echantillons : 12 (voir ../echantillons.tsv)
+Remarque   : le patient P09 a été prélevé dans de mauvaises conditions.

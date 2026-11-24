@@ -1,0 +1,18 @@
+# Fins de ligne : toujours LF (format Unix), y compris après un clone sous
+# Windows. Sans cette règle, Git pour Windows convertit les fichiers en CRLF
+# et les scripts échouent sous Linux/WSL avec « /usr/bin/env: 'bash\r' ».
+* text=auto eol=lf
+
+# Fichiers binaires : jamais de conversion
+*.gz    binary
+*.bam   binary
+*.bai   binary
+*.png   binary
+*.jpg   binary
+*.pdf   binary
+*.zip   binary
+
+# Exceptions VOLONTAIRES : fichiers d'exercice qui DOIVENT garder des fins de
+# ligne Windows (CRLF) pour apprendre à diagnostiquer ce problème.
+linux/pieges/mesures_windows.tsv  -text
+linux/pieges/script_casse.sh      -text

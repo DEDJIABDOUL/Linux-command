@@ -1,0 +1,32 @@
+##gff-version 3
+##sequence-region chrA 1 6000
+##sequence-region chrP 1 2400
+# Annotation SYNTHÉTIQUE produite par tools/generer_donnees.py
+chrA	synthese	gene	151	1050	.	+	.	ID=gene01;Name=gyrA;product=sous-unité%20A%20de%20l'ADN%20gyrase
+chrA	synthese	mRNA	151	1050	.	+	.	ID=mrna01;Parent=gene01;Name=gyrA
+chrA	synthese	exon	151	1050	.	+	.	ID=exon01;Parent=mrna01
+chrA	synthese	CDS	151	1050	.	+	0	ID=cds01;Parent=mrna01
+chrA	synthese	gene	1171	1920	.	-	.	ID=gene02;Name=recA;product=protéine%20de%20recombinaison%20RecA
+chrA	synthese	mRNA	1171	1920	.	-	.	ID=mrna02;Parent=gene02;Name=recA
+chrA	synthese	exon	1171	1920	.	-	.	ID=exon02;Parent=mrna02
+chrA	synthese	CDS	1171	1920	.	-	0	ID=cds02;Parent=mrna02
+chrA	synthese	gene	2121	3320	.	+	.	ID=gene03;Name=rpoB;product=sous-unité%20bêta%20de%20l'ARN%20polymérase
+chrA	synthese	mRNA	2121	3320	.	+	.	ID=mrna03;Parent=gene03;Name=rpoB
+chrA	synthese	exon	2121	3320	.	+	.	ID=exon03;Parent=mrna03
+chrA	synthese	CDS	2121	3320	.	+	0	ID=cds03;Parent=mrna03
+chrA	synthese	gene	3501	4100	.	-	.	ID=gene04;Name=katG;product=catalase-peroxydase
+chrA	synthese	mRNA	3501	4100	.	-	.	ID=mrna04;Parent=gene04;Name=katG
+chrA	synthese	exon	3501	4100	.	-	.	ID=exon04;Parent=mrna04
+chrA	synthese	CDS	3501	4100	.	-	0	ID=cds04;Parent=mrna04
+chrA	synthese	gene	4351	5310	.	+	.	ID=gene05;Name=ompC;product=porine%20de%20membrane%20externe%20C
+chrA	synthese	mRNA	4351	5310	.	+	.	ID=mrna05;Parent=gene05;Name=ompC
+chrA	synthese	exon	4351	5310	.	+	.	ID=exon05;Parent=mrna05
+chrA	synthese	CDS	4351	5310	.	+	0	ID=cds05;Parent=mrna05
+chrP	synthese	gene	101	961	.	+	.	ID=gene06;Name=blaTEM;product=bêta-lactamase%20TEM
+chrP	synthese	mRNA	101	961	.	+	.	ID=mrna06;Parent=gene06;Name=blaTEM
+chrP	synthese	exon	101	961	.	+	.	ID=exon06;Parent=mrna06
+chrP	synthese	CDS	101	961	.	+	0	ID=cds06;Parent=mrna06
+chrP	synthese	gene	1162	1761	.	-	.	ID=gene07;Name=tetA;product=pompe%20d'efflux%20de%20la%20tétracycline
+chrP	synthese	mRNA	1162	1761	.	-	.	ID=mrna07;Parent=gene07;Name=tetA
+chrP	synthese	exon	1162	1761	.	-	.	ID=exon07;Parent=mrna07
+chrP	synthese	CDS	1162	1761	.	-	0	ID=cds07;Parent=mrna07

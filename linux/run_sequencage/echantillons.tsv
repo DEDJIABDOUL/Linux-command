@@ -1,0 +1,13 @@
+sample_id	patient	condition	replicat	fichier_R1	fichier_R2
+P01	P01	temoin	1	P01_S1_L001_R1_001.fastq.gz	P01_S1_L001_R2_001.fastq.gz
+P02	P02	temoin	2	P02_S2_L001_R1_001.fastq.gz	P02_S2_L001_R2_001.fastq.gz
+P03	P03	temoin	3	P03_S3_L001_R1_001.fastq.gz	P03_S3_L001_R2_001.fastq.gz
+P04	P04	temoin	4	P04_S4_L001_R1_001.fastq.gz	P04_S4_L001_R2_001.fastq.gz
+P05	P05	temoin	5	P05_S5_L001_R1_001.fastq.gz	P05_S5_L001_R2_001.fastq.gz
+P06	P06	temoin	6	P06_S6_L001_R1_001.fastq.gz	P06_S6_L001_R2_001.fastq.gz
+P07	P07	traite	1	P07_S7_L001_R1_001.fastq.gz	P07_S7_L001_R2_001.fastq.gz
+P08	P08	traite	2	P08_S8_L001_R1_001.fastq.gz	P08_S8_L001_R2_001.fastq.gz
+P09	P09	traite	3	P09_S9_L001_R1_001.fastq.gz	P09_S9_L001_R2_001.fastq.gz
+P10	P10	traite	4	P10_S10_L001_R1_001.fastq.gz	P10_S10_L001_R2_001.fastq.gz
+P11	P11	traite	5	P11_S11_L001_R1_001.fastq.gz	P11_S11_L001_R2_001.fastq.gz
+P12	P12	traite	6	P12_S12_L001_R1_001.fastq.gz	P12_S12_L001_R2_001.fastq.gz

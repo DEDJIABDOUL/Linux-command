@@ -1,0 +1,22 @@
+# Annotation SYNTHÉTIQUE produite par tools/generer_donnees.py
+chrA	synthese	transcript	151	1050	.	+	.	gene_id "gene01"; transcript_id "mrna01"; gene_name "gyrA";
+chrA	synthese	exon	151	1050	.	+	.	gene_id "gene01"; transcript_id "mrna01"; gene_name "gyrA";
+chrA	synthese	CDS	151	1050	.	+	0	gene_id "gene01"; transcript_id "mrna01"; gene_name "gyrA";
+chrA	synthese	transcript	1171	1920	.	-	.	gene_id "gene02"; transcript_id "mrna02"; gene_name "recA";
+chrA	synthese	exon	1171	1920	.	-	.	gene_id "gene02"; transcript_id "mrna02"; gene_name "recA";
+chrA	synthese	CDS	1171	1920	.	-	0	gene_id "gene02"; transcript_id "mrna02"; gene_name "recA";
+chrA	synthese	transcript	2121	3320	.	+	.	gene_id "gene03"; transcript_id "mrna03"; gene_name "rpoB";
+chrA	synthese	exon	2121	3320	.	+	.	gene_id "gene03"; transcript_id "mrna03"; gene_name "rpoB";
+chrA	synthese	CDS	2121	3320	.	+	0	gene_id "gene03"; transcript_id "mrna03"; gene_name "rpoB";
+chrA	synthese	transcript	3501	4100	.	-	.	gene_id "gene04"; transcript_id "mrna04"; gene_name "katG";
+chrA	synthese	exon	3501	4100	.	-	.	gene_id "gene04"; transcript_id "mrna04"; gene_name "katG";
+chrA	synthese	CDS	3501	4100	.	-	0	gene_id "gene04"; transcript_id "mrna04"; gene_name "katG";
+chrA	synthese	transcript	4351	5310	.	+	.	gene_id "gene05"; transcript_id "mrna05"; gene_name "ompC";
+chrA	synthese	exon	4351	5310	.	+	.	gene_id "gene05"; transcript_id "mrna05"; gene_name "ompC";
+chrA	synthese	CDS	4351	5310	.	+	0	gene_id "gene05"; transcript_id "mrna05"; gene_name "ompC";
+chrP	synthese	transcript	101	961	.	+	.	gene_id "gene06"; transcript_id "mrna06"; gene_name "blaTEM";
+chrP	synthese	exon	101	961	.	+	.	gene_id "gene06"; transcript_id "mrna06"; gene_name "blaTEM";
+chrP	synthese	CDS	101	961	.	+	0	gene_id "gene06"; transcript_id "mrna06"; gene_name "blaTEM";
+chrP	synthese	transcript	1162	1761	.	-	.	gene_id "gene07"; transcript_id "mrna07"; gene_name "tetA";
+chrP	synthese	exon	1162	1761	.	-	.	gene_id "gene07"; transcript_id "mrna07"; gene_name "tetA";
+chrP	synthese	CDS	1162	1761	.	-	0	gene_id "gene07"; transcript_id "mrna07"; gene_name "tetA";
