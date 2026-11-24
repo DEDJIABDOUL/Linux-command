@@ -25,6 +25,7 @@ sont PAS modifiés.
 """
 
 import gzip
+import hashlib
 import io
 import os
 import random
@@ -326,6 +327,22 @@ for num, (patient, cond, n, ta, tn, q) in enumerate(ECHANTILLONS, start=1):
                    f"{prefixe}_R1_001.fastq.gz\t{prefixe}_R2_001.fastq.gz")
 ecrire(os.path.join(RUN, "echantillons.tsv"), "\n".join(feuille) + "\n")
 
+# Sommes de contrôle livrées par la « plateforme » (calculées sur les fichiers
+# complets), puis simulation d'un transfert interrompu : le fichier R2 de P11
+# est tronqué APRÈS le calcul, donc `md5sum -c` doit le signaler.
+DOSSIER_FASTQ = os.path.join(RUN, "fastq")
+noms = sorted(n for n in os.listdir(DOSSIER_FASTQ) if n.endswith(".fastq.gz"))
+lignes_md5 = []
+for nom in noms:
+    with open(os.path.join(DOSSIER_FASTQ, nom), "rb") as f:
+        lignes_md5.append(f"{hashlib.md5(f.read()).hexdigest()}  {nom}")
+ecrire(os.path.join(DOSSIER_FASTQ, "MD5SUMS.txt"), "\n".join(lignes_md5) + "\n")
+tronque = os.path.join(DOSSIER_FASTQ, "P11_S11_L001_R2_001.fastq.gz")
+with open(tronque, "rb") as f:
+    contenu = f.read()
+with open(tronque, "wb") as f:
+    f.write(contenu[: int(len(contenu) * 0.6)])
+
 # Leurre pour la « chasse au trésor » : un ancien run de test au même nom de fichier
 ancien = "".join(f"@TEST:1:FC:1:1:{k}:{k} 1:N:0:7\n{seq_aleatoire(100)}\n+\n{qualite(100, 20)}\n"
                  for k in range(1, 51))
@@ -337,7 +354,8 @@ ecrire(os.path.join(RUN, "rapports", "run_info.txt"),
        "Run        : 2026-10-14_M07112_0058\n"
        "Chimie     : 2 x 100 pb, paired-end\n"
        "Echantillons : 12 (voir ../echantillons.tsv)\n"
-       "Remarque   : le patient P09 a été prélevé dans de mauvaises conditions.\n")
+       "Remarque   : le patient P09 a été prélevé dans de mauvaises conditions.\n"
+       "Livraison  : vérifier les fichiers avec fastq/MD5SUMS.txt (md5sum -c).\n")
 ecrire(os.path.join(RUN, ".run_termine"), "Transfert terminé le 2026-10-15 à 07:42\n")
 
 # ---------------------------------------------------------------------------

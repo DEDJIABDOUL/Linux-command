@@ -15,9 +15,9 @@ qui installe votre poste et votre bac à sable d'exercices.
 |---|---|---|---|
 | **A · Premiers pas** | [00 — Bienvenue : installer votre poste](00_bienvenue_installation/README.md) | disposer d'un Linux et d'un bac à sable d'exercices | ✅ rédigé |
 | | [01 — Premier contact avec le terminal](01_premier_contact/README.md) | lire une commande, trouver de l'aide, lire une erreur | ✅ rédigé |
-| | 02 — Le système de fichiers | vous repérer dans l'arborescence, désigner n'importe quel fichier | en préparation |
-| | 03 — Gérer fichiers et dossiers | créer, copier, déplacer, supprimer sans risque ; jokers | en préparation |
-| | 04 — Lire et inspecter des fichiers | explorer FASTA, FASTQ, fichiers compressés | en préparation |
+| | [02 — Le système de fichiers](02_systeme_de_fichiers/README.md) | vous repérer dans l'arborescence, désigner n'importe quel fichier | ✅ rédigé |
+| | [03 — Gérer fichiers et dossiers](03_gerer_fichiers/README.md) | créer, copier, déplacer, supprimer sans risque ; jokers | ✅ rédigé |
+| | [04 — Lire et inspecter des fichiers](04_lire_inspecter/README.md) | explorer FASTA, FASTQ, fichiers compressés | ✅ rédigé |
 | **B · La puissance d'Unix** | 05 — Flux, redirections et pipes | enchaîner des commandes, enregistrer des résultats | en préparation |
 | | 06 — Chercher et filtrer | grep, expressions régulières, cut, sort, uniq | en préparation |
 | | 07 — awk et sed pour les données biologiques | calculer et transformer des tableaux et des séquences | en préparation |

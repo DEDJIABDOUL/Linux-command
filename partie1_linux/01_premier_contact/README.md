@@ -2,7 +2,7 @@
 
 > **Durée estimée** : 1 h 30
 > **Prérequis** : [chapitre 00](../00_bienvenue_installation/README.md) (bac à sable installé)
-> **Chapitre suivant** : 02 — Le système de fichiers *(en cours de rédaction)*
+> **Chapitre suivant** : [02 — Le système de fichiers](../02_systeme_de_fichiers/README.md)
 
 ## Ce que vous saurez faire à la fin de ce chapitre
 
@@ -742,4 +742,4 @@ l'exercice associé : chaque chapitre suivant s'appuie sur celui-ci.
 - Manuel des GNU Coreutils (`head`, `wc`, `echo`…) : <https://www.gnu.org/software/coreutils/manual/coreutils.html>
 - Pages de manuel Linux en ligne : <https://man7.org/linux/man-pages/>
 
-**Prochaine étape** : chapitre 02 — Le système de fichiers *(en cours de rédaction)*.
+**Prochaine étape** : [chapitre 02 — Le système de fichiers](../02_systeme_de_fichiers/README.md).

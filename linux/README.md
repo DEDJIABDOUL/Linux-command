@@ -34,7 +34,7 @@ sable avec `bash setup.sh` (voir le chapitre 00).
 
 | Dossier | Contenu | Sert à pratiquer |
 |---|---|---|
-| `run_sequencage/` | Arborescence d'un run Illumina simulé : 12 échantillons paired-end (`fastq/P01_S1_L001_R1_001.fastq.gz`…), feuille d'échantillons `echantillons.tsv`, rapport `rapports/run_info.txt`, un ancien run de test leurre dans `archives/`, un fichier caché `.run_termine`. L'échantillon P09 est volontairement de mauvaise qualité (plus d'adaptateurs et de N) | navigation, chemins, jokers, `find`, boucles sur des échantillons, projet P1 |
+| `run_sequencage/` | Arborescence d'un run Illumina simulé : 12 échantillons paired-end (`fastq/P01_S1_L001_R1_001.fastq.gz`…), feuille d'échantillons `echantillons.tsv`, rapport `rapports/run_info.txt`, un ancien run de test leurre dans `archives/`, un fichier caché `.run_termine`. L'échantillon P09 est volontairement de mauvaise qualité (plus d'adaptateurs et de N). Les sommes de contrôle de la « plateforme » sont dans `fastq/MD5SUMS.txt` ; le fichier `P11_S11_L001_R2_001.fastq.gz` est volontairement **tronqué** (transfert interrompu simulé) et échoue à `md5sum -c` | navigation, chemins, jokers, `find`, boucles sur des échantillons, projet P1 |
 | `formats/` | Mini-génome de référence (`chrA` = chromosome 6 000 pb, `chrP` = plasmide 2 400 pb), 7 gènes annotés en GFF3, GTF et BED, 14 variants (SNP et indels) de deux souches évoluées en VCF, 850 lectures alignées de la souche `evolue_A` en SAM (dont 30 non alignées, CIGAR avec délétion et insertion) | formats biologiques, coordonnées 0-based/1-based, samtools/bcftools/bedtools, projet P3 |
 | `pieges/` | Fichiers volontairement problématiques : FASTQ tronqué, motif coupé entre deux lignes, fichier aux fins de ligne Windows, nom de fichier avec espaces, script contenant 5 erreurs | lire un message d'erreur, diagnostiquer, déboguer |
 
@@ -42,6 +42,7 @@ Valeurs de référence (vérifiées automatiquement par `tests/run_all.sh`) :
 
 ```text
 run_sequencage/fastq/        24 fichiers (12 paires R1/R2), P07 : 290 paires, P09 : 150 paires
+                             P11 R2 tronqué : md5sum -c → FAILED, gzip -t → unexpected end of file
 pieges/motif_coupe.fasta     ATGCGT : 1 ligne, 2 occurrences visibles par grep, 3 réelles
 pieges/fastq_tronque.fastq   nombre de lignes non multiple de 4 (reste 3)
 formats/variants.vcf         14 variants, dont 11 situés dans un gène
