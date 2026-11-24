@@ -18,10 +18,10 @@ qui installe votre poste et votre bac à sable d'exercices.
 | | [02 — Le système de fichiers](02_systeme_de_fichiers/README.md) | vous repérer dans l'arborescence, désigner n'importe quel fichier | ✅ rédigé |
 | | [03 — Gérer fichiers et dossiers](03_gerer_fichiers/README.md) | créer, copier, déplacer, supprimer sans risque ; jokers | ✅ rédigé |
 | | [04 — Lire et inspecter des fichiers](04_lire_inspecter/README.md) | explorer FASTA, FASTQ, fichiers compressés | ✅ rédigé |
-| **B · La puissance d'Unix** | 05 — Flux, redirections et pipes | enchaîner des commandes, enregistrer des résultats | en préparation |
-| | 06 — Chercher et filtrer | grep, expressions régulières, cut, sort, uniq | en préparation |
-| | 07 — awk et sed pour les données biologiques | calculer et transformer des tableaux et des séquences | en préparation |
-| | ★ Projet 1 — Inventaire d'un run de séquençage | | en préparation |
+| **B · La puissance d'Unix** | [05 — Flux, redirections et pipes](05_flux_redirections_pipes/README.md) | enchaîner des commandes, enregistrer des résultats | ✅ rédigé |
+| | [06 — Chercher et filtrer](06_chercher_filtrer/README.md) | grep, expressions régulières, cut, sort, uniq | ✅ rédigé |
+| | [07 — awk et sed pour les données biologiques](07_awk_sed/README.md) | calculer et transformer des tableaux et des séquences | ✅ rédigé |
+| | [★ Projet 1 — Inventaire d'un run de séquençage](projet1_inventaire_run/README.md) | vérifier, compter et qualifier une livraison de 24 FASTQ | ✅ rédigé |
 | **C · Le système autour de vous** | 08 — Utilisateurs et permissions | protéger vos données brutes | en préparation |
 | | 09 — Processus et ressources | lancer, suivre et arrêter de longs calculs | en préparation |
 | | 10 — L'environnement du shell | variables, PATH, guillemets, personnaliser son shell | en préparation |

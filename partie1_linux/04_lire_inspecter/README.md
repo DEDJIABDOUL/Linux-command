@@ -2,7 +2,7 @@
 
 > **Durée estimée** : 2 h
 > **Prérequis** : [chapitre 03](../03_gerer_fichiers/README.md)
-> **Chapitre suivant** : 05 — Flux, redirections et pipes *(en cours de rédaction)*
+> **Chapitre suivant** : [05 — Flux, redirections et pipes](../05_flux_redirections_pipes/README.md)
 
 ## Ce que vous saurez faire à la fin de ce chapitre
 
@@ -785,4 +785,4 @@ tar -czf / -tzf / -xzf (-C dossier)       créer, lister, extraire une archive
 - `tar` : <https://www.gnu.org/software/tar/manual/tar.html>
 - Format FASTQ : Cock P. J. A. *et al.* (2010), *Nucleic Acids Research* 38(6):1767-1771, DOI [10.1093/nar/gkp1137](https://doi.org/10.1093/nar/gkp1137)
 
-**Prochaine étape** : chapitre 05 — Flux, redirections et pipes *(en cours de rédaction)*.
+**Prochaine étape** : [chapitre 05 — Flux, redirections et pipes](../05_flux_redirections_pipes/README.md).
