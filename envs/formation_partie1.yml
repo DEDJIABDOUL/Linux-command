@@ -1,0 +1,30 @@
+# Environnement : formation_partie1
+#
+# PURPOSE
+#   Les outils de la Partie I « Linux pour biologistes » :
+#   - chapitre 11 : seqkit (premier outil Bioconda)
+#   - chapitre 13 : shellcheck (analyse des scripts Bash)
+#   - chapitre 16 et projet 3 : samtools, bcftools, bedtools
+#
+# VERSION
+#   Versions figées : ce sont celles avec lesquelles toutes les sorties
+#   montrées dans le cours ont été vérifiées (novembre 2026). Une version
+#   plus récente fonctionnera presque toujours, mais l'affichage de certaines
+#   commandes peut légèrement différer.
+#
+# INSTALLATION (voir partie1_linux/11_installer_logiciels/)
+#   mamba env create -f ~/Linux-command/envs/formation_partie1.yml
+#
+# USAGE
+#   conda activate formation_partie1
+
+name: formation_partie1
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - seqkit=2.14.0
+  - samtools=1.25
+  - bcftools=1.25
+  - bedtools=2.31.1
+  - shellcheck=0.11.0

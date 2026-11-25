@@ -3,7 +3,7 @@
 > **Durée estimée** : 3 à 4 h
 > **Prérequis** : chapitres [01](../01_premier_contact/README.md) à [07](../07_awk_sed/README.md)
 > **Mobilise** : chemins, jokers, intégrité (`md5sum`, `gzip`), pipes et redirections, `grep`, `sort`, `awk`
-> **Suite** : chapitre 08 — Utilisateurs et permissions *(en cours de rédaction)*
+> **Suite** : [chapitre 08 — Utilisateurs et permissions](../08_permissions/README.md)
 
 ## La situation
 
