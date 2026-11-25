@@ -2,10 +2,11 @@
 #
 # PURPOSE
 #   Outils génériques de manipulation FASTA/FASTQ utilisés dans les
-#   modules 02_linux_for_bioinformatics/ à 05_biological_formats/.
+#   anciens modules 02 à 05 ; pour la Partie I, utiliser plutôt
+#   envs/formation_partie1.yml (partie1_linux/11_installer_logiciels/).
 #   Ne contient volontairement PAS d'outils spécifiques à un domaine
 #   (QC, alignement...) — voir la charte de regroupement des
-#   environnements dans 06_environment_management/README.md, section 4.
+#   environnements dans partie1_linux/11_installer_logiciels/README.md, section 7.
 #
 # TOOLS
 #   - seqkit : manipulation et statistiques FASTA/FASTQ
@@ -25,7 +26,7 @@
 #
 # USAGE
 #   conda activate core_tools
-#   seqkit stats linux/*.fasta linux/*.fastq linux/*.fastq.gz
+#   seqkit stats data/*.fasta data/*.fastq data/*.fastq.gz
 
 name: core_tools
 channels:

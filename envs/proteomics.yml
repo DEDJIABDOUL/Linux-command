@@ -1,7 +1,7 @@
 # Environnement : proteomics
 #
 # PURPOSE
-#   Outils de protéomique utilisés dans 19_proteomics/. La plupart des
+#   Outils de protéomique utilisés dans partie2_bioinfo/19_proteomics/. La plupart des
 #   outils d'identification/quantification de ce module (MaxQuant,
 #   FragPipe, DIA-NN) ne sont volontairement PAS inclus ici : ce sont des
 #   applications distribuées comme binaires/installateurs spécifiques à la

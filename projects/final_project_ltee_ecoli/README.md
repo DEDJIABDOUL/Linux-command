@@ -2,8 +2,8 @@
 
 OBJECTIVE
 ------------------------------------------------------------
-Mettre bout à bout tous les modules du dépôt (`01_linux_basics/` à
-`26_hpc/`) sur une vraie question biologique : combien de mutations se
+Mettre bout à bout tous les modules du dépôt (`partie1_linux/` à
+`partie2_bioinfo/26_hpc/`) sur une vraie question biologique : combien de mutations se
 sont accumulées dans la population *Escherichia coli* Ara-3 de
 l'expérience d'évolution à long terme de Lenski (LTEE), entre la
 génération 5 000 et la génération 50 000, par rapport à l'ancêtre
@@ -11,10 +11,10 @@ REL606 ?
 
 PREREQUISITES
 ------------------------------------------------------------
-`07_project_organization/`, `08_data_acquisition/`, `09_quality_control/`,
-`10_adapter_trimming_filtering/`, `12_sequence_alignment/`,
-`21_variant_analysis/`, `23_python_bioinformatics/` (pysam/pandas),
-`24_workflows/` (Snakemake), `25_reproducibility/` (Conda/Git). Aucune
+`partie1_linux/17_organiser_projet/`, `partie2_bioinfo/08_data_acquisition/`, `partie2_bioinfo/09_quality_control/`,
+`partie2_bioinfo/10_adapter_trimming_filtering/`, `partie2_bioinfo/12_sequence_alignment/`,
+`partie2_bioinfo/21_variant_analysis/`, `partie2_bioinfo/23_python_bioinformatics/` (pysam/pandas),
+`partie2_bioinfo/24_workflows/` (Snakemake), `partie2_bioinfo/25_reproducibility/` (Conda/Git). Aucune
 commande n'est réexpliquée ici en détail : chaque étape du pipeline
 renvoie vers le module qui l'enseigne.
 
@@ -104,10 +104,10 @@ snakemake --use-conda -j 4         # exécution réelle (crée un env par règle
 COMMON ERRORS:
   - lancer `snakemake --use-conda` sans `conda`/`mamba` disponible dans
     le PATH → Snakemake échoue à la création des environnements ;
-    vérifier `conda --version` avant de lancer (06_environment_management/).
+    vérifier `conda --version` avant de lancer (partie1_linux/11_installer_logiciels/).
   - espace disque insuffisant → les 3 échantillons bruts pèsent au total
     environ 1,6 Go (module 08, vérifier avec `df -h` avant de lancer,
-    01_linux_basics/, section 6).
+    partie1_linux/09_processus/).
 EXERCISE: avant l'exécution complète, lancer `snakemake -n` et
          identifier dans la sortie le nombre total de règles qui seront
          exécutées, ainsi que l'ordre de dépendance entre `get_reads` et
@@ -127,13 +127,13 @@ bcftools csq PLUTÔT QUE VEP/SnpEff : VEP dépend de caches précompilés
          REL606. bcftools csq consomme directement un GFF3 déjà
          téléchargé, ce qui correspond exactement à ce projet. Un
          apprenant souhaitant comparer les trois approches peut le
-         faire en exercice (voir 21_variant_analysis/, section 4).
+         faire en exercice (voir partie2_bioinfo/21_variant_analysis/, section 4).
 
 samtools markdup PLUTÔT QUE Picard MarkDuplicates : évite une
          dépendance supplémentaire à envs/chipseq.yml pour une seule
          commande ; samtools est déjà requis pour l'alignement
          (envs/alignment.yml). Les deux outils répondent au même
-         besoin (12_sequence_alignment/, 16_chipseq/ pour Picard).
+         besoin (partie2_bioinfo/12_sequence_alignment/, partie2_bioinfo/16_chipseq/ pour Picard).
 
 Seuils de filtrage (QUAL<30, DP<10) : valeurs de départ raisonnables
          (module 21, §3) à VALIDER après la première exécution en
@@ -230,7 +230,7 @@ LIMITATIONS
   défaut) pour une exécution d'essai rapide, avant de lancer le
   pipeline complet.
 - Ce projet n'exécute pas la déduplication PCR selon les GATK Best
-  Practices complètes (BaseRecalibrator, voir 21_variant_analysis/,
+  Practices complètes (BaseRecalibrator, voir partie2_bioinfo/21_variant_analysis/,
   §2.2) — le choix bcftools/samtools ici privilégie la lisibilité
   pédagogique du DAG plutôt que la rigueur clinique.
 ```

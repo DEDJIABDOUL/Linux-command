@@ -3,11 +3,11 @@
 > été repris, enrichi (liens de documentation officielle vérifiés,
 > format pédagogique COMMAND/PURPOSE/.../EXERCISE, sections troubleshooting)
 > et réparti dans les modules
-> [`01_linux_basics`](../01_linux_basics/README.md),
-> [`02_linux_for_bioinformatics`](../02_linux_for_bioinformatics/README.md),
-> [`03_text_processing`](../03_text_processing/README.md),
-> [`04_bash_scripting`](../04_bash_scripting/README.md) et
-> [`06_environment_management`](../06_environment_management/README.md).
+> [`01_linux_basics`](anciens_modules/01_linux_basics/README.md),
+> [`02_linux_for_bioinformatics`](anciens_modules/02_linux_for_bioinformatics/README.md),
+> [`03_text_processing`](anciens_modules/03_text_processing/README.md),
+> [`04_bash_scripting`](anciens_modules/04_bash_scripting/README.md) et
+> [`06_environment_management`](anciens_modules/06_environment_management/README.md).
 > Il est conservé ici tel quel, pour référence historique et pour
 > comparaison — voir `docs/audit_report.md`. **Pour apprendre, utiliser
 > les modules ci-dessus plutôt que ce fichier.**

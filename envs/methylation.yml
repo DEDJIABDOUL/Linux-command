@@ -2,7 +2,7 @@
 #
 # PURPOSE
 #   Outils de préparation, alignement bisulfite et analyse différentielle
-#   de méthylation utilisés dans 17_dna_methylation/.
+#   de méthylation utilisés dans partie2_bioinfo/17_dna_methylation/.
 #
 # TOOLS
 #   - trim-galore : wrapper Cutadapt+FastQC, mode RRBS (section 1).

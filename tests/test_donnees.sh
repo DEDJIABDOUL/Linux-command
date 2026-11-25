@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Vérifie les résultats annoncés dans les leçons pour le dossier linux/.
+# Vérifie les résultats annoncés dans les leçons pour le dossier data/.
 # (sourcé par tests/run_all.sh : DEPOT et verifier sont déjà définis)
 
-L="$DEPOT/linux"
+L="$DEPOT/data"
 
-echo "-- jeu de données historique (modules 02/03, linux/README.md)"
+echo "-- jeu de données historique (modules 02/03, data/README.md)"
 verifier "genome.fasta : 22 séquences"      "22"    "grep -c '^>' '$L/genome.fasta'"
 verifier "transcripts.fasta : 40"           "40"    "grep -c '^>' '$L/transcripts.fasta'"
 verifier "proteins.fasta : 25"              "25"    "grep -c '^>' '$L/proteins.fasta'"
@@ -20,7 +20,7 @@ verifier "idem avec -i : 31"                "31"    "grep -ic ATGCGT '$L/genome.
 verifier "reads de 100 pb : 445 sur 500"    "445"   "awk 'NR%4==2 && length(\$0)==100' '$L/reads.fastq' | wc -l"
 verifier "annotations.tsv : 121 lignes"     "121"   "wc -l < '$L/annotations.tsv'"
 
-echo "-- run de séquençage simulé (linux/run_sequencage)"
+echo "-- run de séquençage simulé (data/run_sequencage)"
 R="$L/run_sequencage"
 verifier "24 fichiers FASTQ (12 paires)"    "24"    "ls '$R'/fastq/*.fastq.gz | wc -l"
 verifier "feuille : 12 échantillons"        "12"    "tail -n +2 '$R/echantillons.tsv' | wc -l"
@@ -29,7 +29,7 @@ verifier "P09 : 150 reads"                  "150"   "echo \$(( \$(zcat '$R/fastq
 verifier "R1 et R2 ont les mêmes noms"      "0"     "diff <(zcat '$R/fastq/P01_S1_L001_R1_001.fastq.gz' | awk 'NR%4==1{print \$1}') <(zcat '$R/fastq/P01_S1_L001_R2_001.fastq.gz' | awk 'NR%4==1{print \$1}') | wc -l"
 verifier "fichier caché .run_termine"       "1"     "ls -A '$R' | grep -c '^.run_termine$'"
 
-echo "-- fichiers pièges (linux/pieges)"
+echo "-- fichiers pièges (data/pieges)"
 P="$L/pieges"
 verifier "FASTQ tronqué : lignes % 4 = 3"   "3"     "echo \$(( \$(wc -l < '$P/fastq_tronque.fastq') % 4 ))"
 verifier "motif : 1 ligne"                  "1"     "grep -c ATGCGT '$P/motif_coupe.fasta'"
@@ -38,7 +38,7 @@ verifier "motif : 3 occurrences réelles"    "3"     "grep -v '^>' '$P/motif_cou
 verifier "mesures_windows.tsv est en CRLF"  "4"     "grep -c \$'\r' '$P/mesures_windows.tsv'"
 verifier "script_casse.sh est en CRLF"      "11"    "grep -c \$'\r' '$P/script_casse.sh'"
 
-echo "-- formats biologiques (linux/formats)"
+echo "-- formats biologiques (data/formats)"
 F="$L/formats"
 verifier "référence : 2 séquences"          "2"     "grep -c '^>' '$F/reference.fasta'"
 verifier "BED : 7 gènes"                    "7"     "wc -l < '$F/genes.bed'"

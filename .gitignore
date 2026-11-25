@@ -1,5 +1,5 @@
 # Données biologiques brutes ou volumineuses — jamais versionnées.
-# Les jeux de données d'exercice pédagogiques (linux/, datasets/*_small/) sont
+# Les jeux de données d'exercice pédagogiques (data/, datasets/*_small/) sont
 # des exceptions explicites listées plus bas avec des règles !négation.
 *.fastq
 *.fastq.gz
@@ -25,11 +25,11 @@
 *.sa
 
 # Exceptions : jeux de données d'exercice sciemment conservés dans le dépôt
-!linux/*.fastq
-!linux/*.fastq.gz
-!linux/**/*.fastq
-!linux/**/*.fastq.gz
-!linux/**/*.sam
+!data/*.fastq
+!data/*.fastq.gz
+!data/**/*.fastq
+!data/**/*.fastq.gz
+!data/**/*.sam
 
 # Environnements et caches
 .snakemake/

@@ -14,5 +14,5 @@
 
 # Exceptions VOLONTAIRES : fichiers d'exercice qui DOIVENT garder des fins de
 # ligne Windows (CRLF) pour apprendre à diagnostiquer ce problème.
-linux/pieges/mesures_windows.tsv  -text
-linux/pieges/script_casse.sh      -text
+data/pieges/mesures_windows.tsv  -text
+data/pieges/script_casse.sh      -text

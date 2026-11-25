@@ -6,7 +6,7 @@
 #   (.github/workflows/tests.yml). Les étudiants n'en ont PAS besoin.
 #
 # TOOLS
-#   seqkit, samtools, bcftools, bedtools : valident les fichiers de linux/formats/
+#   seqkit, samtools, bcftools, bedtools : valident les fichiers de data/formats/
 #   shellcheck : analyse statique des scripts Bash du dépôt
 #
 # INSTALLATION (facultative, pour lancer les tests en local)

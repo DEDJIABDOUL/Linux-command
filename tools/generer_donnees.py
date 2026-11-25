@@ -13,14 +13,14 @@ Usage (depuis la racine du dépôt) :
     python3 tools/generer_donnees.py
 
 Fichiers produits :
-    linux/formats/        reference.fasta, annotation.gff3, annotation.gtf,
+    data/formats/        reference.fasta, annotation.gff3, annotation.gtf,
                           genes.bed, variants.vcf, alignements.sam
-    linux/run_sequencage/ arborescence d'un run Illumina simulé (12 échantillons
+    data/run_sequencage/ arborescence d'un run Illumina simulé (12 échantillons
                           paired-end) + feuille d'échantillons
-    linux/pieges/         fichiers volontairement problématiques (exercices de
+    data/pieges/         fichiers volontairement problématiques (exercices de
                           diagnostic)
 
-Les fichiers existants du dossier linux/ (genome.fasta, reads.fastq, ...) ne
+Les fichiers existants du dossier data/ (genome.fasta, reads.fastq, ...) ne
 sont PAS modifiés.
 """
 
@@ -30,7 +30,7 @@ import io
 import os
 import random
 
-RACINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "linux")
+RACINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 RNG = random.Random(2026)
 
 COMPLEMENT = str.maketrans("ACGTNacgtn", "TGCANtgcan")

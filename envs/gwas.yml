@@ -2,14 +2,14 @@
 #
 # PURPOSE
 #   Outils de génotypage, QC, structure de population et association
-#   utilisés dans 18_gwas/.
+#   utilisés dans partie2_bioinfo/18_gwas/.
 #
 # TOOLS
 #   - plink2    : QC, PCA, test d'association (sections 2 à 4).
 #   - bcftools  : manipulation de VCF/BCF (déjà en usage depuis le
-#     module 21_variant_analysis/, en amont du GWAS).
+#     module partie2_bioinfo/21_variant_analysis/, en amont du GWAS).
 #   - vcftools  : manipulation de VCF historique — activité de mise à
-#     jour réduite, voir 18_gwas/README.md pour le détail ; bcftools
+#     jour réduite, voir partie2_bioinfo/18_gwas/README.md pour le détail ; bcftools
 #     reste l'option recommandée pour les nouveaux usages.
 #   - admixture : estimation d'ascendance/structure de population (section 3).
 #

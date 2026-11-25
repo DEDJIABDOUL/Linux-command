@@ -4,7 +4,7 @@
 # ressources : le Snakefile ne contient aucune valeur codée en dur.
 
 # Échantillons réels (SRA), voir data/metadata/samples.tsv pour le détail
-# complet et 08_data_acquisition/ pour la méthode de documentation d'un
+# complet et partie2_bioinfo/08_data_acquisition/ pour la méthode de documentation d'un
 # jeu de données public.
 samples:
   gen5000: SRR2589044

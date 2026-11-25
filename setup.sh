@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # setup.sh — installe (ou remet à zéro) votre « bac à sable » de formation.
 #
-# Le bac à sable est une COPIE des données d'exercice (dossier linux/ du
+# Le bac à sable est une COPIE des données d'exercice (dossier data/ du
 # dépôt) dans votre dossier personnel. Vous pouvez y faire toutes les erreurs
 # que vous voulez : il se recrée en une commande.
 #
@@ -16,7 +16,7 @@
 set -euo pipefail
 
 DEPOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCE="$DEPOT/linux"
+SOURCE="$DEPOT/data"
 DESTINATION="$HOME/formation_linux"
 MARQUEUR=".bac_a_sable_formation_linux"
 RESET=0

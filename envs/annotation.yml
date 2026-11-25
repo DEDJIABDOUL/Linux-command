@@ -2,7 +2,7 @@
 #
 # PURPOSE
 #   Outils d'annotation légers et directement installables via Conda,
-#   utilisés dans 14_genome_annotation/. BRAKER, AUGUSTUS et InterProScan
+#   utilisés dans partie2_bioinfo/14_genome_annotation/. BRAKER, AUGUSTUS et InterProScan
 #   ne sont volontairement PAS inclus ici : leur installation dépasse un
 #   simple paquet Conda (GeneMark-ES/ET nécessite un enregistrement et une
 #   clé de licence séparée pour BRAKER/AUGUSTUS ; InterProScan requiert un

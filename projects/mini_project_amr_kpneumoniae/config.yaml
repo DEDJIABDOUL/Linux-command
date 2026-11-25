@@ -7,7 +7,7 @@
 # projet — voir README.md, section DECISIONS).
 
 # Échantillons réels (ENA/DDBJ), voir data/metadata/samples.tsv pour le
-# détail complet et 08_data_acquisition/, section 5.2, pour la méthode
+# détail complet et partie2_bioinfo/08_data_acquisition/, section 5.2, pour la méthode
 # de téléchargement via ENA (utilisée ici, en alternance avec la méthode
 # SRA Toolkit déjà illustrée par projects/final_project_ltee_ecoli/).
 samples:

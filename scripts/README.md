@@ -1,19 +1,19 @@
 # Scripts du dépôt
 
 Ces deux scripts sont les versions réelles, testées et exécutables, des
-exemples expliqués en détail dans `04_bash_scripting/README.md`. Aucun
+exemples expliqués en détail dans `partie1_linux/12_scripts_bash_1/`. Aucun
 des deux n'est un outil bioinformatique : ce sont des squelettes
 pédagogiques à lire, exécuter, puis adapter.
 
 | Script | Rôle | Testé sur |
 |---|---|---|
-| `stats.sh` | Compte les séquences FASTA et les reads FASTQ.gz du dossier courant | `linux/` (voir `04_bash_scripting/README.md`, section 4) |
-| `pipeline_template.sh` | Squelette de script paramétrable et journalisé (arguments nommés, logging, exit codes) | `linux/` (voir `04_bash_scripting/README.md`, section 5) |
+| `stats.sh` | Compte les séquences FASTA et les reads FASTQ.gz du dossier courant | `data/` (voir `partie1_linux/12_scripts_bash_1/README.md`, section 6) |
+| `pipeline_template.sh` | Squelette de script paramétrable et journalisé (arguments nommés, logging, exit codes) | `data/` (voir `partie1_linux/13_scripts_bash_2/README.md`, section 7) |
 
 Utilisation :
 
 ```bash
-cd linux/
+cd data/
 ../scripts/stats.sh
 
 cd ..
@@ -22,5 +22,5 @@ cd ..
 
 Avant d'utiliser `pipeline_template.sh` pour un vrai pipeline, remplacer
 le corps de la fonction `main()` par les étapes réelles (voir les modules
-`09_quality_control/` à `21_variant_analysis/` pour des commandes
+`partie2_bioinfo/09_quality_control/` à `partie2_bioinfo/21_variant_analysis/` pour des commandes
 concrètes à y insérer).

@@ -2,7 +2,7 @@
 #
 # PURPOSE
 #   SRA Toolkit, pour télécharger de vraies données publiques de
-#   séquençage documentées dans 08_data_acquisition/ (prefetch,
+#   séquençage documentées dans partie2_bioinfo/08_data_acquisition/ (prefetch,
 #   fasterq-dump). Ce fichier manquait jusqu'ici : le module 08
 #   documente ces commandes sans environnement Conda dédié ; comblé à
 #   l'occasion du projet final (projects/final_project_ltee_ecoli/).

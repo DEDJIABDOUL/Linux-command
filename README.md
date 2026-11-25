@@ -1,164 +1,104 @@
-# Linux-command — De Linux à la bioinformatique professionnelle
+# Linux-command — Linux et bioinformatique pour biologistes
 
+[![tests](https://github.com/DEDJIABDOUL/Linux-command/actions/workflows/tests.yml/badge.svg)](https://github.com/DEDJIABDOUL/Linux-command/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Un parcours pratique et progressif qui transforme un débutant complet en
-Linux en un analyste capable de conduire une analyse bioinformatique
-réelle, reproductible, sur de vraies données publiques.
+Une formation complète, progressive et pratique pour les étudiants en
+biologie, génomique et bioinformatique qui n'ont **jamais utilisé la ligne
+de commande**. Du premier `ls` jusqu'à une analyse de variants reproductible
+exécutée sur un serveur, chaque notion est expliquée, démontrée sur des
+données biologiques, et accompagnée d'exercices corrigés.
 
-## Objectifs
+## Pour qui ?
 
-Ce dépôt vise à faire maîtriser Linux et Bash appliqués à des données
-biologiques réelles, et à faire comprendre en profondeur chaque commande
-utilisée : pourquoi, sur quelles données, avec quel résultat, et comment
-l'interpréter. La progression va d'une commande isolée vers des scripts,
-puis vers des pipelines reproductibles (Conda, puis Snakemake/Nextflow
-dans les modules avancés). L'ensemble de la chaîne d'analyse est couvert :
-QC, assemblage, alignement, annotation, RNA-seq, ChIP-seq, méthylation,
-GWAS, protéomique, métagénomique, variant calling, R/Python, workflows
-formels (Snakemake/Nextflow/nf-core), conteneurs et calcul HPC.
+- Étudiants en biologie sans aucune expérience de programmation.
+- Personnes qui découvrent Linux.
+- Futurs bioinformaticiens qui veulent devenir autonomes.
+- Utilisateurs qui connaissent quelques commandes sans vraiment comprendre
+  leur fonctionnement.
 
-## Public visé
+**Aucun prérequis.** Il faut seulement un ordinateur : Windows (avec WSL),
+macOS ou Linux.
 
-Aucun prérequis Linux ni bioinformatique n'est nécessaire pour commencer.
-Voir `00_orientation/README.md` pour le détail du public visé et de la
-méthode pédagogique.
+## Commencer en trois commandes
 
-## Prérequis techniques
+Suivez le [chapitre 00](partie1_linux/00_bienvenue_installation/README.md)
+pour installer Linux si nécessaire, puis, dans un terminal Ubuntu :
 
-Un terminal Linux, macOS, ou WSL/Git Bash sous Windows suffit. Aucun
-logiciel bioinformatique préinstallé n'est requis avant le module
-`06_environment_management/`, où l'installation se fait via
-Conda/Mamba/Bioconda.
-
-## Parcours d'apprentissage
-
-```text
-Linux (01)
-   ↓
-Linux appliqué à la bioinformatique (02)
-   ↓
-Text processing sur données biologiques (03)
-   ↓
-Bash scripting (04)
-   ↓
-Formats biologiques : FASTA/FASTQ/SAM/BAM/VCF/BED/GFF/GTF (05)
-   ↓
-Environnements reproductibles : Conda/Mamba/Bioconda (06)
-   ↓
-Organisation de projet (07) → Acquisition de données publiques (08)
-   ↓
-Contrôle qualité (09) → Trimming/filtrage (10)
-   ↓
-Assemblage de novo (11) → Alignement (12) → Polishing/QC d'assemblage (13)
-   ↓
-Annotation de génome (14)
-   ↓
-RNA-seq (15) → ChIP-seq (16) → Méthylation ADN (17) → GWAS (18) → Protéomique (19)
-   ↓
-Métagénomique (20) → Variant calling (21) → R/Bioconductor (22) → Python (23)
-   ↓
-Workflows Snakemake/Nextflow/nf-core (24) → Conteneurs & Git (25) → HPC (26)
+```bash
+git clone https://github.com/DEDJIABDOUL/Linux-command.git ~/Linux-command
+bash ~/Linux-command/setup.sh
+cd ~/formation_linux
 ```
 
-**Les 26 modules ci-dessus sont tous rédigés.** Le projet final
-intégrateur est désormais livré dans
-[`projects/final_project_ltee_ecoli/`](projects/final_project_ltee_ecoli/README.md)
-(accumulation de variants dans une population *E. coli* de la Long-Term
-Evolution Experiment, Lenski lab). Un premier mini-projet par domaine est
-également livré :
-[`projects/mini_project_amr_kpneumoniae/`](projects/mini_project_amr_kpneumoniae/README.md)
-(AMR, typage et phylogénie sur des isolats cliniques de *Klebsiella
-pneumoniae*). Les mini-projets suivants restent à construire (voir
-`projects/README.md` et `docs/audit_report.md`).
+Vous disposez alors de votre **bac à sable** : une copie des données
+d'exercice, que vous pouvez abîmer sans risque et recréer en une commande
+(`bash ~/Linux-command/setup.sh --reset`).
 
-## Architecture du dépôt
+## Le parcours
+
+### [Partie I — Linux pour biologistes](partie1_linux/README.md)
+
+| Bloc | Chapitres |
+|---|---|
+| **A · Premiers pas** | 00 installation · 01 premier contact · 02 système de fichiers · 03 gérer fichiers et dossiers · 04 lire et inspecter (FASTA, FASTQ) |
+| **B · La puissance d'Unix** | 05 flux, redirections et pipes · 06 chercher et filtrer · 07 awk et sed · ★ projet 1 : inventaire d'un run de séquençage |
+| **C · Le système autour de vous** | 08 permissions · 09 processus et tmux · 10 environnement du shell · 11 installer des logiciels (Conda, Bioconda) |
+| **D · Automatiser, travailler en professionnel** | 12-13 scripts Bash · ★ projet 2 : pipeline de QC · 14 SSH · 15 Git · 16 formats biologiques en pratique · 17 organiser un projet · ★ projet 3 : du gène au variant · ★ projet de synthèse |
+
+Chaque chapitre suit la même trame : pourquoi apprendre la notion, une image
+pour la comprendre, des démonstrations avec leurs **sorties réelles**, les
+pièges fréquents, des exercices **corrigés**, un défi et un aide-mémoire.
+Annexes : administration système, aide-mémoire, glossaire, lecture des
+messages d'erreur.
+
+### [Partie II — Bioinformatique appliquée](partie2_bioinfo/README.md)
+
+Modules 08 à 26 : acquisition de données publiques, contrôle qualité,
+trimming, assemblage, alignement, annotation, RNA-seq, ChIP-seq,
+méthylation, GWAS, protéomique, métagénomique, variant calling, R et
+Python, workflows (Snakemake, Nextflow), conteneurs, HPC, ainsi que deux
+projets sur données réelles. *Ces modules n'ont pas encore été refondus
+selon la charte de la Partie I.*
+
+## Organisation du dépôt
 
 | Emplacement | Contenu |
 |---|---|
-| `00_orientation/` | Vue d'ensemble, méthode, feuille de route détaillée |
-| `01_linux_basics/` → `26_hpc/` | Les 26 modules de cours (voir tableau ci-dessous) |
-| `linux/` | Jeu de données d'entraînement synthétique (FASTA, FASTQ, TSV) et ses exercices corrigés |
-| `envs/` | Environnements Conda par domaine (un par module, 06-24, plus `data_acquisition.yml` et `amr_typing.yml` ; voir `06_environment_management/README.md`, section 4, pour la liste complète) |
-| `scripts/` | Scripts Bash réels et testés issus de `04_bash_scripting/` |
-| `legacy/` | Matériau pédagogique historique, préservé tel quel pour référence |
-| `docs/` | Rapport d'audit, référence des outils (à venir : formats, commandes, pipelines) |
+| [`partie1_linux/`](partie1_linux/README.md) | la Partie I : chapitres, projets, annexes |
+| [`partie2_bioinfo/`](partie2_bioinfo/README.md) | la Partie II : modules 08 à 26 |
+| [`projects/`](projects/README.md) | projets de la Partie II sur données réelles (Snakemake) |
+| [`data/`](data/README.md) | données d'exercice synthétiques (run Illumina simulé, mini-génome annoté, fichiers pièges) |
+| [`setup.sh`](setup.sh) | crée ou remet à neuf le bac à sable `~/formation_linux` |
+| [`envs/`](envs/) | environnements conda : `formation_partie1.yml` pour la Partie I, un fichier par domaine pour la Partie II |
+| [`scripts/`](scripts/README.md) | scripts d'exemple, dont un modèle de pipeline paramétrable |
+| [`tests/`](tests/) | tests automatiques : chaque résultat annoncé dans le cours est vérifié |
+| [`tools/`](tools/) | générateurs des données d'exercice et de l'aide-mémoire |
+| [`docs/`](docs/) | [charte pédagogique](docs/charte_pedagogique.md), [référence des outils](docs/tools_reference.md), [documents de maintenance](docs/maintenance/) |
+| [`legacy/`](legacy/README.md) | versions précédentes du cours, conservées pour référence |
 
-## Modules disponibles
+## Un cours testé
 
-| Module | Contenu |
-|---|---|
-| [`01_linux_basics`](01_linux_basics/README.md) | Terminal, navigation, fichiers, permissions, processus |
-| [`02_linux_for_bioinformatics`](02_linux_for_bioinformatics/README.md) | Premiers pas sur FASTA/FASTQ |
-| [`03_text_processing`](03_text_processing/README.md) | grep/sed/awk/cut/sort/uniq appliqués aux données biologiques |
-| [`04_bash_scripting`](04_bash_scripting/README.md) | Variables, boucles, fonctions, scripts robustes |
-| [`05_biological_formats`](05_biological_formats/README.md) | FASTA/FASTQ approfondis, introduction SAM/BAM/VCF/BED/GFF/GTF |
-| [`06_environment_management`](06_environment_management/README.md) | Conda/Mamba/Bioconda, reproductibilité |
-| [`07_project_organization`](07_project_organization/README.md) | Arborescence professionnelle d'un projet bioinformatique |
-| [`08_data_acquisition`](08_data_acquisition/README.md) | Téléchargement de données publiques (NCBI/SRA/ENA), intégrité, cas vérifié |
-| [`09_quality_control`](09_quality_control/README.md) | QC Illumina et Nanopore/PacBio, interprétation des métriques |
-| [`10_adapter_trimming_filtering`](10_adapter_trimming_filtering/README.md) | Trimming/filtrage, statuts d'outils Nanopore vérifiés (Porechop abandonware, NanoFilt → chopper) |
-| [`11_de_novo_assembly`](11_de_novo_assembly/README.md) | Assemblage long reads (Flye) et short reads (SPAdes/MEGAHIT) ; Canu confirmé terminé |
-| [`12_sequence_alignment`](12_sequence_alignment/README.md) | minimap2, BWA-MEM2, Bowtie2, STAR, HISAT2 |
-| [`13_assembly_quality`](13_assembly_quality/README.md) | Polishing (Racon), QUAST, BUSCO |
-| [`14_genome_annotation`](14_genome_annotation/README.md) | Annotation procaryote (Bakta) et eucaryote (BRAKER), annotation fonctionnelle |
-| [`15_rnaseq`](15_rnaseq/README.md) | Pipeline RNA-seq complet, de FASTQ à l'enrichissement fonctionnel |
-| [`16_chipseq`](16_chipseq/README.md) | Peak calling, QC, reproductibilité entre réplicats, motifs |
-| [`17_dna_methylation`](17_dna_methylation/README.md) | Bisulfite sequencing, analyse différentielle de méthylation |
-| [`18_gwas`](18_gwas/README.md) | Génotypage, QC, structure de population, association |
-| [`19_proteomics`](19_proteomics/README.md) | Identification/quantification MS, analyse différentielle |
-| [`20_metagenomics`](20_metagenomics/README.md) | Profilage taxonomique, assemblage/binning, qualité de MAG |
-| [`21_variant_analysis`](21_variant_analysis/README.md) | Variant calling, filtrage, annotation fonctionnelle |
-| [`22_r_statistics`](22_r_statistics/README.md) | Écosystème R/Bioconductor |
-| [`23_python_bioinformatics`](23_python_bioinformatics/README.md) | Biopython, pandas, NumPy/SciPy, pysam |
-| [`24_workflows`](24_workflows/README.md) | Snakemake, Nextflow, nf-core |
-| [`25_reproducibility`](25_reproducibility/README.md) | Conteneurs (Docker/Apptainer), Git/GitHub |
-| [`26_hpc`](26_hpc/README.md) | SLURM, modules logiciels, bonnes pratiques cluster |
+Toutes les sorties montrées dans la Partie I ont été obtenues réellement sur
+Ubuntu 24.04, et la suite `tests/run_all.sh` les vérifie à chaque
+modification (GitHub Actions) : comptages, résultats des exercices, et
+solutions complètes des projets, extraites telles quelles des pages du cours
+et exécutées. Pour lancer les tests en local :
 
-Les 26 modules de la feuille de route sont désormais tous disponibles,
-ainsi que le projet final intégrateur (`projects/final_project_ltee_ecoli/`)
-et un premier mini-projet par domaine (`projects/mini_project_amr_kpneumoniae/`,
-AMR/typage/phylogénie chez *Klebsiella pneumoniae*). Les mini-projets
-suivants restent planifiés dans `projects/`, voir `docs/audit_report.md`,
-section « Implementation roadmap ».
+```bash
+mamba env create -f envs/ci_tests.yml
+conda activate ci_tests
+bash tests/run_all.sh
+```
 
-## Jeux de données
+## Contribuer
 
-Le dossier [`linux/`](linux/README.md) contient un jeu de données
-synthétique conçu pour ce dépôt (22 séquences génomiques, 40 transcrits,
-25 protéines, 500 reads FASTQ avec adaptateurs Illumina, 3 échantillons
-compressés, une table d'annotations TSV), avec 13 exercices corrigés.
-
-## Outils couverts
-
-Voir [`docs/tools_reference.md`](docs/tools_reference.md) pour la liste
-complète des outils déjà traités, chacun avec sa documentation officielle
-vérifiée (jamais d'URL inventée) et son statut de maintenance.
-
-## Documentation du dépôt
-
-- [`docs/audit_report.md`](docs/audit_report.md) — audit initial complet,
-  méthodologie de transformation, feuille de route.
-- [`docs/tools_reference.md`](docs/tools_reference.md) — référence
-  centrale des outils.
-
-## Reproductibilité
-
-Chaque module documente les commandes exécutées, leurs entrées, leurs
-sorties attendues, et les liens vers la documentation officielle des
-outils utilisés. Les environnements logiciels sont figés via Conda/Mamba
-dans `envs/` (voir `06_environment_management/`). Aucune URL ni référence
-scientifique n'est ajoutée à ce dépôt sans vérification préalable.
-
-## Contribution
-
-Ce dépôt est construit de façon incrémentale, module par module, jamais
-en une seule passe massive. La méthodologie détaillée se trouve dans
-`docs/audit_report.md`.
+Les contributions suivent la [charte de rédaction](docs/charte_pedagogique.md) :
+vouvoiement, sorties réelles, aucune notion utilisée avant d'être
+expliquée, exercices corrigés, et un test pour chaque résultat annoncé.
 
 ## Licence
 
-Ce dépôt est publié sous licence [MIT](LICENSE) — réutilisation, modification et
+Publié sous licence [MIT](LICENSE) : réutilisation, modification et
 redistribution libres, y compris à des fins commerciales, à condition de
-conserver la mention de copyright et la licence elle-même. Voir le fichier
-[`LICENSE`](LICENSE) pour le texte complet.
+conserver la mention de copyright et la licence.

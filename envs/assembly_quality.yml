@@ -2,11 +2,11 @@
 #
 # PURPOSE
 #   Outils de polishing et de contrôle qualité d'assemblage utilisés dans
-#   13_assembly_quality/.
+#   partie2_bioinfo/13_assembly_quality/.
 #
 # TOOLS
 #   - racon : polishing d'assemblage par consensus (dépôt officiel déplacé
-#     vers lbcb-sci/racon, voir 13_assembly_quality/README.md, section 1).
+#     vers lbcb-sci/racon, voir partie2_bioinfo/13_assembly_quality/README.md, section 1).
 #     doc : https://github.com/lbcb-sci/racon
 #   - quast : statistiques d'assemblage (N50, misassemblies...).
 #     doc : https://quast.sourceforge.net/docs/manual.html

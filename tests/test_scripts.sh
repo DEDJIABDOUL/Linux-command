@@ -17,8 +17,8 @@ verifier "script_casse.sh non exécutable"   "non" \
     "test -x '$TMP_TEST/bac/pieges/script_casse.sh' && echo oui || echo non"
 
 echo "-- scripts/"
-verifier "stats.sh sur linux/"              "sample_03.fastq.gz	1500 reads" \
-    "cd '$DEPOT/linux' && bash ../scripts/stats.sh | tail -1"
+verifier "stats.sh sur data/"              "sample_03.fastq.gz	1500 reads" \
+    "cd '$DEPOT/data' && bash ../scripts/stats.sh | tail -1"
 verifier "pipeline_template sans argument → usage" "1" \
     "bash '$DEPOT/scripts/pipeline_template.sh' >/dev/null 2>&1; echo \$?"
 for s in "$DEPOT"/setup.sh "$DEPOT"/scripts/*.sh "$DEPOT"/tests/*.sh; do

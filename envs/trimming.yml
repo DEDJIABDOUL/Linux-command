@@ -2,9 +2,9 @@
 #
 # PURPOSE
 #   Outils de retrait d'adaptateurs et de filtrage qualité utilisés dans
-#   10_adapter_trimming_filtering/, pour données Illumina et Nanopore.
+#   partie2_bioinfo/10_adapter_trimming_filtering/, pour données Illumina et Nanopore.
 #   Porechop et NanoFilt ne sont volontairement PAS inclus ici : ce sont
-#   des outils legacy non maintenus (voir 10_adapter_trimming_filtering/README.md,
+#   des outils legacy non maintenus (voir partie2_bioinfo/10_adapter_trimming_filtering/README.md,
 #   section 1, et docs/tools_reference.md) ; chopper est leur remplaçant
 #   actif pour le filtrage Nanopore. Porechop_ABI (fork maintenu) peut être
 #   installé séparément si l'exercice sur le fichier legacy le requiert.
@@ -28,8 +28,8 @@
 #
 # USAGE
 #   conda activate trimming
-#   cutadapt -a AGATCGGAAGAGC -o linux/reads_trimmed.fastq linux/reads.fastq
-#   fastp -i linux/sample_01.fastq.gz -o resultats/sample_01.trimmed.fastq.gz -h resultats/sample_01.html
+#   cutadapt -a AGATCGGAAGAGC -o data/reads_trimmed.fastq data/reads.fastq
+#   fastp -i data/sample_01.fastq.gz -o resultats/sample_01.trimmed.fastq.gz -h resultats/sample_01.html
 
 name: trimming
 channels:

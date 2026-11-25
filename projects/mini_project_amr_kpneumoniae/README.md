@@ -10,11 +10,11 @@ justifiés pour l'organisme étudié (voir DECISIONS).
 
 PREREQUISITES
 ------------------------------------------------------------
-`07_project_organization/`, `08_data_acquisition/` (sections 5.1 et 5.2),
-`09_quality_control/`, `10_adapter_trimming_filtering/`,
-`11_de_novo_assembly/`, `13_assembly_quality/`, `14_genome_annotation/`,
-`21_variant_analysis/` (principes de SNP calling), `24_workflows/`
-(Snakemake), `25_reproducibility/` (Conda/Git). Aucune commande n'est
+`partie1_linux/17_organiser_projet/`, `partie2_bioinfo/08_data_acquisition/` (sections 5.1 et 5.2),
+`partie2_bioinfo/09_quality_control/`, `partie2_bioinfo/10_adapter_trimming_filtering/`,
+`partie2_bioinfo/11_de_novo_assembly/`, `partie2_bioinfo/13_assembly_quality/`, `partie2_bioinfo/14_genome_annotation/`,
+`partie2_bioinfo/21_variant_analysis/` (principes de SNP calling), `partie2_bioinfo/24_workflows/`
+(Snakemake), `partie2_bioinfo/25_reproducibility/` (Conda/Git). Aucune commande n'est
 réexpliquée ici en détail — chaque étape renvoie vers le module qui
 l'enseigne. Le profilage AMR, le typage moléculaire et la phylogénie par
 SNP-core ne sont couverts par aucun module numéroté existant : ce
@@ -148,7 +148,7 @@ COMMON ERRORS:
     revérifier — ne jamais enchaîner l'étape suivante sur un fichier dont
     la somme de contrôle n'a pas été confirmée.
 EXERCISE: avant de continuer, exécuter `file data/reference/PMK1.fasta`
-         (01_linux_basics/, section 3) et confirmer "ASCII text" — un
+         (partie1_linux/04_lire_inspecter/, commande file) et confirmer "ASCII text" — un
          fichier encore compressé ou tronqué serait détecté ici, avant
          de perdre du temps sur les étapes suivantes.
 ```
@@ -276,10 +276,10 @@ snakemake --use-conda -j 4 --configfile config.yaml
 ```text
 COMMON ERRORS:
   - lancer `snakemake --use-conda` sans conda/mamba dans le PATH →
-    échec à la création des environnements (06_environment_management/).
+    échec à la création des environnements (partie1_linux/11_installer_logiciels/).
   - espace disque insuffisant → prévoir au moins 5 Go (reads + 3
     assemblages + base Bakta light ~1,2 Go + base BUSCO) ; vérifier avec
-    `df -h` avant de lancer (01_linux_basics/, section 6).
+    `df -h` avant de lancer (partie1_linux/09_processus/).
 EXERCISE: avant l'exécution complète, `snakemake -n --configfile config.yaml`
          et compter le nombre de règles qui seront exécutées ; identifier
          dans la sortie que `get_reference` et `get_reads` n'ont aucune
@@ -308,7 +308,7 @@ SPADES DIRECT PLUTÔT QUE SHOVILL : Shovill est un simple orchestrateur
 BAKTA PLUTÔT QUE DFAST+KofamScan : DFAST+KofamScan nécessitent des
          fichiers `profiles/` et `ko_list` KEGG à télécharger
          manuellement, une dépendance facile à oublier de documenter.
-         Bakta (déjà recommandé par 14_genome_annotation/README.md,
+         Bakta (déjà recommandé par partie2_bioinfo/14_genome_annotation/README.md,
          §1.1, comme remplaçant actif de Prokka) a une procédure de
          base de données documentée et explicite (`bakta_db download`,
          section 2.4 ci-dessus).
@@ -514,7 +514,7 @@ Topics to explore: exécuter les deux versions sur les mêmes contigs et
                     comparer les rapports — utile pour comprendre
                     concrètement une migration de version d'outil en
                     conditions réelles (rappel du principe déjà illustré
-                    par le statut Prokka → Bakta, 14_genome_annotation/).
+                    par le statut Prokka → Bakta, partie2_bioinfo/14_genome_annotation/).
 
 Topic: validation croisée de phylogénie
 Topics to explore: reconstruire l'arbre avec IQ-TREE (modèle sélectionné

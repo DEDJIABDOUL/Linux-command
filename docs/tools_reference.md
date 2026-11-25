@@ -1,9 +1,9 @@
 # Référence centrale des outils
 
 Ce tableau recense tous les outils couverts par les 26 modules du dépôt
-(`01_linux_basics/` à `26_hpc/`), avec leur documentation officielle
+(`partie1_linux/` à `partie2_bioinfo/26_hpc/`), avec leur documentation officielle
 vérifiée. Il sera étendu si de nouveaux modules sont ajoutés (mini-projets,
-`projects/`, voir `00_orientation/README.md` et `audit_report.md`). Toute
+`projects/`, voir `README.md` à la racine et `docs/maintenance/audit_initial_2026-08.md`). Toute
 URL listée ici a été vérifiée par recherche officielle avant ajout,
 aucune n'est inventée.
 
@@ -19,7 +19,7 @@ aucune n'est inventée.
 | htop | Linux fondamental | Visualisation interactive des processus | https://htop.dev/ | https://github.com/htop-dev/htop | Actif |
 | GNU nano | Linux fondamental | Éditeur de texte simple en ligne de commande | https://www.nano-editor.org/dist/latest/nano.html | https://git.savannah.gnu.org/cgit/nano.git | Actif |
 | Vim | Linux fondamental | Éditeur de texte modal avancé | https://www.vim.org/docs.php | https://github.com/vim/vim | Actif |
-| Administration système (apt, sudo, su, adduser, passwd, ufw, iptables, systemctl, ping, ip, ss, netstat, resolvectl...) | Linux fondamental | Comptes, privilèges, réseau, pare-feu, services (01_linux_basics/, sections 13-17) | https://manpages.ubuntu.com/ · https://man7.org/linux/man-pages/ | — | Actif (outils système standards des distributions Debian/Ubuntu et de systemd) |
+| Administration système (apt, sudo, su, adduser, passwd, ufw, iptables, systemctl, ping, ip, ss, netstat, resolvectl...) | Linux fondamental | Comptes, privilèges, réseau, pare-feu, services (partie1_linux/, sections 13-17) | https://manpages.ubuntu.com/ · https://man7.org/linux/man-pages/ | — | Actif (outils système standards des distributions Debian/Ubuntu et de systemd) |
 | procps-ng (ps, top, free) | Linux fondamental | Processus et ressources système | — | https://gitlab.com/procps-ng/procps | Actif |
 | ShellCheck | Bash scripting | Analyse statique de scripts shell | https://www.shellcheck.net/ | https://github.com/koalaman/shellcheck | Actif |
 | Conda | Environnements | Gestionnaire de paquets/environnements | https://docs.conda.io/projects/conda/en/stable/ | https://github.com/conda/conda | Actif |

@@ -1,7 +1,7 @@
 # Environnement : assembly
 #
 # PURPOSE
-#   Outils d'assemblage de novo utilisés dans 11_de_novo_assembly/, pour
+#   Outils d'assemblage de novo utilisés dans partie2_bioinfo/11_de_novo_assembly/, pour
 #   reads longs (Nanopore/PacBio) et reads courts (Illumina).
 #
 # TOOLS
@@ -9,7 +9,7 @@
 #     STATUT : dernière release officielle (v2.3, 2024-12-17), déclarée
 #     définitive par les développeurs eux-mêmes. Inclus ici uniquement
 #     pour comprendre le principe et reproduire legacy/installation_and_execution.txt
-#     — voir 11_de_novo_assembly/README.md, section 1.1.
+#     — voir partie2_bioinfo/11_de_novo_assembly/README.md, section 1.1.
 #     doc : https://canu.readthedocs.io/en/latest/index.html
 #   - flye    : assemblage long-read actuellement recommandé (actif).
 #     doc : https://github.com/mikolmogorov/Flye

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Compte les séquences FASTA et les reads FASTQ.gz du dossier courant.
-# Enseigné et expliqué en détail dans 04_bash_scripting/README.md, section 4.
+# Enseigné et expliqué en détail dans partie1_linux/12_scripts_bash_1/README.md, section 6.
 #
 # Usage : ./scripts/stats.sh   (à exécuter depuis un dossier contenant des
-#          fichiers .fasta et/ou .fastq.gz, par exemple Linux-command/linux/)
+#          fichiers .fasta et/ou .fastq.gz, par exemple Linux-command/data/)
 set -euo pipefail
 shopt -s nullglob
 

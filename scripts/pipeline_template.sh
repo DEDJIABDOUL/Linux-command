@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Squelette de script de pipeline paramétrable et journalisé.
-# Combine les patrons enseignés dans 04_bash_scripting/README.md,
-# section 5 (arguments nommés, fonctions, exit codes, logging).
+# Combine les patrons enseignés dans partie1_linux/13_scripts_bash_2/README.md,
+# section 7 (arguments nommés, fonctions, exit codes, logging).
 #
 # Usage :
 #   ./scripts/pipeline_template.sh --input DOSSIER --output DOSSIER [--threads N]

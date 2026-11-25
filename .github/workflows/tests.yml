@@ -23,8 +23,8 @@ jobs:
       - name: Données reproductibles (le générateur redonne les mêmes octets)
         run: |
           python3 -I tools/generer_donnees.py
-          git status --porcelain linux/
-          test -z "$(git status --porcelain linux/)"
+          git status --porcelain data/
+          test -z "$(git status --porcelain data/)"
 
       - name: Suite de tests
         run: bash tests/run_all.sh
