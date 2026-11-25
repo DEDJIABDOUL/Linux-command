@@ -2,13 +2,13 @@
 Pipeline Snakemake du projet final — LTEE Ara-3 vs REL606.
 
 Applique, sur 3 échantillons réels (voir data/metadata/samples.tsv), le
-pipeline déjà enseigné manuellement modules 08 à 21 : acquisition, QC,
+pipeline déjà enseigné manuellement modules 18 à 22 : acquisition, QC,
 trimming, alignement, variant calling, filtrage, annotation. Ce fichier
 ne réexplique aucune commande en détail — chaque règle renvoie vers le
 module qui l'enseigne (voir README.md, section PREREQUISITES).
 
 Usage :
-    conda activate workflows   # snakemake (voir envs/workflows.yml, module 24)
+    conda activate workflows   # snakemake (voir envs/workflows.yml, module 34)
     snakemake --use-conda -j 4 --configfile config.yaml
     snakemake -n                # dry-run : vérifie le DAG sans rien exécuter
 """
@@ -19,6 +19,13 @@ SAMPLES = list(config["samples"].keys())
 REF_FASTA = f"{config['paths']['reference']}/{config['reference']['sequence_accession']}.fasta"
 REF_GFF = f"{config['paths']['reference']}/{config['reference']['sequence_accession']}.gff"
 
+# Un nom d'échantillon ne contient ni point ni barre oblique. Sans cette
+# contrainte, la sortie de call_variants ("{sample}.vcf.gz") correspond
+# aussi à "gen5000.filtered.vcf.gz" (avec sample = "gen5000.filtered"), et
+# Snakemake s'arrête sur une AmbiguousRuleException avant de rien exécuter.
+wildcard_constraints:
+    sample=r"[^./]+",
+
 
 rule all:
     input:
@@ -28,7 +35,7 @@ rule all:
 
 
 # ---------------------------------------------------------------------
-# Référence (module 08 — acquisition de données publiques)
+# Référence (module 18 — acquisition de données publiques)
 # ---------------------------------------------------------------------
 
 rule get_reference:
@@ -64,7 +71,7 @@ rule index_reference:
 
 
 # ---------------------------------------------------------------------
-# Acquisition des reads (module 08, section 5.1 — SRA Toolkit)
+# Acquisition des reads (module 18, section 5.1 — SRA Toolkit)
 # ---------------------------------------------------------------------
 
 rule get_reads:
@@ -89,7 +96,7 @@ rule get_reads:
 
 
 # ---------------------------------------------------------------------
-# QC brut (module 09) et trimming (module 10)
+# QC brut (module 19) et trimming (module 20)
 # ---------------------------------------------------------------------
 
 rule fastqc_raw:
@@ -122,7 +129,7 @@ rule trim:
 
 
 # ---------------------------------------------------------------------
-# Alignement (module 12) et déduplication (samtools markdup, sans
+# Alignement (module 21) et déduplication (samtools markdup, sans
 # dépendre de l'env chipseq/Picard — reste dans envs/alignment.yml)
 # ---------------------------------------------------------------------
 
@@ -171,7 +178,7 @@ rule markdup:
 
 
 # ---------------------------------------------------------------------
-# Variant calling, filtrage, annotation (module 21)
+# Variant calling, filtrage, annotation (module 22)
 # ---------------------------------------------------------------------
 
 rule call_variants:
@@ -239,7 +246,7 @@ rule variant_stats:
 
 
 # ---------------------------------------------------------------------
-# Synthèse (modules 22/23 — ici en Python/pysam)
+# Synthèse (modules 26/23 — ici en Python/pysam)
 # ---------------------------------------------------------------------
 
 rule summarize:

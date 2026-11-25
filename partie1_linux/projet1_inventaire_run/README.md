@@ -327,7 +327,7 @@ cahier des charges, et `du -sh projet1` donne quelques dizaines de Ko.
   transformerez ce projet en **script** réutilisable, et au projet 2 en
   véritable petit pipeline.
 - **La vraie vie** : en pratique, cet inventaire est complété par un
-  contrôle qualité dédié, avec FastQC et MultiQC (module 09 de la Partie II),
+  contrôle qualité dédié, avec FastQC et MultiQC (module 19 de la Partie II),
   qui calcule bien d'autres indicateurs (qualité par position, contenu en
   GC, duplication).
 

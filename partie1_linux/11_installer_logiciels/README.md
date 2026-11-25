@@ -55,8 +55,8 @@ projet B. **Activer** un environnement, c'est ouvrir son armoire.
 |---|---|---|---|
 | **apt** | dans le système (`/usr/bin`) | `sudo` | outils système de **votre** machine : `tree`, `htop`, `git` |
 | **conda / mamba** | dans votre dossier personnel | aucun | **les outils scientifiques**, sur votre machine comme sur un serveur |
-| **modules** du cluster (`module load`) | installés par les administrateurs | aucun | sur un cluster qui les propose (module 26 de la Partie II) |
-| **conteneurs** (Apptainer, Docker) | une image contenant l'outil et tout son système | variable | pipelines, reproductibilité maximale (module 25) |
+| **modules** du cluster (`module load`) | installés par les administrateurs | aucun | sur un cluster qui les propose (module 36 de la Partie II) |
+| **conteneurs** (Apptainer, Docker) | une image contenant l'outil et tout son système | variable | pipelines, reproductibilité maximale (module 35) |
 | binaire téléchargé, `pip`, compilation | variable | aucun | quand l'outil n'existe nulle part ailleurs |
 
 **Règle pratique pour ce cours** : `apt` pour le système, **conda pour
@@ -361,7 +361,7 @@ précise, mais elle est spécifique à votre système d'exploitation.
   était actif dans votre terminal.
 - **Sur un cluster**, conda s'installe de la même façon, dans votre dossier
   personnel. Certains clusters proposent aussi `module avail` et
-  `module load samtools/1.25` (module 26), voire interdisent conda dans le
+  `module load samtools/1.25` (module 36), voire interdisent conda dans le
   dossier personnel à cause des quotas : lisez la documentation du centre.
 - **Citez les versions** dans la partie Méthodes de vos rapports et
   articles : `conda list` vous les donne.

@@ -10,7 +10,7 @@ phylogénie. Chaque règle renvoie vers le module qui enseigne la commande
 sous-jacente — ce fichier ne réexplique aucune commande en détail.
 
 Usage :
-    conda activate workflows   # snakemake (voir envs/workflows.yml, module 24)
+    conda activate workflows   # snakemake (voir envs/workflows.yml, module 34)
     snakemake -n --configfile config.yaml         # dry-run : vérifie le DAG
     snakemake --use-conda -j 4 --configfile config.yaml
 """
@@ -45,8 +45,8 @@ rule all:
 
 
 # ---------------------------------------------------------------------
-# Référence et lecture bruts (module 08, section 5.2 — méthode ENA,
-# en alternance avec la méthode SRA Toolkit du module 08 §5.1 déjà
+# Référence et lecture bruts (module 18, section 5.2 — méthode ENA,
+# en alternance avec la méthode SRA Toolkit du module 18 §5.1 déjà
 # illustrée par projects/final_project_ltee_ecoli/)
 # ---------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ rule get_reads:
 
 
 # ---------------------------------------------------------------------
-# QC (module 09) et trimming (module 10)
+# QC (module 19) et trimming (module 20)
 # ---------------------------------------------------------------------
 
 rule fastqc_raw:
@@ -166,11 +166,11 @@ rule multiqc:
 
 
 # ---------------------------------------------------------------------
-# Assemblage de novo (module 11) et contrôle qualité (module 13)
+# Assemblage de novo (module 23) et contrôle qualité (module 24)
 #
 # SPAdes utilisé directement plutôt que le wrapper Shovill du pipeline
 # de référence critiqué : SPAdes est déjà l'outil documenté par
-# envs/assembly.yml (module 11), et fastp a déjà fait le trimming — la
+# envs/assembly.yml (module 23), et fastp a déjà fait le trimming — la
 # valeur ajoutée de Shovill (orchestrer trimming+assemblage+correction)
 # est ici redondante. Voir README.md, section DECISIONS.
 # ---------------------------------------------------------------------
@@ -240,7 +240,7 @@ rule assembly_qc_busco:
 
 
 # ---------------------------------------------------------------------
-# Annotation (module 14) — Bakta plutôt que DFAST+KofamScan : voir
+# Annotation (module 25) — Bakta plutôt que DFAST+KofamScan : voir
 # README.md, section DECISIONS, pour la justification.
 # ---------------------------------------------------------------------
 

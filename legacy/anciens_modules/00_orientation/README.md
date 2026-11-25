@@ -119,25 +119,25 @@ flowchart TD
     click m05 "../05_biological_formats/README.md" "05 — Formats biologiques"
     click m06 "../06_environment_management/README.md" "06 — Environnements Conda"
     click m07 "../07_project_organization/README.md" "07 — Organisation de projet"
-    click m08 "../../../partie2_bioinfo/08_data_acquisition/README.md" "08 — Acquisition de données"
-    click m09 "../../../partie2_bioinfo/09_quality_control/README.md" "09 — Contrôle qualité"
-    click m10 "../../../partie2_bioinfo/10_adapter_trimming_filtering/README.md" "10 — Trimming/filtrage"
-    click m11 "../../../partie2_bioinfo/11_de_novo_assembly/README.md" "11 — Assemblage de novo"
-    click m12 "../../../partie2_bioinfo/12_sequence_alignment/README.md" "12 — Alignement"
-    click m13 "../../../partie2_bioinfo/13_assembly_quality/README.md" "13 — QC d'assemblage"
-    click m14 "../../../partie2_bioinfo/14_genome_annotation/README.md" "14 — Annotation de génome"
-    click m15 "../../../partie2_bioinfo/15_rnaseq/README.md" "15 — RNA-seq"
-    click m16 "../../../partie2_bioinfo/16_chipseq/README.md" "16 — ChIP-seq"
-    click m17 "../../../partie2_bioinfo/17_dna_methylation/README.md" "17 — Méthylation ADN"
-    click m18 "../../../partie2_bioinfo/18_gwas/README.md" "18 — GWAS"
-    click m19 "../../../partie2_bioinfo/19_proteomics/README.md" "19 — Protéomique"
-    click m20 "../../../partie2_bioinfo/20_metagenomics/README.md" "20 — Métagénomique"
-    click m21 "../../../partie2_bioinfo/21_variant_analysis/README.md" "21 — Variant calling"
-    click m22 "../../../partie2_bioinfo/22_r_statistics/README.md" "22 — R/Bioconductor"
-    click m23 "../../../partie2_bioinfo/23_python_bioinformatics/README.md" "23 — Python"
-    click m24 "../../../partie2_bioinfo/24_workflows/README.md" "24 — Workflows"
-    click m25 "../../../partie2_bioinfo/25_reproducibility/README.md" "25 — Conteneurs & Git"
-    click m26 "../../../partie2_bioinfo/26_hpc/README.md" "26 — HPC"
+    click m08 "../../../partie2_bioinfo/18_acquisition_donnees/README.md" "08 — Acquisition de données"
+    click m09 "../../../partie2_bioinfo/19_controle_qualite/README.md" "09 — Contrôle qualité"
+    click m10 "../../../partie2_bioinfo/20_trimming_filtrage/README.md" "10 — Trimming/filtrage"
+    click m11 "../../../partie2_bioinfo/23_assemblage/README.md" "11 — Assemblage de novo"
+    click m12 "../../../partie2_bioinfo/21_alignement/README.md" "12 — Alignement"
+    click m13 "../../../partie2_bioinfo/24_qualite_assemblage/README.md" "13 — QC d'assemblage"
+    click m14 "../../../partie2_bioinfo/25_annotation/README.md" "14 — Annotation de génome"
+    click m15 "../../../partie2_bioinfo/28_rnaseq/README.md" "15 — RNA-seq"
+    click m16 "../../../partie2_bioinfo/29_chipseq/README.md" "16 — ChIP-seq"
+    click m17 "../../../partie2_bioinfo/30_methylation/README.md" "17 — Méthylation ADN"
+    click m18 "../../../partie2_bioinfo/31_gwas/README.md" "18 — GWAS"
+    click m19 "../../../partie2_bioinfo/32_proteomique/README.md" "19 — Protéomique"
+    click m20 "../../../partie2_bioinfo/33_metagenomique/README.md" "20 — Métagénomique"
+    click m21 "../../../partie2_bioinfo/22_appel_variants/README.md" "21 — Variant calling"
+    click m22 "../../../partie2_bioinfo/26_r_bioconductor/README.md" "22 — R/Bioconductor"
+    click m23 "../../../partie2_bioinfo/27_python/README.md" "23 — Python"
+    click m24 "../../../partie2_bioinfo/34_workflows/README.md" "24 — Workflows"
+    click m25 "../../../partie2_bioinfo/35_conteneurs/README.md" "25 — Conteneurs & Git"
+    click m26 "../../../partie2_bioinfo/36_hpc/README.md" "26 — HPC"
     click pfinal "../../../projects/final_project_ltee_ecoli/README.md" "Projet final — LTEE E. coli"
     click pmini "../../../projects/mini_project_amr_kpneumoniae/README.md" "Mini-projet — AMR K. pneumoniae"
 ```
@@ -146,12 +146,12 @@ flowchart TD
 visualiseur ne rend pas Mermaid) :
 
 - **Fondations Linux (01-06)** : [01](../01_linux_basics/README.md) · [02](../02_linux_for_bioinformatics/README.md) · [03](../03_text_processing/README.md) · [04](../04_bash_scripting/README.md) · [05](../05_biological_formats/README.md) · [06](../06_environment_management/README.md)
-- **Mise en projet (07-08)** : [07](../07_project_organization/README.md) · [08](../../../partie2_bioinfo/08_data_acquisition/README.md)
-- **Contrôle qualité (09-10)** : [09](../../../partie2_bioinfo/09_quality_control/README.md) · [10](../../../partie2_bioinfo/10_adapter_trimming_filtering/README.md)
-- **Assemblage, alignement, annotation (11-14)** : [11](../../../partie2_bioinfo/11_de_novo_assembly/README.md) · [12](../../../partie2_bioinfo/12_sequence_alignment/README.md) · [13](../../../partie2_bioinfo/13_assembly_quality/README.md) · [14](../../../partie2_bioinfo/14_genome_annotation/README.md)
-- **Domaines d'application (15-19)** : [15](../../../partie2_bioinfo/15_rnaseq/README.md) · [16](../../../partie2_bioinfo/16_chipseq/README.md) · [17](../../../partie2_bioinfo/17_dna_methylation/README.md) · [18](../../../partie2_bioinfo/18_gwas/README.md) · [19](../../../partie2_bioinfo/19_proteomics/README.md)
-- **Analyse de données (20-23)** : [20](../../../partie2_bioinfo/20_metagenomics/README.md) · [21](../../../partie2_bioinfo/21_variant_analysis/README.md) · [22](../../../partie2_bioinfo/22_r_statistics/README.md) · [23](../../../partie2_bioinfo/23_python_bioinformatics/README.md)
-- **Ingénierie & production (24-26)** : [24](../../../partie2_bioinfo/24_workflows/README.md) · [25](../../../partie2_bioinfo/25_reproducibility/README.md) · [26](../../../partie2_bioinfo/26_hpc/README.md)
+- **Mise en projet (07-08)** : [07](../07_project_organization/README.md) · [08](../../../partie2_bioinfo/18_acquisition_donnees/README.md)
+- **Contrôle qualité (09-10)** : [09](../../../partie2_bioinfo/19_controle_qualite/README.md) · [10](../../../partie2_bioinfo/20_trimming_filtrage/README.md)
+- **Assemblage, alignement, annotation (11-14)** : [11](../../../partie2_bioinfo/23_assemblage/README.md) · [12](../../../partie2_bioinfo/21_alignement/README.md) · [13](../../../partie2_bioinfo/24_qualite_assemblage/README.md) · [14](../../../partie2_bioinfo/25_annotation/README.md)
+- **Domaines d'application (15-19)** : [15](../../../partie2_bioinfo/28_rnaseq/README.md) · [16](../../../partie2_bioinfo/29_chipseq/README.md) · [17](../../../partie2_bioinfo/30_methylation/README.md) · [18](../../../partie2_bioinfo/31_gwas/README.md) · [19](../../../partie2_bioinfo/32_proteomique/README.md)
+- **Analyse de données (20-23)** : [20](../../../partie2_bioinfo/33_metagenomique/README.md) · [21](../../../partie2_bioinfo/22_appel_variants/README.md) · [22](../../../partie2_bioinfo/26_r_bioconductor/README.md) · [23](../../../partie2_bioinfo/27_python/README.md)
+- **Ingénierie & production (24-26)** : [24](../../../partie2_bioinfo/34_workflows/README.md) · [25](../../../partie2_bioinfo/35_conteneurs/README.md) · [26](../../../partie2_bioinfo/36_hpc/README.md)
 - **Application réelle** : [projet final — LTEE E. coli](../../../projects/final_project_ltee_ecoli/README.md) · [mini-projet — AMR K. pneumoniae](../../../projects/mini_project_amr_kpneumoniae/README.md)
 
 **Les 26 modules de la feuille de route sont tous rédigés, et l'étape

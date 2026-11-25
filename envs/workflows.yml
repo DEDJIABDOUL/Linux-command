@@ -1,7 +1,7 @@
 # Environnement : workflows
 #
 # PURPOSE
-#   Moteurs de workflow et outils associés utilisés dans partie2_bioinfo/24_workflows/.
+#   Moteurs de workflow et outils associés utilisés dans partie2_bioinfo/34_workflows/.
 #
 # TOOLS
 #   - snakemake : moteur de workflow déclaratif (section 1).

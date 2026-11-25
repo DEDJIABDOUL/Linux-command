@@ -2,8 +2,8 @@
 #
 # PURPOSE
 #   Outils d'alignement, quantification et analyse différentielle RNA-seq
-#   utilisés dans partie2_bioinfo/15_rnaseq/. Inclut STAR et HISAT2, annoncés comme
-#   couverts ici depuis envs/alignment.yml (module 12).
+#   utilisés dans partie2_bioinfo/28_rnaseq/. Inclut STAR et HISAT2, annoncés comme
+#   couverts ici depuis envs/alignment.yml (module 21).
 #
 # TOOLS
 #   - star            : aligneur RNA-seq tolérant à l'épissage.
@@ -16,7 +16,7 @@
 #   - bioconductor-edger          : expression différentielle (R).
 #   - bioconductor-limma          : modèles linéaires (R).
 #   - bioconductor-clusterprofiler: enrichissement fonctionnel (R).
-#   Documentation de chaque outil : voir partie2_bioinfo/15_rnaseq/README.md, section
+#   Documentation de chaque outil : voir partie2_bioinfo/28_rnaseq/README.md, section
 #   DOCUMENTATION.
 #
 # VERSION

@@ -5,16 +5,16 @@ OBJECTIVE
 Guider pas à pas la construction d'un pipeline bactérien complet — QC,
 assemblage, annotation, profilage AMR, typage moléculaire, SNP calling et
 phylogénie — sur un jeu de données réel et vérifiable, avec une
-architecture Snakemake déclarative (module 24) et des choix d'outils
+architecture Snakemake déclarative (module 34) et des choix d'outils
 justifiés pour l'organisme étudié (voir DECISIONS).
 
 PREREQUISITES
 ------------------------------------------------------------
-`partie1_linux/17_organiser_projet/`, `partie2_bioinfo/08_data_acquisition/` (sections 5.1 et 5.2),
-`partie2_bioinfo/09_quality_control/`, `partie2_bioinfo/10_adapter_trimming_filtering/`,
-`partie2_bioinfo/11_de_novo_assembly/`, `partie2_bioinfo/13_assembly_quality/`, `partie2_bioinfo/14_genome_annotation/`,
-`partie2_bioinfo/21_variant_analysis/` (principes de SNP calling), `partie2_bioinfo/24_workflows/`
-(Snakemake), `partie2_bioinfo/25_reproducibility/` (Conda/Git). Aucune commande n'est
+`partie1_linux/17_organiser_projet/`, `partie2_bioinfo/18_acquisition_donnees/` (sections 5.1 et 5.2),
+`partie2_bioinfo/19_controle_qualite/`, `partie2_bioinfo/20_trimming_filtrage/`,
+`partie2_bioinfo/23_assemblage/`, `partie2_bioinfo/24_qualite_assemblage/`, `partie2_bioinfo/25_annotation/`,
+`partie2_bioinfo/22_appel_variants/` (principes de SNP calling), `partie2_bioinfo/34_workflows/`
+(Snakemake), `partie2_bioinfo/35_conteneurs/` (Conda/Git). Aucune commande n'est
 réexpliquée ici en détail — chaque étape renvoie vers le module qui
 l'enseigne. Le profilage AMR, le typage moléculaire et la phylogénie par
 SNP-core ne sont couverts par aucun module numéroté existant : ce
@@ -88,15 +88,15 @@ posteriori (section RÉSULTATS ATTENDUS), pas de réponse préchargée.
 ```text
 config.yaml (échantillons, référence, checksums, seuils)
   ↓
-get_reference + get_reads (08, §5.2 — méthode ENA)   : FASTA PMK1 + 3×(R1,R2), intégrité vérifiée (md5sum)
+get_reference + get_reads (18, §5.2 — méthode ENA)   : FASTA PMK1 + 3×(R1,R2), intégrité vérifiée (md5sum)
   ↓
-fastqc_raw (09) → trim — fastp (10) → multiqc         : QC avant/après trimming, rapport agrégé
+fastqc_raw (19) → trim — fastp (20) → multiqc         : QC avant/après trimming, rapport agrégé
   ↓
-assemble — SPAdes --isolate (11)                       : assemblage de novo par échantillon
+assemble — SPAdes --isolate (23)                       : assemblage de novo par échantillon
   ↓
-assembly_qc — QUAST + BUSCO (13)                       : statistiques + complétude
+assembly_qc — QUAST + BUSCO (24)                       : statistiques + complétude
   ↓
-annotate — Bakta (14)                                  : annotation structurale/fonctionnelle
+annotate — Bakta (25)                                  : annotation structurale/fonctionnelle
   ↓
 amr_abricate + amr_amrfinder + amr_consensus            : profilage AMR croisé (CARD vs AMRFinderPlus)
   ↓
@@ -105,7 +105,7 @@ typing_kleborate                                       : MLST + AMR + virulence 
 snippy (par échantillon) → snippy_core → build_tree     : SNP calling contre PMK1, arbre à 4 feuilles (FastTree)
 ```
 
-Le pipeline est implémenté en Snakemake (`Snakefile`, module 24) : chaque
+Le pipeline est implémenté en Snakemake (`Snakefile`, module 34) : chaque
 règle exécute une commande déjà enseignée (ou introduite explicitement
 ci-dessous quand aucun module ne la couvre encore), avec une directive
 `conda:` pointant vers un fichier `envs/*.yml` **existant** à la racine
@@ -122,7 +122,7 @@ règle Snakemake correspondante automatise ensuite pour les 3 échantillons
 Toutes les commandes ci-dessous utilisent `kpn_01` (`DRR076969`) comme
 exemple ; le Snakefile répète cela pour `kpn_02` et `kpn_03`.
 
-## 2.1 Récupérer et vérifier les données (module 08, §5.2)
+## 2.1 Récupérer et vérifier les données (module 18, §5.2)
 
 ```bash
 conda env create -f ../../envs/data_acquisition.yml   # non requis ici (méthode ENA directe)
@@ -153,7 +153,7 @@ EXERCISE: avant de continuer, exécuter `file data/reference/PMK1.fasta`
          de perdre du temps sur les étapes suivantes.
 ```
 
-## 2.2 QC et trimming (modules 09-10)
+## 2.2 QC et trimming (modules 19-20)
 
 ```bash
 conda env create -f ../../envs/qc.yml && conda activate qc
@@ -165,7 +165,7 @@ fastp -i data/raw/kpn_01_1.fastq.gz -I data/raw/kpn_01_2.fastq.gz \
     --detect_adapter_for_pe --html results/trimmed/kpn_01.fastp.html
 ```
 
-## 2.3 Assemblage et contrôle qualité (modules 11, 13)
+## 2.3 Assemblage et contrôle qualité (modules 27, 24)
 
 ```bash
 conda activate assembly   # envs/assembly.yml
@@ -189,7 +189,7 @@ EXERCISE: ouvrir results/assembly_qc/kpn_01/report.txt (QUAST) et
          qualité de reads insuffisante à examiner avant de continuer.
 ```
 
-## 2.4 Annotation (module 14)
+## 2.4 Annotation (module 25)
 
 ```bash
 conda activate annotation   # envs/annotation.yml
@@ -257,7 +257,7 @@ EXERCISE: l'arbre obtenu a 4 feuilles (3 isolats + PMK1) — contrairement
          référence (2 feuilles seulement, une comparaison binaire sans
          vraie topologie). Ouvrir tree.nwk dans un visualiseur simple
          (ex. https://itol.embl.de/upload.cgi, ou `ete3`/`biopython` du
-         module 23) et identifier quels 2 isolats, parmi les 3, sont les
+         module 27) et identifier quels 2 isolats, parmi les 3, sont les
          plus proches l'un de l'autre.
 ```
 
@@ -302,20 +302,20 @@ SPADES DIRECT PLUTÔT QUE SHOVILL : Shovill est un simple orchestrateur
          trim+assemble+correct autour de SPAdes/Skesa/Megahit. Le
          trimming est déjà fait par fastp (section 2.2) ; passer par
          SPAdes directement (déjà documenté par envs/assembly.yml,
-         module 11) évite de dupliquer un outil pour une valeur ajoutée
+         module 23) évite de dupliquer un outil pour une valeur ajoutée
          ici redondante.
 
 BAKTA PLUTÔT QUE DFAST+KofamScan : DFAST+KofamScan nécessitent des
          fichiers `profiles/` et `ko_list` KEGG à télécharger
          manuellement, une dépendance facile à oublier de documenter.
-         Bakta (déjà recommandé par partie2_bioinfo/14_genome_annotation/README.md,
+         Bakta (déjà recommandé par partie2_bioinfo/25_annotation/README.md,
          §1.1, comme remplaçant actif de Prokka) a une procédure de
          base de données documentée et explicite (`bakta_db download`,
          section 2.4 ci-dessus).
 
 BUSCO PLUTÔT QUE CheckM : même raisonnement — CheckM exige une base de
          données externe (`checkm data setRoot`) à installer à part.
-         BUSCO (déjà l'outil de envs/assembly_quality.yml, module 13)
+         BUSCO (déjà l'outil de envs/assembly_quality.yml, module 24)
          télécharge son jeu de données de lignage lui-même, de façon
          transparente, à la première exécution.
 
@@ -465,7 +465,7 @@ DIAGNOSIS: `ls -lh` sur le fichier téléchargé — une taille nettement
            téléchargement incomplet.
 SOLUTION: relancer le même `wget -c` (reprise de téléchargement) puis
           revérifier le md5 ; en dernier recours, essayer le miroir NCBI
-          SRA (module 08, §5.1) pour les reads.
+          SRA (module 18, §5.1) pour les reads.
 PREVENTION: ne jamais enchaîner une étape suivante avant que `md5sum -c`
             ait confirmé "OK".
 ```
@@ -514,7 +514,7 @@ Topics to explore: exécuter les deux versions sur les mêmes contigs et
                     comparer les rapports — utile pour comprendre
                     concrètement une migration de version d'outil en
                     conditions réelles (rappel du principe déjà illustré
-                    par le statut Prokka → Bakta, partie2_bioinfo/14_genome_annotation/).
+                    par le statut Prokka → Bakta, partie2_bioinfo/25_annotation/).
 
 Topic: validation croisée de phylogénie
 Topics to explore: reconstruire l'arbre avec IQ-TREE (modèle sélectionné

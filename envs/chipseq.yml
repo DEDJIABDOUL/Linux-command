@@ -2,12 +2,12 @@
 #
 # PURPOSE
 #   Outils de peak calling, QC et analyse de motifs utilisés dans
-#   partie2_bioinfo/16_chipseq/. bedtools et samtools sont déjà dans envs/alignment.yml
-#   (module 12) mais repris ici en dépendance pour que cet environnement
+#   partie2_bioinfo/29_chipseq/. bedtools et samtools sont déjà dans envs/alignment.yml
+#   (module 21) mais repris ici en dépendance pour que cet environnement
 #   soit autonome.
 #
 # TOOLS
-#   - macs3    : peak calling (voir partie2_bioinfo/16_chipseq/README.md, section 3, pour
+#   - macs3    : peak calling (voir partie2_bioinfo/29_chipseq/README.md, section 3, pour
 #     le statut vérifié MACS2 -> MACS3).
 #   - deeptools: bamCoverage, plotFingerprint, multiBamSummary.
 #   - bedtools : intersections/arithmétique d'intervalles (FRiP notamment).

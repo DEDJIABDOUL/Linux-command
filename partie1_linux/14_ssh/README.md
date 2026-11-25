@@ -418,7 +418,7 @@ indispensable sur un vrai serveur, où une coupure réseau arrêterait sinon
 votre analyse.
 
 > **Sur un cluster**, on ne lance pas les calculs lourds sur la machine de
-> connexion, mais on les **soumet** à un ordonnanceur (SLURM : module 26 de
+> connexion, mais on les **soumet** à un ordonnanceur (SLURM : module 36 de
 > la Partie II). L'enchaînement « envoyer, se connecter, lancer, rapatrier »
 > reste le même.
 

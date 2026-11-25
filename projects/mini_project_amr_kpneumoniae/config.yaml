@@ -7,7 +7,7 @@
 # projet — voir README.md, section DECISIONS).
 
 # Échantillons réels (ENA/DDBJ), voir data/metadata/samples.tsv pour le
-# détail complet et partie2_bioinfo/08_data_acquisition/, section 5.2, pour la méthode
+# détail complet et partie2_bioinfo/18_acquisition_donnees/, section 5.2, pour la méthode
 # de téléchargement via ENA (utilisée ici, en alternance avec la méthode
 # SRA Toolkit déjà illustrée par projects/final_project_ltee_ecoli/).
 samples:
@@ -46,7 +46,7 @@ reference:
 # en plus des gènes acquis) — voir `amrfinder --list_organisms`.
 amrfinder_organism: Klebsiella_pneumoniae
 
-# Lignage BUSCO pour l'évaluation de complétude d'assemblage (module 13).
+# Lignage BUSCO pour l'évaluation de complétude d'assemblage (module 24).
 # Choisi au niveau ordre (Enterobacterales) plutôt qu'espèce : BUSCO ne
 # fournit pas de lignage "Klebsiella" dédié.
 busco_lineage: enterobacterales_odb10

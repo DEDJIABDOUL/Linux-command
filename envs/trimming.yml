@@ -2,9 +2,9 @@
 #
 # PURPOSE
 #   Outils de retrait d'adaptateurs et de filtrage qualité utilisés dans
-#   partie2_bioinfo/10_adapter_trimming_filtering/, pour données Illumina et Nanopore.
+#   partie2_bioinfo/20_trimming_filtrage/, pour données Illumina et Nanopore.
 #   Porechop et NanoFilt ne sont volontairement PAS inclus ici : ce sont
-#   des outils legacy non maintenus (voir partie2_bioinfo/10_adapter_trimming_filtering/README.md,
+#   des outils legacy non maintenus (voir partie2_bioinfo/20_trimming_filtrage/README.md,
 #   section 1, et docs/tools_reference.md) ; chopper est leur remplaçant
 #   actif pour le filtrage Nanopore. Porechop_ABI (fork maintenu) peut être
 #   installé séparément si l'exercice sur le fichier legacy le requiert.

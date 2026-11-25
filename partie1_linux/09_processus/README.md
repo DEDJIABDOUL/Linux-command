@@ -274,7 +274,7 @@ Essayez :
 
 > **Bon réflexe sur un serveur** : **tout calcul de plus de quelques
 > minutes se lance dans tmux** (ou est soumis à l'ordonnanceur du cluster,
-> module 26 de la Partie II). `screen` est un outil plus ancien qui joue le
+> module 36 de la Partie II). `screen` est un outil plus ancien qui joue le
 > même rôle ; vous le croiserez sur certains serveurs.
 
 ---
@@ -356,7 +356,7 @@ sont le temps de calcul effectif du processeur, qui peut **dépasser**
 - **Ne jamais lancer de calcul lourd sur le nœud de connexion d'un
   cluster.** Les serveurs de calcul ont une machine d'accueil partagée par
   tous : on y édite des scripts, on soumet des jobs, mais on ne calcule pas
-  (module 26).
+  (module 36).
 - **Tout calcul long** : dans `tmux`, ou avec `nohup … > log 2>&1 &`, et
   toujours avec un journal.
 

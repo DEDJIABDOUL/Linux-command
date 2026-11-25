@@ -153,7 +153,7 @@ et ompC avec les coordonnées de la **référence** : vous lisez à côté.
 > **Leçon** : une coordonnée n'a de sens que **par rapport à une séquence
 > donnée**. Après des insertions ou des délétions, les coordonnées de la
 > référence ne s'appliquent plus au génome muté. Les outils professionnels
-> d'annotation des variants (VEP, SnpEff : module 21 de la Partie II) gèrent
+> d'annotation des variants (VEP, SnpEff : module 22 de la Partie II) gèrent
 > ce problème pour vous. Ici, la solution simple est de :
 > - construire le consensus avec les **seuls SNP** (`bcftools view -v snps`)
 >   pour calculer les changements d'acides aminés ;

@@ -2,11 +2,11 @@
 #
 # PURPOSE
 #   Outils d'alignement de séquences et de manipulation SAM/BAM utilisés
-#   dans partie2_bioinfo/12_sequence_alignment/, pour reads longs et courts (ADN).
+#   dans partie2_bioinfo/21_alignement/, pour reads longs et courts (ADN).
 #   STAR et HISAT2 (aligneurs RNA-seq, présentés dans ce module au niveau
 #   "quel outil pour quel besoin" seulement) ne sont volontairement PAS
 #   inclus ici : ils seront couverts par un futur envs/rnaseq.yml au
-#   moment de l'usage réel en partie2_bioinfo/15_rnaseq/.
+#   moment de l'usage réel en partie2_bioinfo/28_rnaseq/.
 #
 # TOOLS
 #   - minimap2 : aligneur polyvalent long reads / overlaps / ARN épissé.

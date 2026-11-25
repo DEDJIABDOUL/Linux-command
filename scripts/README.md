@@ -22,5 +22,5 @@ cd ..
 
 Avant d'utiliser `pipeline_template.sh` pour un vrai pipeline, remplacer
 le corps de la fonction `main()` par les étapes réelles (voir les modules
-`partie2_bioinfo/09_quality_control/` à `partie2_bioinfo/21_variant_analysis/` pour des commandes
+`partie2_bioinfo/19_controle_qualite/` à `partie2_bioinfo/22_appel_variants/` pour des commandes
 concrètes à y insérer).

@@ -1,0 +1,31 @@
+# Snakefile — exemple minimal : alignement STAR puis comptage featureCounts (module 28)
+# Les échantillons sont déduits des fichiers data/raw/{sample}_R1.fastq.gz.
+SAMPLES, = glob_wildcards("data/raw/{sample}_R1.fastq.gz")
+
+rule all:
+    input:
+        expand("results/{sample}.counts.txt", sample=SAMPLES)
+
+rule align:
+    input:
+        r1="data/raw/{sample}_R1.fastq.gz",
+        r2="data/raw/{sample}_R2.fastq.gz",
+    output:
+        # nom imposé par STAR : PRÉFIXE + "Aligned.sortedByCoord.out.bam"
+        "results/{sample}_Aligned.sortedByCoord.out.bam"
+    threads: 8
+    shell:
+        "STAR --genomeDir index/ --readFilesIn {input.r1} {input.r2} "
+        "--readFilesCommand zcat --outSAMtype BAM SortedByCoordinate "
+        "--runThreadN {threads} --outFileNamePrefix results/{wildcards.sample}_"
+
+rule count:
+    input:
+        "results/{sample}_Aligned.sortedByCoord.out.bam"
+    output:
+        "results/{sample}.counts.txt"
+    conda:
+        "../../../envs/rnaseq.yml"
+    shell:
+        # paired-end : -p --countReadPairs compte des fragments, pas des reads
+        "featureCounts -p --countReadPairs -a annotation.gtf -o {output} {input}"

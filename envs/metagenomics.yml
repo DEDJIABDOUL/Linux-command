@@ -2,8 +2,8 @@
 #
 # PURPOSE
 #   Outils de profilage taxonomique, binning et classification utilisés
-#   dans partie2_bioinfo/20_metagenomics/. MEGAHIT (assemblage, section 4.1) est déjà
-#   dans envs/assembly.yml (module 11).
+#   dans partie2_bioinfo/33_metagenomique/. MEGAHIT (assemblage, section 4.1) est déjà
+#   dans envs/assembly.yml (module 23).
 #
 # TOOLS
 #   - kraken2 : profilage taxonomique par k-mers (section 2). Nécessite

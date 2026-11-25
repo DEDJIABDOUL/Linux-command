@@ -505,7 +505,7 @@ done < <(tail -n +2 echantillons.tsv)
   on retrouve toujours quel résultat vient de quel échantillon.
 - Les vrais projets ajoutent ensuite la robustesse (chapitre 13), puis
   passent à un **gestionnaire de workflow** comme Snakemake ou Nextflow
-  (module 24 de la Partie II), qui sait reprendre une analyse interrompue
+  (module 34 de la Partie II), qui sait reprendre une analyse interrompue
   et paralléliser les échantillons.
 
 ---

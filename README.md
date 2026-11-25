@@ -54,7 +54,7 @@ messages d'erreur.
 
 ### [Partie II — Bioinformatique appliquée](partie2_bioinfo/README.md)
 
-Modules 08 à 26 : acquisition de données publiques, contrôle qualité,
+Modules 18 à 36 : acquisition de données publiques, contrôle qualité,
 trimming, assemblage, alignement, annotation, RNA-seq, ChIP-seq,
 méthylation, GWAS, protéomique, métagénomique, variant calling, R et
 Python, workflows (Snakemake, Nextflow), conteneurs, HPC, ainsi que deux
@@ -66,7 +66,7 @@ selon la charte de la Partie I.*
 | Emplacement | Contenu |
 |---|---|
 | [`partie1_linux/`](partie1_linux/README.md) | la Partie I : chapitres, projets, annexes |
-| [`partie2_bioinfo/`](partie2_bioinfo/README.md) | la Partie II : modules 08 à 26 |
+| [`partie2_bioinfo/`](partie2_bioinfo/README.md) | la Partie II : modules 18 à 36 |
 | [`projects/`](projects/README.md) | projets de la Partie II sur données réelles (Snakemake) |
 | [`data/`](data/README.md) | données d'exercice synthétiques (run Illumina simulé, mini-génome annoté, fichiers pièges) |
 | [`setup.sh`](setup.sh) | crée ou remet à neuf le bac à sable `~/formation_linux` |

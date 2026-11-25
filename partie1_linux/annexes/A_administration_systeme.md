@@ -43,7 +43,7 @@ OUTPUT: une ligne par paquet reçu, avec le temps de réponse (ex.
          time=12.3 ms), puis un résumé statistique
 INTERPRETATION: en bioinformatique, ping sert surtout à diagnostiquer une
          panne réseau avant de soupçonner à tort un outil de
-         téléchargement (curl, module 08 de la Partie II) de mal fonctionner.
+         téléchargement (curl, module 18 de la Partie II) de mal fonctionner.
 COMMON ERRORS:
   - "Name or service not known" → le nom de domaine est incorrect ou le
     DNS ne répond pas.

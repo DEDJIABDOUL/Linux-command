@@ -640,7 +640,7 @@ L'en-tête du premier read indique `length=85`. Sa séquence contient
 `...TTGTAAGATCGGAAGAGCACACG...` : l'adaptateur est présent. Le fragment
 d'ADN était plus court que la longueur de lecture, et le séquenceur a
 continué à lire dans l'adaptateur. Ces bases ne sont pas biologiques et
-doivent être retirées (*trimming*, module 10 de la Partie II). Le second
+doivent être retirées (*trimming*, module 20 de la Partie II). Le second
 read, de 100 pb, ne contient pas l'adaptateur.
 </details>
 

@@ -179,7 +179,7 @@ echo "Analyse terminée : voir results/"
 
 > **Quand le projet grandit** (des dizaines d'étapes, des centaines
 > d'échantillons, la reprise après une panne), on passe à un gestionnaire de
-> workflow, Snakemake ou Nextflow (module 24 de la Partie II). Ils
+> workflow, Snakemake ou Nextflow (module 34 de la Partie II). Ils
 > reprennent exactement cette organisation, en l'automatisant.
 
 ---
@@ -194,7 +194,7 @@ est l'un des grands bénéfices de cette organisation :
 - **Données brutes** : au moins **deux copies sur deux supports différents**,
   dont une hors du bâtiment (stockage institutionnel, archive), vérifiées par
   les sommes de contrôle. À terme, elles sont déposées dans une base
-  publique (SRA, ENA : module 08 de la Partie II).
+  publique (SRA, ENA : module 18 de la Partie II).
 - **Résultats** : pas de sauvegarde indispensable, puisqu'ils se
   régénèrent. Gardez ceux qui ont demandé des jours de calcul, ou ceux qui
   figurent dans une publication.

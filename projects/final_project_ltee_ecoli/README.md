@@ -3,7 +3,7 @@
 OBJECTIVE
 ------------------------------------------------------------
 Mettre bout à bout tous les modules du dépôt (`partie1_linux/` à
-`partie2_bioinfo/26_hpc/`) sur une vraie question biologique : combien de mutations se
+`partie2_bioinfo/36_hpc/`) sur une vraie question biologique : combien de mutations se
 sont accumulées dans la population *Escherichia coli* Ara-3 de
 l'expérience d'évolution à long terme de Lenski (LTEE), entre la
 génération 5 000 et la génération 50 000, par rapport à l'ancêtre
@@ -11,10 +11,10 @@ REL606 ?
 
 PREREQUISITES
 ------------------------------------------------------------
-`partie1_linux/17_organiser_projet/`, `partie2_bioinfo/08_data_acquisition/`, `partie2_bioinfo/09_quality_control/`,
-`partie2_bioinfo/10_adapter_trimming_filtering/`, `partie2_bioinfo/12_sequence_alignment/`,
-`partie2_bioinfo/21_variant_analysis/`, `partie2_bioinfo/23_python_bioinformatics/` (pysam/pandas),
-`partie2_bioinfo/24_workflows/` (Snakemake), `partie2_bioinfo/25_reproducibility/` (Conda/Git). Aucune
+`partie1_linux/17_organiser_projet/`, `partie2_bioinfo/18_acquisition_donnees/`, `partie2_bioinfo/19_controle_qualite/`,
+`partie2_bioinfo/20_trimming_filtrage/`, `partie2_bioinfo/21_alignement/`,
+`partie2_bioinfo/22_appel_variants/`, `partie2_bioinfo/27_python/` (pysam/pandas),
+`partie2_bioinfo/34_workflows/` (Snakemake), `partie2_bioinfo/35_conteneurs/` (Conda/Git). Aucune
 commande n'est réexpliquée ici en détail : chaque étape du pipeline
 renvoie vers le module qui l'enseigne.
 
@@ -36,7 +36,7 @@ retrouver spécifiquement la mutation Cit+ elle-même (voir LIMITATIONS).
 DATASET
 ------------------------------------------------------------
 Voir `data/metadata/samples.tsv` pour la table complète (format du
-module 08, section 5.3).
+module 18, section 5.3).
 
 | Échantillon | Génération | Accession SRA |
 |---|---|---|
@@ -61,28 +61,28 @@ SCIENTIFIC REFERENCES) et pédagogie internationale déjà éprouvée.
 ```text
 config.yaml (échantillons, génération, seuils)
   ↓
-get_reference (08)         : FASTA + GFF3 REL606
+get_reference (18)         : FASTA + GFF3 REL606
   ↓
-get_reads (08, §5.1)        : prefetch + fasterq-dump, 3 échantillons
+get_reads (18, §5.1)        : prefetch + fasterq-dump, 3 échantillons
   ↓
-fastqc_raw (09)               : QC des reads bruts
+fastqc_raw (19)               : QC des reads bruts
   ↓
-trim — fastp (10)               : retrait d'adaptateurs, filtrage qualité
+trim — fastp (20)               : retrait d'adaptateurs, filtrage qualité
   ↓
-align — bwa-mem2 (12)             : alignement contre REL606
+align — bwa-mem2 (21)             : alignement contre REL606
   ↓
 markdup — samtools (16, principe)   : marquage des doublons PCR
   ↓
-call_variants — bcftools (21, §2.1)   : appel de variants
+call_variants — bcftools (22, §2.1)   : appel de variants
   ↓
-filter_variants — bcftools (21, §3)    : filtrage QUAL/DP
+filter_variants — bcftools (22, §3)    : filtrage QUAL/DP
   ↓
 annotate_variants — bcftools csq         : effet fonctionnel (voir DECISIONS)
   ↓
-summarize — pysam/pandas/matplotlib (23)   : table + graphique par génération
+summarize — pysam/pandas/matplotlib (27)   : table + graphique par génération
 ```
 
-Le pipeline est implémenté en Snakemake (`Snakefile`, module 24) :
+Le pipeline est implémenté en Snakemake (`Snakefile`, module 34) :
 chaque règle exécute exactement une commande déjà enseignée, avec une
 directive `conda:` qui pointe vers un fichier `envs/*.yml` **existant**
 à la racine du dépôt (aucun outil n'est dupliqué).
@@ -106,7 +106,7 @@ COMMON ERRORS:
     le PATH → Snakemake échoue à la création des environnements ;
     vérifier `conda --version` avant de lancer (partie1_linux/11_installer_logiciels/).
   - espace disque insuffisant → les 3 échantillons bruts pèsent au total
-    environ 1,6 Go (module 08, vérifier avec `df -h` avant de lancer,
+    environ 1,6 Go (module 18, vérifier avec `df -h` avant de lancer,
     partie1_linux/09_processus/).
 EXERCISE: avant l'exécution complète, lancer `snakemake -n` et
          identifier dans la sortie le nombre total de règles qui seront
@@ -127,16 +127,16 @@ bcftools csq PLUTÔT QUE VEP/SnpEff : VEP dépend de caches précompilés
          REL606. bcftools csq consomme directement un GFF3 déjà
          téléchargé, ce qui correspond exactement à ce projet. Un
          apprenant souhaitant comparer les trois approches peut le
-         faire en exercice (voir partie2_bioinfo/21_variant_analysis/, section 4).
+         faire en exercice (voir partie2_bioinfo/22_appel_variants/, section 4).
 
 samtools markdup PLUTÔT QUE Picard MarkDuplicates : évite une
          dépendance supplémentaire à envs/chipseq.yml pour une seule
          commande ; samtools est déjà requis pour l'alignement
          (envs/alignment.yml). Les deux outils répondent au même
-         besoin (partie2_bioinfo/12_sequence_alignment/, partie2_bioinfo/16_chipseq/ pour Picard).
+         besoin (partie2_bioinfo/21_alignement/, partie2_bioinfo/29_chipseq/ pour Picard).
 
 Seuils de filtrage (QUAL<30, DP<10) : valeurs de départ raisonnables
-         (module 21, §3) à VALIDER après la première exécution en
+         (module 22, §3) à VALIDER après la première exécution en
          observant la profondeur moyenne réelle obtenue
          (`bcftools stats` sur le VCF non filtré) — ne jamais les
          considérer comme définitifs sans cette vérification.
@@ -167,6 +167,18 @@ CE QUE CE PROJET NE PERMET PAS D'AFFIRMER SANS ANALYSE SUPPLÉMENTAIRE:
 ---
 
 # 5. ACTUAL RESULTS (exécution réelle du 2026-08-30)
+
+> **Avertissement (novembre 2026).** Lors de l'audit de la Partie II, le
+> `Snakefile` de ce projet s'est révélé **impossible à exécuter** :
+> Snakemake 9 s'arrêtait dès la construction du graphe des tâches sur une
+> `AmbiguousRuleException`, car la sortie de `call_variants`
+> (`{sample}.vcf.gz`) correspondait aussi à `gen5000.filtered.vcf.gz`.
+> Le défaut est corrigé (`wildcard_constraints` en tête du `Snakefile`), et
+> le *dry-run* construit désormais les 28 tâches attendues ; il est vérifié
+> à chaque modification du dépôt (`tests/test_projets_p2.sh`). Les chiffres
+> ci-dessous n'ont en revanche **pas été rejoués** depuis cette correction :
+> ils ne pourront être considérés comme vérifiés qu'après une nouvelle
+> exécution complète (environ 1,3 Go de données à télécharger).
 
 Le pipeline a été exécuté de bout en bout contre les vraies données (les
 ~1,3 Go réels téléchargés depuis ENA, alignement bwa-mem2, variant
@@ -230,7 +242,7 @@ LIMITATIONS
   défaut) pour une exécution d'essai rapide, avant de lancer le
   pipeline complet.
 - Ce projet n'exécute pas la déduplication PCR selon les GATK Best
-  Practices complètes (BaseRecalibrator, voir partie2_bioinfo/21_variant_analysis/,
+  Practices complètes (BaseRecalibrator, voir partie2_bioinfo/22_appel_variants/,
   §2.2) — le choix bcftools/samtools ici privilégie la lisibilité
   pédagogique du DAG plutôt que la rigueur clinique.
 ```
@@ -243,9 +255,9 @@ SYMPTOM: `snakemake --use-conda` échoue à la règle get_reads avec une
 CAUSE: SRA Toolkit non configuré (première utilisation) ou connexion
        réseau instable pour un run de plusieurs centaines de Mo.
 DIAGNOSIS: exécuter manuellement `prefetch SRR2589044` en dehors de
-           Snakemake pour isoler l'erreur (module 08, §5.1).
+           Snakemake pour isoler l'erreur (module 18, §5.1).
 SOLUTION: relancer — prefetch reprend un téléchargement interrompu ;
-          en dernier recours, utiliser la voie ENA (module 08, §5.2).
+          en dernier recours, utiliser la voie ENA (module 18, §5.2).
 PREVENTION: tester la règle get_reference (petit volume) avant
             get_reads (gros volume) pour valider la configuration.
 ```
@@ -258,7 +270,7 @@ CAUSE: possible erreur d'association échantillon/génération dans
        variants appelés, indépendamment de la biologie).
 DIAGNOSIS: comparer la profondeur moyenne (`bcftools stats`,
            champ "average depth") entre échantillons avant toute
-           interprétation biologique (rappel du module 21 : mapping
+           interprétation biologique (rappel du module 22 : mapping
            rate ou profondeur ≠ conclusion biologique automatique).
 SOLUTION: normaliser la comparaison par la profondeur si elle diffère
           significativement entre échantillons, ou le signaler
@@ -294,7 +306,7 @@ SCIENTIFIC REFERENCES
   (référence du génome REL606 utilisé comme réf.)
 - Blount ZD, Borland CZ, Lenski RE (2008). "Historical contingency and
   the evolution of a key innovation in an experimental population of
-  *Escherichia coli*." *PNAS*, 105(23):7899-7906. (découverte du
+  *Escherichia coli*." *PNAS*, 105(27):7899-7906. (découverte du
   phénotype Cit+ dans Ara-3 — référence fondatrice)
 - Blount ZD, Barrick JE, Davidson CJ, Lenski RE (2012). "Genomic
   analysis of a key innovation in an experimental *Escherichia coli*

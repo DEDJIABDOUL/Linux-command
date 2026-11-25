@@ -1,7 +1,7 @@
 # Environnement : r_ecosystem
 #
 # PURPOSE
-#   Packages R/Bioconductor transversaux utilisés dans partie2_bioinfo/22_r_statistics/.
+#   Packages R/Bioconductor transversaux utilisés dans partie2_bioinfo/26_r_bioconductor/.
 #   Les packages déjà installés dans d'autres environnements du dépôt
 #   (DESeq2, edgeR, limma, clusterProfiler dans envs/rnaseq.yml ;
 #   methylKit, DSS dans envs/methylation.yml ; MSstats dans

@@ -4,7 +4,7 @@
 
 Le projet final intégrateur annoncé dans le README racine et dans
 `docs/maintenance/audit_initial_2026-08.md` est désormais livré. Il applique bout à bout le
-parcours `partie1_linux/` → `partie2_bioinfo/26_hpc/` sur une vraie question
+parcours `partie1_linux/` → `partie2_bioinfo/36_hpc/` sur une vraie question
 biologique : combien de mutations se sont accumulées dans la population
 *E. coli* Ara-3 (Long-Term Evolution Experiment, Lenski lab) entre les
 générations 5 000, 15 000 et 50 000, par rapport à l'ancêtre REL606.

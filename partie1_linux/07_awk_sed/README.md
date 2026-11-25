@@ -574,7 +574,7 @@ test.bed.bak
 | supprimer des lignes selon un motif | `sed '/motif/d'` ou `grep -v` |
 
 Au-delà de quelques lignes d'awk, un script Python ou R devient plus
-lisible : ce sera l'objet des modules 22 et 23 (Partie II).
+lisible : ce sera l'objet des modules 26 et 27 (Partie II).
 
 ---
 

@@ -1,11 +1,11 @@
 # Environnement : qc
 #
 # PURPOSE
-#   Outils de contrôle qualité utilisés dans partie2_bioinfo/09_quality_control/ (Illumina
-#   et Oxford Nanopore/PacBio) et référencés depuis partie2_bioinfo/10_adapter_trimming_filtering/.
+#   Outils de contrôle qualité utilisés dans partie2_bioinfo/19_controle_qualite/ (Illumina
+#   et Oxford Nanopore/PacBio) et référencés depuis partie2_bioinfo/20_trimming_filtrage/.
 #   LongQC n'est volontairement PAS inclus ici : son installation nécessite
 #   une compilation manuelle (minimap2-coverage, voir legacy/installation_and_execution.txt)
-#   plutôt qu'un simple paquet Conda — voir partie2_bioinfo/09_quality_control/README.md,
+#   plutôt qu'un simple paquet Conda — voir partie2_bioinfo/19_controle_qualite/README.md,
 #   section 2.2, pour la procédure complète.
 #
 # TOOLS

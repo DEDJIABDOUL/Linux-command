@@ -293,7 +293,7 @@ d'acceptation :
   mélanger les lignes du tableau ? (Indice : un fichier de résultat par
   échantillon, rassemblés à la fin.)
 - **Du script au workflow** : votre script refait tout à chaque lancement.
-  Un gestionnaire de workflow (Snakemake, Nextflow : module 24 de la
+  Un gestionnaire de workflow (Snakemake, Nextflow : module 34 de la
   Partie II) ne refait que ce qui a changé, reprend après une panne et
   parallélise tout seul. Vous en comprendrez d'autant mieux l'intérêt que
   vous aurez écrit ce pipeline à la main.

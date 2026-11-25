@@ -468,7 +468,7 @@ chaque nom de fichier. **GNU parallel** (`sudo apt install parallel`, ou via
 conda) offre la même chose avec plus d'options :
 `ls … | parallel -j 4 "commande {}"`. Les résultats arrivent dans le
 désordre : triez-les. Pour des analyses réelles, les gestionnaires de
-workflow (module 24 de la Partie II) gèrent ce parallélisme bien plus
+workflow (module 34 de la Partie II) gèrent ce parallélisme bien plus
 sûrement.
 
 ---

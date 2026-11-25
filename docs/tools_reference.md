@@ -1,7 +1,7 @@
 # Référence centrale des outils
 
 Ce tableau recense tous les outils couverts par les 26 modules du dépôt
-(`partie1_linux/` à `partie2_bioinfo/26_hpc/`), avec leur documentation officielle
+(`partie1_linux/` à `partie2_bioinfo/36_hpc/`), avec leur documentation officielle
 vérifiée. Il sera étendu si de nouveaux modules sont ajoutés (mini-projets,
 `projects/`, voir `README.md` à la racine et `docs/maintenance/audit_initial_2026-08.md`). Toute
 URL listée ici a été vérifiée par recherche officielle avant ajout,

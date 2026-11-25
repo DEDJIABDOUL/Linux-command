@@ -4,7 +4,7 @@
 # ressources : le Snakefile ne contient aucune valeur codée en dur.
 
 # Échantillons réels (SRA), voir data/metadata/samples.tsv pour le détail
-# complet et partie2_bioinfo/08_data_acquisition/ pour la méthode de documentation d'un
+# complet et partie2_bioinfo/18_acquisition_donnees/ pour la méthode de documentation d'un
 # jeu de données public.
 samples:
   gen5000: SRR2589044
@@ -26,7 +26,7 @@ reference:
   fasta_url: "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/985/GCA_000017985.1_ASM1798v1/GCA_000017985.1_ASM1798v1_genomic.fna.gz"
   gff_url: "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/985/GCA_000017985.1_ASM1798v1/GCA_000017985.1_ASM1798v1_genomic.gff.gz"
 
-# seuils de filtrage des variants (module 21, section 3) — à ajuster après
+# seuils de filtrage des variants (module 22, section 3) — à ajuster après
 # avoir observé la profondeur de couverture réelle obtenue (voir README,
 # section LIMITATIONS ; ne jamais copier un seuil sans le justifier)
 filtering:

@@ -2,7 +2,7 @@
 #
 # PURPOSE
 #   Outils d'appel de variants, filtrage et annotation fonctionnelle
-#   utilisés dans partie2_bioinfo/21_variant_analysis/, en amont du GWAS (module 18).
+#   utilisés dans partie2_bioinfo/22_appel_variants/, en amont du GWAS (module 31).
 #
 # TOOLS
 #   - bcftools : pipeline de variant calling léger (section 2.1) et
